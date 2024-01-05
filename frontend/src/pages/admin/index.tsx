@@ -21,34 +21,30 @@ const Admin = () => {
   const headerStyle: CSSProperties = {
     justifyContent: "center",
     minHeight: "200px",
-    backgroundColor: "#4096ff",
-    alignItems: "center",
-    color: "#fff",
+    backgroundColor: "#f5f5f5",
     display: "flex",
   };
 
   const contentStyle: CSSProperties = {
     justifyContent: "center",
-    lineHeight: "100px",
-    minHeight: "600px",
-    color: "#fff",
-    backgroundColor: "white",
+    backgroundColor: "#f5f5f5",
     display: "flex",
+    padding: 25,
   };
 
   const siderStyle: CSSProperties = {
     justifyContent: "center",
     backgroundColor: "#D9E2D9",
     display: "flex",
-    borderRight: "2px solid black",
+    // borderRight: "1px solid black",
   };
 
   const footerStyle: CSSProperties = {
-    minHeight: "200px",
-    lineHeight: "100px",
-    textAlign: "center",
-    color: "#fff",
-    backgroundColor: "#4096ff",
+    justifyContent: "center",
+    lineHeight: "44px",
+    color: "black",
+    backgroundColor: "#f5f5f5",
+    display: "flex",
   };
 
   const layoutStyle = {
@@ -101,6 +97,26 @@ const Admin = () => {
       status: "complete",
     });
   }
+  //header
+  const headerRectangle: CSSProperties = {
+    width: "300px",
+    height: "150px",
+    backgroundColor: "#D9E2D9",
+    marginRight: "50px",
+    marginTop: "35px",
+    boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+    display: "flex",
+  };
+  const headerText: CSSProperties = {
+    textAlign: "center",
+    width: "100%",
+    color: "black", 
+    marginTop: "90px",
+    fontSize : "20px",
+    fontWeight : "500",
+
+  };
+
   return (
     <Layout style={layoutStyle}>
       <Sider
@@ -180,18 +196,30 @@ const Admin = () => {
             height: 64,
           }}
         />
-        <Header style={headerStyle}>Header</Header>
+        <Header style={headerStyle}>
+          <div style={headerRectangle}>
+            <span style={headerText}>Employee</span>
+          </div>
+          <div style={{ ...headerRectangle, marginRight: "50px" }}>
+            <span style={headerText}>Product</span>
+          </div>
+          <div style={{ ...headerRectangle, marginRight: "50px" }}>
+            <span style={headerText}>Order</span>
+          </div>
+        </Header>
         <Content>
           <div style={contentStyle}>
             <Table
               columns={columns}
               dataSource={data}
-            //   pagination={{ pageSize: 50 }}
-              scroll={{ y: 500 }}
+              //   pagination={{ pageSize: 50 }}
+              scroll={{ y: 550 }}
             />
           </div>
         </Content>
-        <Footer style={footerStyle}>Footer</Footer>
+        <Footer style={footerStyle}>
+          Torhinozorus ©{new Date().getFullYear()} Created by Torhinozorus DEV
+        </Footer>
       </Layout>
     </Layout>
   );
