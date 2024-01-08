@@ -18,7 +18,7 @@ import {
 
 const { Header, Footer, Sider, Content } = Layout;
 
-const Admin = () => {
+const Employee = () => {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
 
@@ -163,7 +163,7 @@ const Admin = () => {
           }}
           theme="light"
           mode="inline"
-          defaultSelectedKeys={["/admin"]}
+          defaultSelectedKeys={["/admin/employee"]}
           items={[
             {
               key: "/admin",
@@ -242,4 +242,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default Employee;
