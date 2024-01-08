@@ -2,9 +2,9 @@ import React, { CSSProperties, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Layout, Button, Menu } from "antd";
-import { Table } from "antd";
+import type { MenuProps } from "antd";
+import { Table, Dropdown, Space } from "antd";
 import type { ColumnsType } from "antd/es/table";
-
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -14,6 +14,9 @@ import {
   FileTextOutlined,
   ShoppingOutlined,
   PoweroffOutlined,
+  MoreOutlined,
+  EditOutlined,
+  DeleteOutlined,
 } from "@ant-design/icons";
 
 const { Header, Footer, Sider, Content } = Layout;
@@ -57,48 +60,94 @@ const Employee = () => {
     height: "100%",
   };
   //content
-  interface RecentOrder {
+  interface Employee {
     key: React.Key;
-    orderid: string;
-    orderby: string;
-    orderdate: string;
-    amount: number;
-    status: string;
+    employeeid: string;
+    name: string;
+    username: string;
+    password: string;
+    email: string;
+    phone: string;
+    department: string;
   }
-  const columns: ColumnsType<RecentOrder> = [
+  const columns: ColumnsType<Employee> = [
     {
       title: "ID",
-      dataIndex: "orderid",
-      width: 150,
+      dataIndex: "employeeid",
+      width: "3%",
     },
     {
-      title: "Order By",
-      dataIndex: "orderby",
-      width: 150,
+      title: "Name",
+      dataIndex: "name",
+      width: "15%",
     },
     {
-      title: "Order Date",
-      dataIndex: "orderdate",
+      title: "Username",
+      dataIndex: "username",
+      width: "12%",
     },
     {
-      title: "Amount",
-      dataIndex: "amount",
+      title: "Password",
+      dataIndex: "password",
+      width: "12%",
     },
     {
-      title: "Status",
-      dataIndex: "status",
+      title: "Email",
+      dataIndex: "email",
+      width: "15%",
+    },
+    {
+      title: "Phone",
+      dataIndex: "phone",
+      width: "10%",
+    },
+    {
+      title: "Department",
+      dataIndex: "department",
+      filters: [
+        { text: "Restocker", value: "Restocker" },
+        { text: "Checkpayment", value: "Checkpayment" },
+      ],
+      onFilter: (value, record) => record.department === value,
+      width: "8%",
+    },
+    {
+      title: "",
+      width: "5%",
+      render: (text, record) => (
+        <Dropdown menu={{ items }} trigger={["click"]}>
+          <a onClick={(e) => e.preventDefault()}>
+            <Space>
+              <MoreOutlined style={{ color: 'black' }}/>
+            </Space>
+          </a>
+        </Dropdown>
+      ),
+    },
+  ];
+  //feature
+  const items: MenuProps["items"] = [
+    {
+      label: <a><EditOutlined/>Edit</a>,
+      key: "0",
+    },
+    {
+      label: <a><DeleteOutlined/>Delete</a>,
+      key: "1",
     },
   ];
   //sample
-  const data: RecentOrder[] = [];
+  const data: Employee[] = [];
   for (let i = 0; i < 100; i++) {
     data.push({
       key: i,
-      orderid: `${i}`,
-      orderby: "pak",
-      orderdate: `1/01/2024`,
-      amount: 2,
-      status: "complete",
+      employeeid: `${i}`,
+      name: "example name",
+      username: "p",
+      password: "1234",
+      email: "p@1234.com",
+      phone: "621566545",
+      department: "Restocker",
     });
   }
   //header
@@ -114,11 +163,10 @@ const Employee = () => {
   const headerText: CSSProperties = {
     textAlign: "center",
     width: "100%",
-    color: "black", 
+    color: "black",
     marginTop: "90px",
-    fontSize : "20px",
-    fontWeight : "500",
-
+    fontSize: "20px",
+    fontWeight: "500",
   };
 
   return (
@@ -154,11 +202,11 @@ const Employee = () => {
         </span>
         <div className="sider menu" />
         <Menu
-          onClick={({key})=>{
-            if(key == "signout"){
+          onClick={({ key }) => {
+            if (key == "signout") {
               //sign out feature
-            }else{
-              navigate(key)
+            } else {
+              navigate(key);
             }
           }}
           theme="light"
@@ -218,10 +266,7 @@ const Employee = () => {
             <span style={headerText}>Employee</span>
           </div>
           <div style={{ ...headerRectangle, marginRight: "50px" }}>
-            <span style={headerText}>Product</span>
-          </div>
-          <div style={{ ...headerRectangle, marginRight: "50px" }}>
-            <span style={headerText}>Order</span>
+            <span style={headerText}>Department</span>
           </div>
         </Header>
         <Content>
