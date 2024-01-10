@@ -1,16 +1,16 @@
-import Header1 from "../../component/PakComponent/Header/Header1"
-import Header2 from "../../component/PakComponent/Header/Header2"
-import Sidebar from "../../component/PakComponent/SideBar/sidebar"
-import Footer from "../../component/PakComponent/Footer/Footer"
+import Header1 from "../../../component/PakComponent/Header/Header1"
+import Header2 from "../../../component/PakComponent/Header/Header2"
+import Sidebar from "../../../component/PakComponent/SideBar/sidebar"
+import Footer from "../../../component/PakComponent/Footer/Footer"
 import { Layout,Card,Col,Row,Image, Flex, Button } from "antd";
 import Heart from '../../assets/Heart.png'
 import product1 from "../../assets/product1.jpg"
 
 
-const {  Header,Sider,Content } = Layout;
+const WishlistPage = () => {
 
+  const {  Header,Sider,Content } = Layout;
 
-export default function WishlistPage(){
     return(
       <>
       <Header1/>
@@ -335,3 +335,4 @@ export default function WishlistPage(){
       </>
   )
 }
+export default WishlistPage;
