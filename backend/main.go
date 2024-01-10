@@ -1,15 +1,16 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
 	"github.com/PyeThun/team05/controller"
 	"github.com/PyeThun/team05/entity"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	entity.ConnectDB()
 	r := gin.Default()
 	r.Use(CORSMiddleware())
+	r.POST("/users", controller.CreateCustomer)
 	//Routes
 	// r.PATCH("/xxx", controller.Updatexxx)
 	// r.POST("/xxx", controller.Createxx)
