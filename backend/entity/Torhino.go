@@ -57,7 +57,7 @@ type Customer struct {
 	Lastname		string		`valid:"required~LastName is required"`
 	Dateofbirth		time.Time	
 	Username		string		`valid:"required~Username is required"`
-
+	Password 		string		`valid:"required~Password is required, stringlength(8|64)"`
 	Addresses 		[]Address 	`gorm:"foreignKey:CustomerID"`
 	Wishlists		[]Wishlist 	`gorm:"foreignKey:CustomerID"`
 	Carts			[]Cart 		`gorm:"foreignKey:CustomerID"`
