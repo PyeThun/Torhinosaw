@@ -1,0 +1,60 @@
+
+.Login-button{
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    width: 60px;
+    background-color:#F4794E !important;
+    border: 2px solid#f6875f;
+    border-radius: 10px !important;
+    padding: 5px 8px;
+            /* แกนวาย-แกนเอ็กซ์ */
+    top: 15px;
+    left: 18px;
+}
+.Login-button:hover{
+    background-color:#f88c64 !important;
+}
+.Register-button{
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    font-style: normal;
+    color:#191919;
+    font-weight: 500;
+    width: 65px;
+    background-color: #fdd998 !important;
+    border: 1.5px solid#000000;
+    border-radius: 10px !important;
+    padding: 5px 8px;
+            /* แกนวาย-แกนเอ็กซ์ */
+    top: -12px;
+    left: 75px;
+}
+.Register-button:hover{
+    background-color:#FFE5B5 !important;
+}
+.Username-box{
+    width: 350px;
+    margin-left:20px ;
+}
+.Username-box:focus-within input{
+    border: 1px solid #F4794E;
+    box-shadow: 2px 2px 1px #F4794E;
+}
+.Username-box:hover input{
+    border: 1px solid #F4794E;
+}
+.Password-box{
+    width: 350px;
+    margin-left:20px ;
+    margin-top: -30px;
+}
+.ant-input-password:focus-within {
+    border: 1px solid #F4794E;
+    box-shadow: 2px 2px 1px #F4794E;
+}
+
+.ant-input-password:hover{
+    border: 1px solid #F4794E;
+}

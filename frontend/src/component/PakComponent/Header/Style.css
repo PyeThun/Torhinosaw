@@ -1,0 +1,104 @@
+.Head1{
+    color: #FFF;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 550;
+    line-height: normal;
+    letter-spacing: 0.8px;
+    
+}
+.Head2{
+    color: #FFF;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 550;
+    line-height: normal;
+    letter-spacing: 0.8px;
+    left:75px;
+   
+}
+.Haccount-text{
+    color: #003D06;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 550;
+    line-height: normal;
+    margin-top: 26px;
+    margin-left: 10px;
+    position: absolute;
+}
+.Haccount-text:hover{
+    color: #4B684E
+}
+.Hcart-text{
+    color: #003D06;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 550;
+    line-height: normal;
+    margin-top: 14px;
+    margin-left: 8px;
+    position: absolute;
+}
+.Hcart-text:hover{
+    color: #4B684E
+}
+
+
+.Nameofbrand{
+    color: #003D06;
+    font-family: "Inter", sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+    letter-spacing: 0.8px;
+    margin-left:0px;
+    
+}
+.Category{
+    color: #003D06;
+    font-family: "Inter", sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.8px;
+    padding-left:10px;
+    padding-top: 4px;
+}
+.Category:hover{
+    color: #4B684E
+}
+
+.Search-button{
+    color: white;
+    font-family: "Inter", sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 550;
+    background-color:#003D06 !important;
+    border: 2px solid#fafbfa;
+    border-radius: 12px !important;
+    padding: 5px 10px;
+            /* แกนวาย-แกนเอ็กซ์ */
+    height: 35px;
+    margin-left: 15px;
+}
+.Search-icon{
+    margin-left:70px;
+    width: 500px;
+    border-radius: 10px;
+    border-color: #003D06;
+}
+.Search-icon:focus{
+    border-color: #003D06; /* สีขอบเมื่อกล่องถูกเลือก (focus) */
+    box-shadow: 0 0 5px rgba(0, 61, 6, 0.5);
+}
+.Search-icon:hover{
+    border-color: #003D06;
+}

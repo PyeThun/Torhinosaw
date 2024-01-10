@@ -11,7 +11,10 @@ func main() {
 	r := gin.Default()
 	r.Use(CORSMiddleware())
 	//Routes
-	
+	// r.PATCH("/xxx", controller.Updatexxx)
+	// r.POST("/xxx", controller.Createxx)
+	// r.GET("/xx", controller.Listxxx)
+	// r.GET("/xxx/:id", controller.GetxxxById)
 	
 
 	// Run the server

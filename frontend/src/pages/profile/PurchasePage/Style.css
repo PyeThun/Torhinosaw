@@ -1,0 +1,24 @@
+
+  .ant-radio-button-wrapper:hover{
+    background-color: #b0d5b4 !important;
+    color: black;
+  }
+  /* สีขอบของปุ่มเมื่อถูกเลือกและไม่ได้โฟกัส */
+.ant-radio-button-wrapper.ant-radio-button-wrapper-checked:not(:focus-within) .ant-radio-button {
+    background-color: #003D06 !important;
+    color:black !important
+  }
+  
+  /* สีขอบของปุ่มเมื่อ hover และโฟกัสพร้อมกัน */
+  .ant-radio-button-wrapper:hover .ant-radio-button,
+  .ant-radio-button-wrapper:focus-within .ant-radio-button {
+    background-color: #003D06 !important;
+    color:black !important
+  }
+  
+  /* สีขอบของปุ่มเมื่อถูกเลือกและ hover พร้อมกัน */
+  .ant-radio-button-wrapper.ant-radio-button-wrapper-checked:hover .ant-radio-button {
+    background-color: #003D06 !important;
+    color:black !important
+  }
+  
