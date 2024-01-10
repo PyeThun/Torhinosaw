@@ -3,8 +3,8 @@ import Header2 from "../../../component/PakComponent/Header/Header2"
 import Sidebar from "../../../component/PakComponent/SideBar/sidebar"
 import Footer from "../../../component/PakComponent/Footer/Footer"
 import { Layout,Card,Col,Row,Image, Flex, Button } from "antd";
-import Heart from '../../assets/Heart.png'
-import product1 from "../../assets/product1.jpg"
+import Heart from '../../../assets/Heart.png'
+import product1 from "../../../assets/product1.jpg"
 
 
 const WishlistPage = () => {

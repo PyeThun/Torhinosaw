@@ -4,7 +4,7 @@ import Sidebar from "../../../component/PakComponent/SideBar/sidebar"
 import Footer from "../../../component/PakComponent/Footer/Footer";
 import './Style.css'
 import { Layout, Card, Col, Row, Image, Flex, Button, Tabs, Radio } from "antd";
-import product1 from "../../assets/product1.jpg"
+import product1 from "../../../assets/product1.jpg"
 const { Header, Sider, Content } = Layout;
 
 const PurchasePage = () => {
