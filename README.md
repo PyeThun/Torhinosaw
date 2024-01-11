@@ -4,5 +4,5 @@
         ลบ status ใน order ใช้ entity statusแทน
         ให้orderเป็น many to many กับ product
     -เพิ่มSetupData
-        สร้างStatusตอนสร้างDatabase
+        สร้างStatus,Productตอนสร้างDatabase
  

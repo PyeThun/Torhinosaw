@@ -33,5 +33,6 @@ func SetupDatabase() {
 	db = database
 
 	SetupStatus(db)
+	SetupProduct(db)
 
 }

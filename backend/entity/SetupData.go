@@ -5,25 +5,51 @@ import (
 )
 
 func SetupStatus(database *gorm.DB) {
-//Order Status
-	s1 := Status{Status: "Order Place",}
-	database.Model(&Status{}).Create(&s1)
+	//Order Status
+	Status1 := Status{Status: "Order Place"}
+	database.Model(&Status{}).Create(&Status1)
 
-	s2 := Status{Status: "Order Paid",Describe: "คำสั่งซื้อชำระเงินเรียบร้อย"}
-	database.Model(&Status{}).Create(&s2)
+	Status2 := Status{Status: "Order Paid", Describe: "คำสั่งซื้อชำระเงินเรียบร้อย"}
+	database.Model(&Status{}).Create(&Status2)
 
-	s3 := Status{Status: "Order Shipped Out",Describe: "กำลังจัดส่ง"}
-	database.Model(&Status{}).Create(&s3)
+	Status3 := Status{Status: "Order Shipped Out", Describe: "กำลังจัดส่ง"}
+	database.Model(&Status{}).Create(&Status3)
 
-	s4 := Status{Status: "To Recieve",Describe: "ได้รับสินค้าแล้ว"}
-	database.Model(&Status{}).Create(&s4)
+	Status4 := Status{Status: "To Recieve", Describe: "ได้รับสินค้าแล้ว"}
+	database.Model(&Status{}).Create(&Status4)
 
-	s5 := Status{Status: "To Rate",Describe: "ให้คะแนน"}
-	database.Model(&Status{}).Create(&s5)
-//Payment Status
-	p1 := Status{Status: "Pending Payment",Describe: "รอการชำระเงิน"}
-	database.Model(&Status{}).Create(&p1)
+	Status5 := Status{Status: "To Rate", Describe: "ให้คะแนน"}
+	database.Model(&Status{}).Create(&Status5)
+	//Payment Status
+	Status6 := Status{Status: "Pending Payment", Describe: "รอการชำระเงิน"}
+	database.Model(&Status{}).Create(&Status6)
 
-	p2 := Status{Status: "Complete",Describe: "ชำระเงินสำเร็จ"}
-	database.Model(&Status{}).Create(&p2)
+	Status7 := Status{Status: "Complete", Describe: "ชำระเงินสำเร็จ"}
+	database.Model(&Status{}).Create(&Status7)
 }
+
+func SetupProduct(database *gorm.DB) {
+	//Product Type
+	pType1 := ProductType{Name: "Shirt"}
+	database.Model(&ProductType{}).Create(&pType1)
+
+	pType2 := ProductType{Name: "Pant"}
+	database.Model(&ProductType{}).Create(&pType2)
+
+	pType3 := ProductType{Name: "Shoe"}
+	database.Model(&ProductType{}).Create(&pType3)
+	
+	//Product
+	p1 := Product{
+		Name: "เสื้อลายAJT",
+		Cost: 250,
+		Color: "White",
+		Brand: "Torhino",
+		Quantity: 10,
+		ProductTypeID: &pType1.ID,
+	}
+	database.Model(&Product{}).Create(&p1)
+	
+}
+	
+
