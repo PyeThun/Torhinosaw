@@ -5,8 +5,12 @@ import {
     UserOutlined,
     ShoppingCartOutlined,
 } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+
+    const navigate = useNavigate();
+
     const navbarStyle: CSSProperties = {
         display: 'flex',
         flexDirection: 'row',
@@ -40,6 +44,10 @@ const Navbar = () => {
         marginRight: '150px',
     };
 
+    const goRegister = () => {
+        navigate(`/register`);
+    }
+
     return (
         <>
             <div style={navbarStyle}>
@@ -62,7 +70,7 @@ const Navbar = () => {
                 <div style={rightSectionStyle}>
                     <div>
                         <UserOutlined style={{ fontSize: '20px', margin: '10px' }} />
-                        <span>Account</span>
+                        <span onClick={goRegister}>Account</span>
                         <span style={{ margin: '30px' }} />
                         <ShoppingCartOutlined style={{ fontSize: '20px', margin: '10px' }} />
                         <span>Cart</span>

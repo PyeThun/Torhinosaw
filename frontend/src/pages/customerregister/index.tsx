@@ -1,5 +1,5 @@
 import React, { CSSProperties, useState } from 'react';
-import { Button, Checkbox, Form, Image, Input, Radio, Steps, DatePicker,} from 'antd';
+import { Button, Checkbox, Form, Image, Input, Radio, Steps, DatePicker, } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import bg from '../../assets/3bears.jpg';
 import Headbar from '../../component/headbarlogo';
@@ -54,7 +54,7 @@ const CustomerRegister = () => {
     const [currentStep, setCurrentStep] = useState(0);
     const navigate = useNavigate();
 
-    const handleNext = (values : any) => {
+    const handleNext = (values: any) => {
         setData({ ...data, ...values });
         setCurrentStep((prevStep) => prevStep + 1);
     };
@@ -63,7 +63,7 @@ const CustomerRegister = () => {
         setCurrentStep((prevStep) => prevStep - 1);
     };
 
-    const handleSubmit = (values : any) => {
+    const handleSubmit = (values: any) => {
         const allData = { ...data, ...values };
         console.log(allData);
     };
@@ -72,76 +72,78 @@ const CustomerRegister = () => {
         console.log('Failed:', errorInfo);
     };
 
+    const { TextArea } = Input;
+
     const steps = [
         {
-          title: 'Step 1',
-          content: (
-            <div style={{ flexDirection: 'column', display: 'flex', marginTop: '30px' }}>
-              <h1 style={{ fontSize: '32px' }}>Sign up for FREE!</h1>
-              <span>No credit card - No commitment</span>
-              <Form
-                name="SetUp"
-                initialValues={{ remember: true }}
-                onFinish={(values) => handleNext(values)}
-                onFinishFailed={onFinishFailed}
-                form={form}
-                style={formStyle}
-              >
-                            <Form.Item
-                                label="Username"
-                                name="username"
-                                rules={[{ required: true, message: 'Please input your username!' }]}
-                            >
-                                <Input />
-                            </Form.Item>
+            title: 'Step 1',
+            content: (
+                <div style={{ flexDirection: 'column', display: 'flex', marginTop: '30px' }}>
+                    <h1 style={{ fontSize: '32px' }}>Sign up for FREE!</h1>
+                    <span>No credit card - No commitment</span>
+                    <Form
+                        name="SetUp"
+                        initialValues={{ remember: true }}
+                        onFinish={(values) => handleNext(values)}
+                        onFinishFailed={onFinishFailed}
+                        form={form}
+                        style={formStyle}
+                    >
+                        <Form.Item
+                            label="Username"
+                            name="username"
+                            rules={[{ required: true, message: 'Please input your username!' }]}
+                        >
+                            <Input />
+                        </Form.Item>
 
-                            <Form.Item
-                                label="Password"
-                                name="password"
-                                rules={[{ required: true, message: 'Please input your password!' }]}
-                            >
-                                <Input.Password
-                                    count={{
-                                        show: true,
-                                        max: 10,
-                                    }}
-                                />
-                            </Form.Item>
+                        <Form.Item
+                            label="Password"
+                            name="password"
+                            rules={[{ required: true, message: 'Please input your password!' }]}
+                        >
+                            <Input.Password
+                                count={{
+                                    show: true,
+                                    max: 10,
+                                }}
+                            />
+                        </Form.Item>
 
-                            <Form.Item
-                                label="Email"
-                                name="email"
-                                rules={[{ required: true, message: 'Enter your Email!' }]}
-                            >
-                                <Input />
-                            </Form.Item>
-                            <Form.Item
+                        <Form.Item
+                            label="Email"
+                            name="email"
+                            rules={[{ required: true, message: 'Enter your Email!' }]}
+                        >
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
                             label="Date of Birth"
                             name="dateofbirth"
                             rules={[{ required: true, message: 'Please input your username!' }]}>
-                                <DatePicker status="error" style={{ width: '100%' }} />
-                            </Form.Item>
-                            <Form.Item
-                                name="agreement"
-                                valuePropName="checked"
-                                rules={[
-                                    {
-                                        validator: (_, value) =>
-                                            value ? Promise.resolve() : Promise.reject('Please accept the agreement'),
-                                    },
-                                ]}
-                            >
-                                <Checkbox>
-                                    I have read the <a href="#">Term of Service</a>
-                                </Checkbox>
-                            </Form.Item>
-                            <Form.Item style={{ textAlign: 'center' }}>
-                                <Button type="primary" htmlType="submit" style={{ flex: 1, backgroundColor: '#003d29', color: '#fff' }}>
-                                    Next
-                                </Button>
-                            </Form.Item>
-                        </Form>
-                    </div>
+                            <DatePicker status="error" style={{ width: '100%' }} />
+                        </Form.Item>
+                        <Form.Item
+                            name="agreement"
+                            valuePropName="checked"
+                            rules={[
+                                {
+                                    validator: (_, value) =>
+                                        value ? Promise.resolve() : Promise.reject('Please accept the agreement'),
+                                },
+                            ]}
+                        >
+                            <Checkbox>
+                                I have read the <a href="#">Term of Service</a>
+                            </Checkbox>
+                        </Form.Item>
+                        <Form.Item style={{ textAlign: 'center' }}>
+                            <Button type="primary" htmlType="submit" style={{ flex: 1, backgroundColor: '#003d29', color: '#fff' }}>
+                                Next
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </div>
             ),
         },
         {
@@ -150,7 +152,7 @@ const CustomerRegister = () => {
                 <div style={{ flexDirection: 'column', display: 'flex', marginTop: '30px' }}>
                     <h1 style={{ fontSize: '32px' }}>Enter Your Information!</h1>
                     <span>For better service and accessibility</span>
-                    
+
                     <Form
                         name="Information"
                         initialValues={{ remember: true }}
@@ -180,18 +182,18 @@ const CustomerRegister = () => {
                         >
                             <Input />
                         </Form.Item>
-                        <Form.Item
-                            label="Address"
-                            name="address"
+                        <Form.Item 
+                        label="Address: "
+                        name="address"
                             rules={[{ required: true, message: 'Enter your Address!' }]}
                         >
-                            <Input />
+                            <TextArea rows={4} />
                         </Form.Item>
-                        <Form.Item 
+                        <Form.Item
                             label="Gender"
                             name="gender"
-                            rules={[{ required: true}]}
-                            >
+                            rules={[{ required: true }]}
+                        >
                             <div style={{ flexDirection: 'row', display: 'flex' }}>
                                 <Radio.Group>
                                     <Radio value="Male"> Male </Radio>
@@ -218,28 +220,28 @@ const CustomerRegister = () => {
         },
     ];
 
-return (
-    <>
-    <Headbar/>
-    <Navbar/>
-        <div style={contentStyle}>
-            <div style={sectionStyle}>
-                <div style={leftSectionStyle}>
-                    <Image
-                        style={{ objectFit: 'cover' }}
-                        height="100%"
-                        width="100%"
-                        src={bg}
-                        preview={false}
-                    />
-                </div>
-                <div style={rightSectionStyle}>
-                    <div>{steps[currentStep] && steps[currentStep].content}</div>
+    return (
+        <>
+            <Headbar />
+            <Navbar />
+            <div style={contentStyle}>
+                <div style={sectionStyle}>
+                    <div style={leftSectionStyle}>
+                        <Image
+                            style={{ objectFit: 'cover' }}
+                            height="100%"
+                            width="100%"
+                            src={bg}
+                            preview={false}
+                        />
+                    </div>
+                    <div style={rightSectionStyle}>
+                        <div>{steps[currentStep] && steps[currentStep].content}</div>
+                    </div>
                 </div>
             </div>
-        </div>
-    <Footer/>
-    </>
-);
+            <Footer />
+        </>
+    );
 };
 export default CustomerRegister;

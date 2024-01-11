@@ -13,11 +13,11 @@ import EditProfilePage from './EditProfilePage/EditProfilePage';
 
 const Profile = () => {
     const contentStyle: CSSProperties = {
-        justifyContent: 'center',
         backgroundColor: '#D9E2D9',
         minHeight: '800px',
-        alignItems: 'center',
         display: 'flex',
+        alignItems:'center',
+        justifyContent: 'space-around'
     };
 
     const items = [
