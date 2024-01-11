@@ -32,12 +32,16 @@ import oder04 from '../../../assets/oder04.svg'
 import oder04_1 from '../../../assets/oder04-1.svg'
 import oder05 from '../../../assets/oder05.svg'
 import oder05_1 from '../../../assets/oder05-1.svg'
+import iconic_box2 from '../../../assets/update_icon 1.svg'
+import win10bg from '../../../assets/window10bg.jpg'
 
 import { Link, useNavigate } from 'react-router-dom';
 
 
 
 function Updatestatus() {
+
+
     const navigate = useNavigate();
 
     const handleImageClick = () => {
@@ -46,13 +50,25 @@ function Updatestatus() {
     };
 
     const Card_st: CSSProperties = {
+        zIndex: 1,
         backgroundColor: '#ffffff',
         borderRadius: '10px',
         boxShadow: '0px 4px 4px #00000040',
         height: '274px',
-        position: 'fixed', // You can adjust this value as needed
         width: '1098px',
-        top: '20%',
+        marginTop: '20px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        transition: 'box-shadow 5s ease-in-out', 
+    };
+    const Card_st2: CSSProperties = {
+        
+        backgroundColor: '#ffffff',
+        borderRadius: '10px',
+        boxShadow: '0px 4px 4px #00000040',
+        height: '274px',
+        width: '1098px',
+        marginTop: '20px',
         left: '50%',
         transform: 'translateX(-50%)',
         transition: 'box-shadow 5s ease-in-out', 
@@ -60,7 +76,7 @@ function Updatestatus() {
 
     //เงื่อนไข
 
-    let status = 1;
+    let status = 3;
     let order1 ; let order2 ; let order3 ; let order4 ; let order5 ;
 
     if ( status >= 1) { order1 = oder01_1 }else{  order1 = oder01 }
@@ -68,12 +84,17 @@ function Updatestatus() {
     if ( status >= 3) { order3 = oder03_1 }else{  order3 = oder03 }
     if ( status >= 4) { order4 = oder04_1 }else{  order4 = oder04 }
     if ( status >= 5) { order5 = oder05_1 }else{  order5 = oder05 }
-    
+
+
 
     return (
         <>
+            
             <Headerbarlogo />
             <Navbar />
+
+
+            <Row>
             <Card style={Card_st}>
                 <Row>
                     <img
@@ -153,7 +174,125 @@ function Updatestatus() {
                         }}
                     />
                 </Row>
+                <Row >
+                    <Col className="fonthead1">order place</Col>
+                    <Col className="fonthead2">order paid</Col>
+                    <Col className="fonthead3">order shipped out</Col>
+                    <Col className="fonthead4">to receive</Col>
+                    <Col className="fonthead5end">to rate</Col>
+                </Row>
+                <Row >
+                    <Col className="fonttext1">date and time</Col>
+                    <Col className="fonttext1">date and time</Col>
+                    <Col className="fonttext2">date and time</Col>
+                    <Col className="fonttext3">date and time</Col>
+                    <Col className="fonttext1end">date and time</Col>
+                </Row>
+
+
             </Card>
+            </Row>
+
+            <Row>
+            <Card style={Card_st2}>
+                <Row>
+                <img
+                        src={iconic_box2}
+                        style={{
+                            top: '5%',
+                            left: '2%',
+                            objectFit: 'cover',
+                            position: 'fixed',
+
+                        }}
+                        onClick={handleImageClick}
+                        alt="Image"
+                    />
+                 <Col className="fonttextBoxtow">Check stetus product</Col>
+                </Row>
+                <Row>
+                    <Col xs={24} sm={24} md={24} lg={24} xl={4}>
+                        
+                        <img
+                        src={win10bg}
+                        style={{
+                            width: '112.75px',
+                            height: '143.12px',
+                            borderRadius: '10px',
+                            objectFit: 'cover',
+                            position: 'fixed',
+                            marginTop:  '40px',
+                        }}
+                        />
+                        
+                    </Col>
+                    <Col xs={24} sm={24} md={24} lg={24} xl={4}>
+                        <Row className="fonttextBoxtowTexth1">Main description</Row>
+                        <Row className="fonttextBoxtowTexth2">optional ex.green , white</Row>
+                        <Row className="fonttextBoxtowTexth3">count x1,x2</Row>
+                        
+                    </Col>
+
+                    <Col xs={24} sm={24} md={24} lg={24} xl={16}>
+                        <Card style={{ border: 'none' }}>
+                            <Row className="fonttextBoxtowTexthstatus">status</Row>
+                            <Row>
+                                <Select 
+                                style={{
+                                    width: '175px', // ปรับความยาวตามที่ต้องการ
+                                    marginLeft: '72%' ,
+                                    height: '40px', 
+                                    marginTop: '2%',
+                                    fontSize: '16px',
+                                }}>                                 
+                                </Select>
+                            </Row>
+                            <Row>
+                                <Input placeholder="Tack Number"
+                                    style={{
+                                    width: '350px', // ปรับความยาวตามที่ต้องการ
+                                    height: '40px',
+                                    marginLeft: '45%' ,
+                                    marginTop: '2%',
+                                    backgroundColor: '#003D0614',
+                                    border: 'none',
+                                    fontSize: '16px',
+                                    
+                                    
+                                }}
+                                disabled={status < 3}>
+                                    
+                                </Input>
+                            </Row>
+                        </Card>
+                    </Col>
+                </Row>
+
+    
+            </Card >
+            </Row>
+            <Row justify="end">
+                    <Col style={{ marginTop: "40px" , marginLeft: "10%"}}>
+                            <Form.Item>
+                            <Space>
+                                <Button type="primary" htmlType="button" style={{ marginRight: "10px", backgroundColor: '#5A8242' }}>
+                                ยกเลิก
+                                </Button>
+                                <Button
+                                type="primary"
+                                htmlType="submit"
+                                style={{ marginRight: "220px", backgroundColor: '#003D06', justifyContent: 'flex-end' }}
+                                icon={<PlusOutlined />}
+                                >
+                                ยืนยัน
+                                </Button>
+                            </Space>
+                            </Form.Item>
+                    </Col>
+              </Row>
+                                
+
+            
         </>
     );
 }

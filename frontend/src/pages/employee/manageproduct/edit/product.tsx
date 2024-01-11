@@ -48,7 +48,7 @@ const ProductEdit= () => {
 
   
   return (
-  
+    <Card>
      <Form
        form={form}
        onFinish={onFinish}
@@ -201,7 +201,8 @@ const ProductEdit= () => {
       
  
       </Card>
-      </Form>  
+      </Form> 
+    </Card> 
       
   );
  };
