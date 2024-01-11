@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	// "github.com/PyeThun/team05/controller"
+	"github.com/PyeThun/team05/controller/admin"
 	"github.com/PyeThun/team05/entity"
 	_ "github.com/PyeThun/team05/middlewares"
 )
@@ -14,6 +15,7 @@ func main() {
 	//Routes
 	
 	
+	r.POST("/admin", employee_controller.CreateEmployee)
 	// Run the server
 	r.Run()
 }
