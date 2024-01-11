@@ -4,11 +4,11 @@ import (
 	"github.com/gin-gonic/gin"
 	// "github.com/PyeThun/team05/controller"
 	"github.com/PyeThun/team05/entity"
-	"github.com/PyeThun/team05/middlewares"
+	_ "github.com/PyeThun/team05/middlewares"
 )
 
 func main() {
-	entity.ConnectDB()
+	entity.SetupDatabase()
 	r := gin.Default()
 	r.Use(CORSMiddleware())
 	//Routes
