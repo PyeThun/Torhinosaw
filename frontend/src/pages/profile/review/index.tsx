@@ -1,10 +1,18 @@
-import React from 'react'
-import Headbarlogo from '../../../component/headbarlogo'
-const Review = () => {
-  return (<>
-    <div>index</div>
-    </>
-  )
+import React, { useState } from 'react';
+
+interface Review {
+  id: number;
+  rating: number;
+  comment: string;
 }
 
-export default Review
+const Review: React.FC = () => {
+  
+  return (
+    <>
+    เว็บหัวควย
+    </>
+  );
+};
+
+export default Review;

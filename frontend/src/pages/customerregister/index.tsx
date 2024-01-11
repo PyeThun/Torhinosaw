@@ -33,12 +33,12 @@ const CustomerRegister = () => {
     };
 
     const rightSectionStyle: CSSProperties = {
-        textAlign: 'left',
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
         marginLeft: 'auto',
-        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign:'center',
     };
 
     const formStyle: CSSProperties = {
@@ -57,10 +57,6 @@ const CustomerRegister = () => {
     const handleNext = (values: any) => {
         setData({ ...data, ...values });
         setCurrentStep((prevStep) => prevStep + 1);
-    };
-
-    const handlePrev = () => {
-        setCurrentStep((prevStep) => prevStep - 1);
     };
 
     const handleSubmit = (values: any) => {
@@ -88,6 +84,7 @@ const CustomerRegister = () => {
                         onFinishFailed={onFinishFailed}
                         form={form}
                         style={formStyle}
+                        labelCol={{ span: 8 }}
                     >
                         <Form.Item
                             label="Username"
@@ -105,7 +102,6 @@ const CustomerRegister = () => {
                             <Input.Password
                                 count={{
                                     show: true,
-                                    max: 10,
                                 }}
                             />
                         </Form.Item>
@@ -160,6 +156,7 @@ const CustomerRegister = () => {
                         onFinishFailed={onFinishFailed}
                         form={form}
                         style={formStyle}
+                        labelCol={{ span: 8 }}
                     >
                         <Form.Item
                             label="First Name"
@@ -194,7 +191,7 @@ const CustomerRegister = () => {
                             name="gender"
                             rules={[{ required: true }]}
                         >
-                            <div style={{ flexDirection: 'row', display: 'flex' }}>
+                            <div style={{ flexDirection: 'column', display: 'flex' }}>
                                 <Radio.Group>
                                     <Radio value="Male"> Male </Radio>
                                     <Radio value="Female"> Female </Radio>
@@ -203,9 +200,6 @@ const CustomerRegister = () => {
                             </div>
                         </Form.Item>
                         <Form.Item style={{ textAlign: 'center' }}>
-                            <Button type="primary" onClick={handlePrev} style={{ flex: 1, backgroundColor: '#003d29', color: '#fff' }}>
-                                Back
-                            </Button>
                             <Button
                                 type="primary"
                                 htmlType="submit"

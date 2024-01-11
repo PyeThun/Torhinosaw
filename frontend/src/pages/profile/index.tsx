@@ -8,6 +8,8 @@ import Sider from 'antd/es/layout/Sider';
 import { Content, Header } from 'antd/es/layout/layout';
 import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import EditProfilePage from './EditProfilePage/EditProfilePage';
+import Review from './review';
+import './menu.css';
 
 
 
@@ -56,7 +58,7 @@ const Profile = () => {
             case '3':
                 return <div>Content for Purchase</div>;
             case '4':
-                return <div>Content for Review</div>;
+                return <Review/>;
             default:
                 return null;
         }
@@ -68,7 +70,7 @@ const Profile = () => {
             <Navbar />
             <Layout>
                 <Sider
-                    style={{ backgroundColor: '#fff' }}
+                    style={{ backgroundColor: '#D9E2D9', margin: '24px 0px 24px 24px', }}
                     breakpoint="lg"
                     collapsedWidth="0"
                     onBreakpoint={(broken) => {

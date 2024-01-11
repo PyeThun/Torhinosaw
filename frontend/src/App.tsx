@@ -26,9 +26,7 @@ function App() {
         <Route path='/' Component={HomePage}/>
         <Route path='/register' Component={CustomerRegister}/>
         <Route path='/profile' Component={Profile}/>
-        <Route path='/review' Component={ReviewPage}/>
         <Route path='/admin' Component={Admin}/>
-        <Route path="/editprofile"      Component={EditProfilePage}/>
         <Route path="/cart"      Component={CartPage} />
         <Route path="/wishlist"      Component={WishlistPage} />
         <Route path="/purchase"      Component={PurchasePage} />

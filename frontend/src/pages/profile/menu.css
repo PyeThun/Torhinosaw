@@ -1,0 +1,16 @@
+/* menu.css */
+/* Change the background color of the menu */
+.ant-menu-inline {
+    background-color: #D9E2D9; /* Change to your desired background color */
+  }
+  
+  /* Change the text color of the menu items */
+  .ant-menu-inline .ant-menu-item {
+    color: #000000; /* Change to your desired text color */
+  }
+  
+  /* Change the color of the selected menu item */
+  .ant-menu-inline .ant-menu-item-selected {
+    background-color: #003d29 !important; /* Change to your desired selected item color */
+    color: #fff !important; /* Change to your desired selected item text color */
+  }
