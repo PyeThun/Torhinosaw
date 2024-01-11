@@ -15,16 +15,14 @@ type Order struct {
 	Quantity		int
 	Price			float32
 	Totalprice		float32
+	Status			int
 
 	EmployeeID 		*uint
     Employee   		Employee 	`gorm:"references:id"`
 	AddressID 		*uint
     Address   		Address 	`gorm:"references:id"`
 	CartID 			*uint
-	StatusID 		*uint
-    Status   		Status 		`gorm:"references:id"`
     Cart   			Cart 		`gorm:"references:id"`
-	Products   		[]Product 	`gorm:"many2many:order_products;"`
 }
 
 type Cart struct {
@@ -89,7 +87,6 @@ type Status struct {
 	Describe		string
 
 	Payments 		[]Payment 	`gorm:"foreignKey:StatusID"`
-	Orders 			[]Order 	`gorm:"foreignKey:StatusID"`
 }
 
 type Address struct {
@@ -142,7 +139,6 @@ type Product struct {
 
 	Ratings 		[]Rating	`gorm:"foreignKey:ProductID"`
 	Carts 			[]Cart   	`gorm:"many2many:cart_products;"`
-	Orders 			[]Order   	`gorm:"many2many:order_products;"`
 	Wishlists 		[]Wishlist  `gorm:"many2many:wishlist_products;"`
 }
 

@@ -2,9 +2,8 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	// "github.com/PyeThun/team05/controller"
+	"github.com/PyeThun/team05/controller"
 	"github.com/PyeThun/team05/entity"
-	"github.com/PyeThun/team05/middlewares"
 )
 
 func main() {
@@ -12,8 +11,12 @@ func main() {
 	r := gin.Default()
 	r.Use(CORSMiddleware())
 	//Routes
+	// r.PATCH("/xxx", controller.Updatexxx)
+	// r.POST("/xxx", controller.Createxx)
+	// r.GET("/xx", controller.Listxxx)
+	// r.GET("/xxx/:id", controller.GetxxxById)
 	
-	
+
 	// Run the server
 	r.Run()
 }
