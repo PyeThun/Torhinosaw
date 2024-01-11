@@ -15,7 +15,6 @@ type Order struct {
 	Quantity		int
 	Price			float32
 	Totalprice		float32
-	Status			int
 
 	EmployeeID 		*uint
     Employee   		Employee 	`gorm:"references:id"`
