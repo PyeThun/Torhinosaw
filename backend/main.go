@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	// "github.com/PyeThun/team05/controller"
 	"github.com/PyeThun/team05/entity"
+	"github.com/PyeThun/team05/middlewares"
 )
 
 func main() {
@@ -13,7 +14,6 @@ func main() {
 	//Routes
 	
 	
-
 	// Run the server
 	r.Run()
 }
