@@ -58,13 +58,15 @@ const ProductAdd = () => {
 
 
 
-    <Card>
+    
      <Form
        form={form}
        onFinish={onFinish}
        onFinishFailed={onFinishFailed}
      >
-      <Card>
+      <Card style={{
+                      margin: '20px'
+                  }}>
          <h1>
             ADD PRODUCT
           </h1>
@@ -212,7 +214,7 @@ const ProductAdd = () => {
  
       </Card>
       </Form>
-      </Card>  
+      
       </>
   );
  };
