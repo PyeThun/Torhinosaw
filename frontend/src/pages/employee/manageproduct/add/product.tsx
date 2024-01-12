@@ -15,8 +15,9 @@ import {
 } from "antd";
 import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import  Navbar  from '../../../../component/navbar'
 
+import  Navbar  from '../../../../component/navbar'
+import  Headerbarlogo  from '../../../../component/headbarlogo'
 
 import { InboxOutlined } from '@ant-design/icons';
 import TextArea from "antd/es/input/TextArea";
@@ -48,8 +49,14 @@ const ProductAdd = () => {
 
   
   return (
+    <>
+
     
-      
+    <Headerbarlogo/>
+    <Navbar/>
+
+
+
     <Card>
      <Form
        form={form}
@@ -182,7 +189,7 @@ const ProductAdd = () => {
         </Col>    
         </Row>
         <Row justify="end">
-        <Col style={{ marginTop: "40px" }}>
+          <Col style={{ marginTop: "40px" }}>
                 <Form.Item>
                   <Space>
                     <Button type="primary" htmlType="button" style={{ marginRight: "10px", backgroundColor: '#5A8242' }}>
@@ -198,14 +205,14 @@ const ProductAdd = () => {
                     </Button>
                   </Space>
                 </Form.Item>
-                </Col>
-              </Row>
+          </Col>
+        </Row>
       
  
       </Card>
       </Form>
       </Card>  
-      
+      </>
   );
  };
 

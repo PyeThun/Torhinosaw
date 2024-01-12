@@ -1,0 +1,83 @@
+
+.fontBOLD {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    margin-top: 0%;
+    margin-left: 100px;
+   
+}
+.fontyello {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    margin-top: 8px;
+    margin-left: 10px;
+   color: #FFB800;
+}
+.fontbasic {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    margin-top: 8px;
+    margin-left: 10px;
+   
+}
+.fontgrey {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    margin-top: 8px;
+    margin-left: 10px;
+   color: #959595;
+}
+
+
+.fontprice {
+    font-family: 'Inter', sans-serif;
+    font-size: 32px;
+    /* margin-top: 8px; */
+    margin-left: 10px;
+    margin-top: -10px;
+    color: #FF0000;
+   
+}
+
+.fontgreysell {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    margin-top: 30px;
+    margin-left: 50px;
+   color: #959595;
+}
+.fontgreysell {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    margin-top: 30px;
+    margin-left: 50px;
+   color: #959595;
+}
+.fontsellname {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    margin-top: -5px;
+    margin-left: 50px;
+   color: #000000;
+}
+.fontbasic {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    margin-top: 8px;
+    margin-left: 10px;
+   
+}
+.fontdetail {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    margin-top: 8px;
+    margin-left: 50px;
+    margin-right: 50px;
+   
+}
+
+body {
+    background-color: #D9E2D9; /* กำหนดสีพื้นหลังของหน้าเว็บ */
+    margin: 0; /* ลบ margin ที่เป็นค่าเริ่มต้น */
+    padding: 0; /* ลบ padding ที่เป็นค่าเริ่มต้น */
+}

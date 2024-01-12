@@ -39,7 +39,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 
 
-function Updatestatus() {
+const Updatestatus = () =>  {
 
 
     const navigate = useNavigate();
