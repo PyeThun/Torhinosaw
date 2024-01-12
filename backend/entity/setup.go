@@ -28,6 +28,10 @@ func SetupDatabase() {
 		&Payment{},
 		&Order{},
 		&Rating{},
+		&Wishlistforproduct{},
+		&Cartitem{},
+		&Shippingservice{},
+		
 	)
 
 	db = database
