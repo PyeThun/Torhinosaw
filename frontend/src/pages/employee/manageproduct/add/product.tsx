@@ -22,6 +22,7 @@ import  Headerbarlogo  from '../../../../component/headbarlogo'
 import { InboxOutlined } from '@ant-design/icons';
 import TextArea from "antd/es/input/TextArea";
 //import 'antd/dist/antd.css';
+import "./style.css";
 
 
 const ProductAdd = () => {

@@ -246,7 +246,7 @@ const Buying = () => {
                             style={{
                                 width: '222px',
                                 height: '76px',
-                                marginLeft: '180px',
+                                marginLeft: '70px',
                                 marginTop: '20px',
                             }}
                             alt="Add Card Image"
