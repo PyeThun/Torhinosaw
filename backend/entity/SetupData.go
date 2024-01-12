@@ -6,13 +6,13 @@ import (
 
 func SetupStatus(database *gorm.DB) {
 	//Order Status
-	Status1 := Status{Status: "Order Place"}
+	Status1 := Status{Status: "Order Place", Describe: "สร้างคำสั่งซื้อ"}
 	database.Model(&Status{}).Create(&Status1)
 
 	Status2 := Status{Status: "Order Paid", Describe: "คำสั่งซื้อชำระเงินเรียบร้อย"}
 	database.Model(&Status{}).Create(&Status2)
 
-	Status3 := Status{Status: "Order Shipped Out", Describe: "กำลังจัดส่ง"}
+	Status3 := Status{Status: "Order Shipped Out", Describe: "จัดส่งแล้ว"}
 	database.Model(&Status{}).Create(&Status3)
 
 	Status4 := Status{Status: "To Recieve", Describe: "ได้รับสินค้าแล้ว"}
@@ -26,6 +26,9 @@ func SetupStatus(database *gorm.DB) {
 
 	Status7 := Status{Status: "Complete", Describe: "ชำระเงินสำเร็จ"}
 	database.Model(&Status{}).Create(&Status7)
+
+	Status8 := Status{Status: "Cancle", Describe: "ชำระเงินล้มเหลว"}
+	database.Model(&Status{}).Create(&Status8)
 }
 
 func SetupProduct(database *gorm.DB) {
