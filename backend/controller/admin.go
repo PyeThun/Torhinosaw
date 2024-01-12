@@ -12,7 +12,7 @@ import (
 
 func CreateEmployee(c *gin.Context) {
 	var employee entity.Employee
-	// var emailCheck entity.Admin
+	// var emailCheck entity.Employee
 
 	if err := c.ShouldBindJSON(&employee); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

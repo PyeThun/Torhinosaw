@@ -1,9 +1,23 @@
 import React, { CSSProperties, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Layout, Button, Menu } from "antd";
+import {
+  Layout,
+  Button,
+  Menu,
+  Table,
+  Dropdown,
+  Space,
+  Drawer,
+  Form,
+  Input,
+  Row,
+  Select,
+  Col,
+  Statistic,
+  Card,
+} from "antd";
 import type { MenuProps } from "antd";
-import { Table, Dropdown, Space } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import {
   MenuFoldOutlined,
@@ -17,25 +31,31 @@ import {
   MoreOutlined,
   EditOutlined,
   DeleteOutlined,
+  UserAddOutlined,
+  DollarOutlined,
+  DatabaseOutlined,
 } from "@ant-design/icons";
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Sider, Content } = Layout;
+const { Option } = Select;
 
 const Employee = () => {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
 
   const headerStyle: CSSProperties = {
+    textAlign: "center",
     justifyContent: "center",
-    minHeight: "200px",
+    minHeight: "157px",
     backgroundColor: "#f5f5f5",
     display: "flex",
   };
 
   const contentStyle: CSSProperties = {
-    justifyContent: "center",
+    minHeight: "879px",
     backgroundColor: "#f5f5f5",
     display: "flex",
+    flexDirection: "column",
     padding: 25,
   };
 
@@ -45,21 +65,12 @@ const Employee = () => {
     display: "flex",
     // borderRight: "1px solid black",
   };
-
-  const footerStyle: CSSProperties = {
-    justifyContent: "center",
-    lineHeight: "44px",
-    color: "black",
-    backgroundColor: "#f5f5f5",
-    display: "flex",
-  };
-
   const layoutStyle = {
     overflow: "hidden",
     width: "100%",
     height: "100%",
   };
-  //content
+  //table
   interface Employee {
     key: React.Key;
     employeeid: string;
@@ -99,7 +110,7 @@ const Employee = () => {
     {
       title: "Phone",
       dataIndex: "phone",
-      width: "10%",
+      width: "8%",
     },
     {
       title: "Department",
@@ -109,7 +120,7 @@ const Employee = () => {
         { text: "Checkpayment", value: "Checkpayment" },
       ],
       onFilter: (value, record) => record.department === value,
-      width: "8%",
+      width: "6%",
     },
     {
       title: "",
@@ -118,7 +129,7 @@ const Employee = () => {
         <Dropdown menu={{ items }} trigger={["click"]}>
           <a onClick={(e) => e.preventDefault()}>
             <Space>
-              <MoreOutlined style={{ color: 'black' }}/>
+              <MoreOutlined style={{ color: "black" }} />
             </Space>
           </a>
         </Dropdown>
@@ -126,30 +137,29 @@ const Employee = () => {
     },
   ];
   //feature
+
+  //menu table
   const items: MenuProps["items"] = [
     {
-      label: <a><EditOutlined/>Edit</a>,
+      label: (
+        <a>
+          <EditOutlined />
+          Edit
+        </a>
+      ),
       key: "0",
     },
     {
-      label: <a><DeleteOutlined/>Delete</a>,
+      label: (
+        <a>
+          <DeleteOutlined />
+          Delete
+        </a>
+      ),
       key: "1",
     },
   ];
-  //sample
-  const data: Employee[] = [];
-  for (let i = 0; i < 100; i++) {
-    data.push({
-      key: i,
-      employeeid: `${i}`,
-      name: "example name",
-      username: "p",
-      password: "1234",
-      email: "p@1234.com",
-      phone: "621566545",
-      department: "Restocker",
-    });
-  }
+
   //header
   const headerRectangle: CSSProperties = {
     width: "300px",
@@ -168,7 +178,31 @@ const Employee = () => {
     fontSize: "20px",
     fontWeight: "500",
   };
+  //CreateEmployee
+  const [open, setOpen] = useState(false);
 
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
+  //sample
+  const data: Employee[] = [];
+  for (let i = 0; i < 100; i++) {
+    data.push({
+      key: i,
+      employeeid: `${i}`,
+      name: "example name",
+      username: "p",
+      password: "1234",
+      email: "p@1234.com",
+      phone: "621566545",
+      department: "Restocker",
+    });
+  }
   return (
     <Layout style={layoutStyle}>
       <Sider
@@ -262,15 +296,160 @@ const Employee = () => {
           }}
         />
         <Header style={headerStyle}>
-          <div style={headerRectangle}>
-            <span style={headerText}>Employee</span>
-          </div>
-          <div style={{ ...headerRectangle, marginRight: "50px" }}>
-            <span style={headerText}>Department</span>
+        <div style={{ marginTop: "50px"}}>
+          <Row gutter={150}>
+            <Col span={8}>
+              <Card bordered={false} style={{backgroundColor: "#D9E2D9",width: "200px"}}>
+                <Statistic
+                  title="Employee"
+                  value={2}
+                  valueStyle={{  }}
+                  prefix={<TeamOutlined />}
+                  />
+              </Card>
+            </Col>
+            <Col span={8}>
+              <Card bordered={false} style={{backgroundColor: "#D9E2D9",width: "200px"}}>
+                <Statistic
+                  title="Restocker"
+                  value={1}
+                  valueStyle={{ }}
+                  prefix={<DatabaseOutlined />}
+                />
+              </Card>
+            </Col>
+            <Col span={8}>
+              <Card bordered={false} style={{backgroundColor: "#D9E2D9",width: "200px"}}>
+                <Statistic
+                  title="Checkpayment"
+                  value={0}
+                  valueStyle={{  }}
+                  prefix={<DollarOutlined />}
+                  />
+              </Card>
+            </Col>
+          </Row>
           </div>
         </Header>
         <Content>
           <div style={contentStyle}>
+            <div style={{ marginLeft: "1400px", marginBottom: "10px" }}>
+              <Button
+                type="primary"
+                onClick={showDrawer}
+                style={{ backgroundColor: "#003D06", color: "#D9E2D9" }}
+              >
+                <UserAddOutlined />
+                Add Employee
+              </Button>
+            </div>
+            <Drawer
+              title="Create a new Employee"
+              width={720}
+              onClose={onClose}
+              open={open}
+              styles={{
+                body: {
+                  paddingBottom: 80,
+                },
+              }}
+              extra={
+                <Space>
+                  <Button onClick={onClose}>Cancel</Button>
+                  <Button
+                    onClick={onClose}
+                    type="primary"
+                    style={{ backgroundColor: "#003D06", color: "#D9E2D9" }}
+                  >
+                    Submit
+                  </Button>
+                </Space>
+              }
+            >
+              <Form layout="vertical" hideRequiredMark>
+                <Row gutter={16}>
+                  <Col span={12}>
+                    <Form.Item
+                      name="Name"
+                      label="Name"
+                      rules={[{ required: true, message: "Please enter name" }]}
+                    >
+                      <Input placeholder="Please enter user name" />
+                    </Form.Item>
+                  </Col>
+                  <Col span={12}>
+                    <Form.Item
+                      name="Email"
+                      label="Email"
+                      rules={[
+                        { required: true, message: "Please enter email" },
+                      ]}
+                    >
+                      <Input
+                        style={{ width: "100%" }}
+                        addonAfter=".com"
+                        placeholder="Please enter email"
+                      />
+                    </Form.Item>
+                  </Col>
+                </Row>
+                <Row gutter={16}>
+                  <Col span={12}>
+                    <Form.Item
+                      name="Username"
+                      label="Username"
+                      rules={[
+                        { required: true, message: "Please enter username" },
+                      ]}
+                    >
+                      <Input placeholder="Please enter username" />
+                    </Form.Item>
+                  </Col>
+                  <Col span={12}>
+                    <Form.Item
+                      name="Password"
+                      label="Password"
+                      rules={[
+                        { required: true, message: "Please enter password" },
+                      ]}
+                    >
+                      <Input placeholder="Please enter password" />
+                    </Form.Item>
+                  </Col>
+                </Row>
+                <Row gutter={16}>
+                  <Form.Item
+                    name="Phone"
+                    label="Phone"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please enter phone number",
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Please enter phone number" />
+                  </Form.Item>
+                  <Col span={12}>
+                    <Form.Item
+                      name="Department"
+                      label="Department"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please choose the department",
+                        },
+                      ]}
+                    >
+                      <Select placeholder="Please choose the department">
+                        <Option value="Restocker">Restocker</Option>
+                        <Option value="Checkpayment">Checkpayment</Option>
+                      </Select>
+                    </Form.Item>
+                  </Col>
+                </Row>
+              </Form>
+            </Drawer>
             <Table
               columns={columns}
               dataSource={data}
@@ -279,9 +458,6 @@ const Employee = () => {
             />
           </div>
         </Content>
-        <Footer style={footerStyle}>
-          Torhinozorus ©{new Date().getFullYear()} Created by Torhinozorus DEV
-        </Footer>
       </Layout>
     </Layout>
   );

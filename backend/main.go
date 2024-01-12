@@ -4,6 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	// "github.com/PyeThun/team05/controller"
 	"github.com/PyeThun/team05/controller/admin"
+	admin_controller "github.com/PyeThun/team05/controller/admin"
+
 	"github.com/PyeThun/team05/entity"
 	_ "github.com/PyeThun/team05/middlewares"
 )
@@ -16,6 +18,7 @@ func main() {
 	
 	
 	r.POST("/admin", employee_controller.CreateEmployee)
+	r.POST("/admin", admin_controller.CreateEmployee)
 	// Run the server
 	r.Run()
 }
