@@ -1,7 +1,7 @@
 import React, { CSSProperties, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Layout, Button, Menu } from "antd";
+import { Layout, Button, Menu, Row, Col, Card, Statistic } from "antd";
 import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 
@@ -23,6 +23,7 @@ const Admin = () => {
   const [collapsed, setCollapsed] = useState(false);
 
   const headerStyle: CSSProperties = {
+    textAlign: "center",
     justifyContent: "center",
     minHeight: "200px",
     backgroundColor: "#f5f5f5",
@@ -114,11 +115,10 @@ const Admin = () => {
   const headerText: CSSProperties = {
     textAlign: "center",
     width: "100%",
-    color: "black", 
+    color: "black",
     marginTop: "90px",
-    fontSize : "20px",
-    fontWeight : "500",
-
+    fontSize: "20px",
+    fontWeight: "500",
   };
 
   return (
@@ -154,11 +154,11 @@ const Admin = () => {
         </span>
         <div className="sider menu" />
         <Menu
-          onClick={({key})=>{
-            if(key == "signout"){
+          onClick={({ key }) => {
+            if (key == "signout") {
               //sign out feature
-            }else{
-              navigate(key)
+            } else {
+              navigate(key);
             }
           }}
           theme="light"
@@ -214,14 +214,39 @@ const Admin = () => {
           }}
         />
         <Header style={headerStyle}>
-          <div style={headerRectangle}>
-            <span style={headerText}>Employee</span>
-          </div>
-          <div style={{ ...headerRectangle, marginRight: "50px" }}>
-            <span style={headerText}>Product</span>
-          </div>
-          <div style={{ ...headerRectangle, marginRight: "50px" }}>
-            <span style={headerText}>Order</span>
+          <div style={{ marginTop: "50px"}}>
+          <Row gutter={150}>
+            <Col span={8}>
+              <Card bordered={false} style={{backgroundColor: "#D9E2D9",width: "200px"}}>
+                <Statistic
+                  title="Employee"
+                  value={2}
+                  valueStyle={{  }}
+                  prefix={<TeamOutlined />}
+                  />
+              </Card>
+            </Col>
+            <Col span={8}>
+              <Card bordered={false} style={{backgroundColor: "#D9E2D9",width: "200px"}}>
+                <Statistic
+                  title="Product"
+                  value={1}
+                  valueStyle={{ }}
+                  prefix={<SkinOutlined />}
+                />
+              </Card>
+            </Col>
+            <Col span={8}>
+              <Card bordered={false} style={{backgroundColor: "#D9E2D9",width: "200px"}}>
+                <Statistic
+                  title="Order"
+                  value={0}
+                  valueStyle={{  }}
+                  prefix={<FileTextOutlined />}
+                  />
+              </Card>
+            </Col>
+          </Row>
           </div>
         </Header>
         <Content>
