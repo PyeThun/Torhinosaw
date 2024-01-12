@@ -12,6 +12,8 @@ import {
   Upload,
   Select,
   Modal,
+  
+  
 } from "antd";
 import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
@@ -23,9 +25,28 @@ import { InboxOutlined } from '@ant-design/icons';
 import TextArea from "antd/es/input/TextArea";
 //import 'antd/dist/antd.css';
 import "./style.css";
+import { ProductTypeInterface } from "../../../../interfaces/ProductType";
+import { GetProductType } from "../../../../services/http_product";
 
+const { Option } = Select;
 
 const ProductAdd = () => {
+
+  
+
+  const [producttype, setProductType] = useState<ProductTypeInterface[]>([]);
+  const getProductType = async () => {
+    let res = await GetProductType();
+    if (res) {
+      setProductType(res);
+    }
+  };
+
+  useEffect(() => {
+    getProductType();
+  }, []);
+
+
 
   const [form] = Form.useForm();
  
@@ -67,10 +88,11 @@ const ProductAdd = () => {
       <Card style={{
                       margin: '20px'
                   }}>
-         <h1>
-            ADD PRODUCT
-          </h1>
-      
+                    
+                    <h1 >
+                        ADD PRODUCT {producttype[0].Name}
+                    </h1>
+
       <Row gutter={16}>
         
         
@@ -94,31 +116,6 @@ const ProductAdd = () => {
                 <img alt="Preview" style={{ width: '150%' }} />
               </Modal>
             </Form.Item>
-            <Form.Item
-              name="Profile2"
-              valuePropName="fileList2"
-              getValueFromEvent={normFile}
-            >
-              <Upload maxCount={1} multiple={false} listType="picture-card" style={{ marginLeft: '0px'}} >
-                <div>
-                  <PlusOutlined />
-                  <div style={{ marginTop: 8 }}>อัพโหลด</div>
-                </div>
-              </Upload>
-            </Form.Item>
-            <Form.Item
-              name="Profile3"
-              valuePropName="fileList3"
-              getValueFromEvent={normFile}
-            >
-              <Upload maxCount={1} multiple={false} listType="picture-card" style={{ marginLeft: '0px'}} >
-                <div>
-                  <PlusOutlined />
-                  <div style={{ marginTop: 8 }}>อัพโหลด</div>
-                </div>
-              </Upload>
-            </Form.Item>
-          
         </Col>
         
         
@@ -150,11 +147,18 @@ const ProductAdd = () => {
           </Form.Item>
     
           <Form.Item
-            
-            name="productType"
-            rules={[{ required: true, message: 'Please input the product type!' }]}
+            name="ProductTypeID"
+            rules={[{ required: true, message: 'Please select the product type!' }]}
           >
-            <Input placeholder="Product type"  style={{ backgroundColor: '#D9E2D9', fontSize: '20px', height: '60px' }}/>
+            <Select
+              placeholder="ProductType"
+              style={{ color: '#D9E2D9', fontSize: '60px', height: '60px' }}
+              dropdownStyle={{ backgroundColor: '#D9E2D9' }}
+            >
+              {producttype.map((item) => (
+                    <Option  value={item.ID} key={item.Name}>{item.Name}</Option>
+              ))}
+            </Select>
           </Form.Item>
           
           <Form.Item

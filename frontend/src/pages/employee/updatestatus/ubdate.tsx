@@ -76,7 +76,7 @@ const Updatestatus = () =>  {
 
     //เงื่อนไข
 
-    let status = 3;
+    let status = 5;
     let order1 ; let order2 ; let order3 ; let order4 ; let order5 ;
 
     if ( status >= 1) { order1 = oder01_1 }else{  order1 = oder01 }
@@ -85,6 +85,7 @@ const Updatestatus = () =>  {
     if ( status >= 4) { order4 = oder04_1 }else{  order4 = oder04 }
     if ( status >= 5) { order5 = oder05_1 }else{  order5 = oder05 }
 
+    const inputCount = 1;
 
 
     return (
@@ -247,30 +248,33 @@ const Updatestatus = () =>  {
                                 }}>                                 
                                 </Select>
                             </Row>
-                            <Row>
-                                <Input placeholder="Tack Number"
-                                    style={{
-                                    width: '350px', // ปรับความยาวตามที่ต้องการ
-                                    height: '40px',
-                                    marginLeft: '45%' ,
-                                    marginTop: '2%',
-                                    backgroundColor: '#003D0614',
-                                    border: 'none',
-                                    fontSize: '16px',
-                                    
-                                    
-                                }}
-                                disabled={status < 3}>
-                                    
-                                </Input>
-                            </Row>
+
+                            {Array.from({ length: inputCount }, (_, index) => (
+                                <Row key={index}>
+                                    <Input
+                                        placeholder={`Track Number `} //+เพิ่ม ${index + 1}
+                                        style={{
+                                            width: '350px',
+                                            height: '40px',
+                                            marginLeft: '45%',
+                                            marginTop: '2%',
+                                            backgroundColor: '#003D0614',
+                                            border: 'none',
+                                            fontSize: '16px',
+                                        }}
+                                        disabled={status < 3}
+                                    />
+                                </Row>
+                            ))}
                         </Card>
                     </Col>
                 </Row>
 
     
             </Card >
+
             </Row>
+
             <Row justify="end">
                     <Col style={{ marginTop: "40px" , marginLeft: "10%"}}>
                             <Form.Item>

@@ -49,7 +49,7 @@ const Manageproduct  = () =>{
   };
 
   return (
-    <Router>
+
       <Layout style={{ minHeight: "100vh" }}>
         <Sider
           collapsible
@@ -60,15 +60,10 @@ const Manageproduct  = () =>{
             style={{
               display: "flex",
               justifyContent: "center",
-              marginTop: 20,
+              marginTop:'100',
               marginBottom: 20,
             }}
           >
-            <img
-              src={logo}
-              alt="Logo"
-              style={{ width: "40%", borderRadius: "50%" }}
-            />
           </div>
           <Menu
             theme="dark"
@@ -78,13 +73,31 @@ const Manageproduct  = () =>{
             <Menu.Item key="dashboard" onClick={() => setCurrentPage("dashboard")}>
               <Link to="/">
                 <DashboardOutlined />
-                <span>แดชบอร์ด</span>
+                <span >แดชบอร์ด</span>
               </Link>
             </Menu.Item>
             <Menu.Item key="customer" onClick={() => setCurrentPage("customer")}>
               <Link to="/customer">
                 <UserOutlined />
                 <span>ข้อมูลสมาชิก</span>
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="dashboard" onClick={() => setCurrentPage("dashboard")}>
+              <Link to="/">
+                <DashboardOutlined />
+                <span >แดชบอร์ด</span>
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="dashboard" onClick={() => setCurrentPage("dashboard")}>
+              <Link to="/">
+                <DashboardOutlined />
+                <span >แดชบอร์ด</span>
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="dashboard" onClick={() => setCurrentPage("dashboard")}>
+              <Link to="/">
+                <DashboardOutlined />
+                <span >แดชบอร์ด</span>
               </Link>
             </Menu.Item>
           </Menu>
@@ -100,12 +113,6 @@ const Manageproduct  = () =>{
                 background: colorBgContainer,
               }}
             >
-              <Routes>
-                {/* <Route path="/" element={<Dashboard />} />
-                <Route path="/customer" element={<Customer />} />
-                <Route path="/customer/create" element={<CustomerCreate />} />
-                <Route path="/customer/edit/:id" element={<CustomerEdit />} /> */}
-              </Routes>
             </div>
           </Content>
           <Footer style={{ textAlign: "center" }}>
@@ -113,7 +120,6 @@ const Manageproduct  = () =>{
           </Footer>
         </Layout>
       </Layout>
-    </Router>
   );
 };
 
