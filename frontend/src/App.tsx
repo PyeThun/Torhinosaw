@@ -26,10 +26,12 @@ function App() {
         <Route path='/' Component={HomePage}/>
         <Route path='/register' Component={CustomerRegister}/>
         <Route path='/profile' Component={Profile}/>
+        <Route path='/profile/review' Component={ReviewPage}/>
         <Route path='/admin' Component={Admin}/>
+        <Route path="/profile/editprofile"      Component={EditProfilePage}/>
         <Route path="/cart"      Component={CartPage} />
-        <Route path="/wishlist"      Component={WishlistPage} />
-        <Route path="/purchase"      Component={PurchasePage} />
+        <Route path="/profile/wishlist"      Component={WishlistPage} />
+        <Route path="/profile/purchase"      Component={PurchasePage} />
         <Route path="/login"      Component={LoginPage} />
         <Route path="/payment"      Component={PaymentPage} />
       </Routes>

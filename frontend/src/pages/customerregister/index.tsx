@@ -6,9 +6,6 @@ import Headbar from '../../component/headbarlogo';
 import Navbar from '../../component/navbar';
 import Footer from '../../component/PakComponent/Footer/Footer';
 
-
-const { Step } = Steps;
-
 const CustomerRegister = () => {
     const contentStyle: CSSProperties = {
         justifyContent: 'center',
@@ -62,6 +59,7 @@ const CustomerRegister = () => {
     const handleSubmit = (values: any) => {
         const allData = { ...data, ...values };
         console.log(allData);
+        navigate("/",{})
     };
 
     const onFinishFailed = (errorInfo: any) => {
