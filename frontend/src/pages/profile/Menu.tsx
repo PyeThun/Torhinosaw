@@ -6,7 +6,7 @@ import Navbar from '../../component/navbar'
 import Footerbar from '../../component/footerbar'
 import Sider from 'antd/es/layout/Sider';
 import { Content, Header } from 'antd/es/layout/layout';
-import { UploadOutlined, UserOutlined, VideoCameraOutlined, StarFilled, HeartFilled, ProfileFilled, IdcardFilled, ShoppingFilled, PlusOutlined, EditFilled } from '@ant-design/icons';
+import { HomeFilled,UploadOutlined, UserOutlined, VideoCameraOutlined, StarFilled, HeartFilled, ProfileFilled, IdcardFilled, ShoppingFilled, PlusOutlined, EditFilled } from '@ant-design/icons';
 import './menu.css';
 
 const MenuBar = () => {
@@ -15,7 +15,7 @@ const MenuBar = () => {
     const location = useLocation();
     const { id } = location.state || {};
     const handleMenuClick = (key: React.SetStateAction<string>) => {
-        setSelectedKey(key);
+        setSelectedKey('unselected');
         navigate(`/${key}`,{state:{id : id}});
     };
   return (
@@ -28,6 +28,10 @@ const MenuBar = () => {
                         <Menu.Item key={'editprofile'} onClick={() => handleMenuClick('profile/editprofile')}>
                             <EditFilled />
                             <span>EditProfile</span>
+                        </Menu.Item>
+                        <Menu.Item key={'editAddress'} onClick={() => handleMenuClick('profile/editaddress')}>
+                            <HomeFilled />
+                            <span>EditAddress</span>
                         </Menu.Item>
                         <Menu.Item key={'wishlist'} onClick={() => handleMenuClick('profile/wishlist')}>
                             <HeartFilled />

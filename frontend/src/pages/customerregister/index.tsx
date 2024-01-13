@@ -1,5 +1,5 @@
 import React, { CSSProperties, useState } from 'react';
-import { Button, Checkbox, Form, Image, Input, Radio, Steps, DatePicker, } from 'antd';
+import { Button, Checkbox, Form, Image, Input, Radio, Steps, } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import bg from '../../assets/3bears.jpg';
 import Headbar from '../../component/headbarlogo';
@@ -35,7 +35,7 @@ const CustomerRegister = () => {
         flexDirection: 'column',
         marginLeft: 'auto',
         justifyContent: 'center',
-        textAlign:'center',
+        textAlign: 'center',
     };
 
     const formStyle: CSSProperties = {
@@ -57,9 +57,22 @@ const CustomerRegister = () => {
     };
 
     const handleSubmit = (values: any) => {
+        const userData = { ...data, ...values };
+        setData({ ...userData, ...values });
+        setCurrentStep((prevStep) => prevStep + 1);
+    };
+    const [defaultValue, setDefaultValue] = React.useState(0);
+
+    const handleChange = (e: { target: { checked: any; }; }) => {
+        const newValue = e.target.checked ? 1 : 0;
+        setDefaultValue(newValue);
+    };
+
+    const handleLast = (values: any) => {
         const allData = { ...data, ...values };
-        console.log(allData);
-        navigate("/",{})
+        setData({ ...allData, ...values });
+        console.log(allData)
+        console.log(values)
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -114,8 +127,8 @@ const CustomerRegister = () => {
                         <Form.Item
                             label="Date of Birth"
                             name="dateofbirth"
-                            rules={[{ required: true, message: 'Please input your username!' }]}>
-                            <DatePicker status="error" style={{ width: '100%' }} />
+                            rules={[{ required: true, message: 'Please input your Date of Birth!' }]}>
+                            <Input placeholder='00D/00M/0000Y' />
                         </Form.Item>
                         <Form.Item
                             name="agreement"
@@ -177,13 +190,6 @@ const CustomerRegister = () => {
                         >
                             <Input />
                         </Form.Item>
-                        <Form.Item 
-                        label="Address: "
-                        name="address"
-                            rules={[{ required: true, message: 'Enter your Address!' }]}
-                        >
-                            <TextArea rows={4} />
-                        </Form.Item>
                         <Form.Item
                             label="Gender"
                             name="gender"
@@ -196,6 +202,84 @@ const CustomerRegister = () => {
                                     <Radio value="PF"> Prefer not to say </Radio>
                                 </Radio.Group>
                             </div>
+                        </Form.Item>
+                        <Form.Item style={{ textAlign: 'center' }}>
+                            <Button
+                                type="primary"
+                                htmlType="submit"
+                                style={{ flex: 1, backgroundColor: '#003d29', color: '#fff', marginLeft: '20px' }}
+                            >
+                                Next
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </div>
+            ),
+        },
+        {
+            title: 'Step 3',
+            content: (
+                <div style={{ flexDirection: 'column', display: 'flex', marginTop: '30px' }}>
+                    <h1 style={{ fontSize: '32px' }}>Enter Your Address!</h1>
+                    <span>For shipping</span>
+                    <Form
+                        name="Address"
+                        initialValues={{ remember: true }}
+                        onFinish={(values) => handleLast(values)}
+                        onFinishFailed={onFinishFailed}
+                        form={form}
+                        style={formStyle}
+                        labelCol={{ span: 8 }}
+                    >
+                        <Form.Item
+                            label="Fullname:"
+                            name="fullname"
+                            rules={[{ required: true, message: 'Enter your Fullname!' }]}
+                        >
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                            label="Contact:"
+                            name="contactreciver"
+                            rules={[{ required: true, message: 'Enter your Contact!' }]}
+                        >
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                            label="Address"
+                            name="address"
+                            rules={[{ required: true, message: 'Enter your Address!' }]}
+                        >
+                            <Input />
+                        </Form.Item>
+
+                        <Form.Item
+                            label="Province"
+                            name="province"
+                            rules={[{ required: true, message: 'Enter your Province!' }]}
+                        >
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                            label="District"
+                            name="district"
+                            rules={[{ required: true, message: 'Enter your District!' }]}
+                        >
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                            label="Postcode"
+                            name="postcode"
+                            rules={[{ required: true, message: 'Enter your Postcode!' }]}
+                        >
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                            name="default" getValueFromEvent={(e) => (e.target.checked ? 1 : 0)} valuePropName="checked"
+                        >
+                            <Checkbox onChange={handleChange}>
+                                <span>ตั้งเป็นที่อยู่เริ่มต้น</span>
+                            </Checkbox>
                         </Form.Item>
                         <Form.Item style={{ textAlign: 'center' }}>
                             <Button

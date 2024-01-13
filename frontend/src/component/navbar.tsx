@@ -45,8 +45,9 @@ const Navbar = () => {
     };
 
     const goRegister = () => {
-        navigate(`/register`);
+        navigate(`/profile`);
     }
+    
 
     return (
         <>

@@ -17,6 +17,7 @@ import PaymentPage from './pages/PaymentPage/PaymentPage'
 import Admin from './pages/admin';
 
 import './App.css';
+import EditAddress from './pages/profile/EditAddress';
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
         <Route path="/cart"      Component={CartPage} />
         <Route path="/profile/wishlist"      Component={WishlistPage} />
         <Route path="/profile/purchase"      Component={PurchasePage} />
+        <Route path="/profile/editAddress"      Component={EditAddress} />
         <Route path="/login"      Component={LoginPage} />
         <Route path="/payment"      Component={PaymentPage} />
       </Routes>

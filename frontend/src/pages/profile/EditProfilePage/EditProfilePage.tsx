@@ -112,6 +112,12 @@ const EditProfilePage = () => {
                   name="contact"
                   rules={[{ required: true, message: 'Please input your contact!' }]}>
                   <Input />
+                  </Form.Item>
+                  <Form.Item
+                  label="Email"
+                  name="email"
+                  rules={[{ required: true, message: 'Please input your Email!' }]}>
+                  <Input />
                 </Form.Item>
                 <Form.Item label="Gender: ">
                   <Radio.Group>
@@ -124,10 +130,7 @@ const EditProfilePage = () => {
                   label="Date of Birth"
                   name="dateofbirth"
                   rules={[{ required: true, message: 'Please input your username!' }]}>
-                  <DatePicker status="error" style={{ width: '100%' }} />
-                </Form.Item>
-                <Form.Item label="Address: ">
-                  <TextArea rows={4} />
+                  <Input placeholder='00D/00M/0000Y'/>
                 </Form.Item>
                 <Form.Item style={{ textAlign: 'end', }}>
                   <Button type="primary" htmlType="submit" style={{ alignItems: 'center', flex: 1, backgroundColor: '#003d29', color: '#fff' }}>

@@ -9,7 +9,6 @@ import MenuBar from "./Menu"
 import { Content, Header } from 'antd/es/layout/layout';
 import { UploadOutlined, UserOutlined, VideoCameraOutlined, StarFilled, HeartFilled, ProfileFilled, IdcardFilled, ShoppingFilled, PlusOutlined, EditFilled } from '@ant-design/icons';
 
-
 const Profile = () => {
     const contentStyle: CSSProperties = {
         backgroundColor: '#D9E2D9',
@@ -18,6 +17,10 @@ const Profile = () => {
         alignItems: 'center',
         justifyContent: 'space-around'
     };
+    const infomationStyle: CSSProperties = {
+        display: 'flex',
+        flexDirection: 'column',
+    }
     const formStyle: CSSProperties = {
         width: '600px',
         maxWidth: '1000px',
@@ -32,7 +35,25 @@ const Profile = () => {
     const { id } = location.state || {};
     const [componentDisabled, setComponentDisabled] = useState<boolean>(true);
     const { TextArea } = Input;
-
+    interface userDataType {
+        firstname: string
+        lastname: string
+        contact: string
+        gender: string
+        dateofbirth: string
+        address: string
+    }
+    const users: userDataType[] = [
+        {
+            firstname: 'John',
+            lastname: 'Forn',
+            contact: '123-456-7890',
+            gender: 'Male',
+            dateofbirth: '1990-01-01',
+            address: '123 Main St',
+        },
+    ]
+    const user = users[0];
 
     return (
         <>
@@ -50,12 +71,24 @@ const Profile = () => {
                         console.log(collapsed, type);
                     }}
                 >
-                <MenuBar/>
+                    <MenuBar />
                 </Sider>
                 <Layout>
                     <Content style={{ margin: '24px 24px 24px' }}>
                         <div style={contentStyle}>
-                            Display Profile
+                            <div style={infomationStyle}>
+                                Display Profile Picture
+                                <span>FirstName: {user.firstname}</span>
+                                <span>LastName: {user.lastname} </span>
+                                <span>Contact: {user.contact}</span>
+                                <span>Date of Birth: {user.dateofbirth}</span>
+                                <span>
+                                    Address:
+                                    <TextArea rows={4} disabled style={{ pointerEvents: 'none' }}>
+                                        {user.address}
+                                    </TextArea>
+                                </span>
+                            </div>
                         </div>
                     </Content>
                 </Layout>
