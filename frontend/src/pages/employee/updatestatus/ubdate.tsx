@@ -244,8 +244,8 @@ const Updatestatus = () =>  {
                                 </Select>
                             </Row>
 
-                            {Array.from({ length: inputCount }, (_, index) => (
-                                <Row key={index}>
+                            
+                                <Row >
                                     <Input
                                         placeholder={`Track Number `} //+เพิ่ม ${index + 1}
                                         style={{
@@ -260,7 +260,7 @@ const Updatestatus = () =>  {
                                         disabled={status < 3}
                                     />
                                 </Row>
-                            ))}
+                            
                         </Card>
                     </Col>
                 </Row>

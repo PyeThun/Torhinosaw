@@ -10,6 +10,7 @@ import Updatestatus from './pages/employee/updatestatus/ubdate';
 import Manageproduct from './pages/employee/manageproduct/manageproduct';
 import Buying from './pages/buying/buying';
 import Home from './pages/shop/home';
+import ManageOder from './pages/employee/updatestatus/odermange';
 
 function App() {
   return (<>
@@ -24,6 +25,7 @@ function App() {
         <Route path='/productadd' Component={ProductAdd}/>
         <Route path='/updatestatus' Component={Updatestatus}/>
         <Route path='/product_management' Component={Manageproduct}/>
+        <Route path='/Order_management' Component={ManageOder}/>
         <Route path='/buying' Component={Buying}/>
         <Route path='/shopping' Component={Home}/>
       </Routes>

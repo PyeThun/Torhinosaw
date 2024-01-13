@@ -12,33 +12,84 @@ import {
   Upload,
   Select,
   Modal,
+  InputNumber,
+  
+  
 } from "antd";
 import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-
-
-
+import  Navbar  from '../../../../component/navbar'
+import  Headerbarlogo  from '../../../../component/headbarlogo'
 import { InboxOutlined } from '@ant-design/icons';
 import TextArea from "antd/es/input/TextArea";
 //import 'antd/dist/antd.css';
+import "./style.css";
+import { ProductTypeInterface } from "../../../../interfaces/ProductType";
+import { ProductInterface } from "../../../../interfaces/IProduct";
+import { CreateProduct, GetProductType } from "../../../../services/http_product";
+import { ImageUpload } from "../../../../interfaces/IUpload";
 
+const { Option } = Select;
 
-const ProductEdit= () => {
-  
+const ProductEdit = () => {
+
+  const navigate = useNavigate();
+  const [messageApi, contextHolder] = message.useMessage();
+  const [producttype, setProductType] = useState<ProductTypeInterface[]>([])
+  const [profile, setProfile] = useState<ImageUpload>()
+  const [photo, setPhoto] = useState<ImageUpload>()
+
   const [form] = Form.useForm();
- 
-  const onFinish = (values: any) => {
-     console.log('Received values of form: ', values);
+  const onFinish = async (values: ProductInterface) => {
+    console.log('Form values:', values);
+    values.Profile = profile?.thumbUrl;
+    values.Photo = photo?.thumbUrl;
+  console.log(values.Photo); // แสดงค่าทั้งหมดที่ได้จากฟอร์มใน console log
+  let res = await CreateProduct(values);
+  if (res.status) {
+    messageApi.open({
+      type: "success",
+      content: "บันทึกข้อมูลสำเร็จ",
+    });
+    setTimeout(function () {
+      navigate("/manageproduct");
+    }, 2000);
+  } else {
+    messageApi.open({
+      type: "error",
+      content: "บันทึกข้อมูลไม่สำเร็จ",
+    });
+  }
+};
+
+const normFile = (e: any) => {
+  if (Array.isArray(e)) {
+    return e;
+  }
+  setProfile(e?.fileList[0])
+  return e?.fileList;
+};
+
+const normFile2 = (e: any) => {
+  if (Array.isArray(e)) {
+    return e;
+  }
+  setPhoto(e?.fileList[0])
+  return e?.fileList;
+};
+      
+  const getProductType = async () => {
+    let res = await GetProductType();
+    if (res) {
+      setProductType(res);
+    }
   };
 
-  const normFile = (e: any) => {
-     console.log('Upload event:', e);
-     if (Array.isArray(e)) {
-       return e;
-     }
-     return e && e.fileList;
-  };
- 
+  useEffect(() => {
+    getProductType();
+  }, []);
+
+
   const onFinishFailed = (errorInfo: any) => {
      console.log('Errors:', errorInfo);
   };
@@ -48,17 +99,24 @@ const ProductEdit= () => {
 
   
   return (
-    <Card>
+    <div>
+    {contextHolder}
+    <Headerbarlogo/>
+    <Navbar/>
+
      <Form
        form={form}
        onFinish={onFinish}
        onFinishFailed={onFinishFailed}
+       
      >
-      <Card>
-         <h1>
-            ADD PRODUCT
-          </h1>
-      
+      <Card style={{
+                      margin: '20px'
+                  }}>
+                    <h1 >
+                        ADD PRODUCT 
+                    </h1>
+
       <Row gutter={16}>
         
         
@@ -66,47 +124,33 @@ const ProductEdit= () => {
             <li style={{ marginBottom: '16px'}}>
             UploadPhoto
             </li>
-            
+            {/* <Form.Item
+                label="รูป"
+                name="Profile"
+                valuePropName="fileList"
+                getValueFromEvent={normFile}
+              
+              >
+                <Upload maxCount={1} multiple={false} listType="picture-card">
+                  <div>
+                    <PlusOutlined />
+                    <div style={{ marginTop: 8 }}>อัพโหลด</div>
+                  </div>
+                </Upload>
+              </Form.Item> */}
             <Form.Item
-              name="Profile1"
-              valuePropName="fileList1"
-              getValueFromEvent={normFile}
+            label=""
+              name="Photo"
+              valuePropName="fileList"
+              getValueFromEvent={normFile2}
             >
-              <Upload maxCount={1} multiple={false} listType="picture-card" style={{  width: '200px', height: '200px' }} >
-                <div>
-                  <PlusOutlined />
-                  <div style={{ marginTop: 8 }}>อัพโหลด</div>
-                </div>
-              </Upload>
-              <Modal footer={null}>
-                <img alt="Preview" style={{ width: '150%' }} />
-              </Modal>
-            </Form.Item>
-            <Form.Item
-              name="Profile2"
-              valuePropName="fileList2"
-              getValueFromEvent={normFile}
-            >
-              <Upload maxCount={1} multiple={false} listType="picture-card" style={{ marginLeft: '0px'}} >
-                <div>
-                  <PlusOutlined />
-                  <div style={{ marginTop: 8 }}>อัพโหลด</div>
-                </div>
-              </Upload>
-            </Form.Item>
-            <Form.Item
-              name="Profile3"
-              valuePropName="fileList3"
-              getValueFromEvent={normFile}
-            >
-              <Upload maxCount={1} multiple={false} listType="picture-card" style={{ marginLeft: '0px'}} >
+              <Upload maxCount={1} multiple={false} listType="picture-card">
                 <div>
                   <PlusOutlined />
                   <div style={{ marginTop: 8 }}>อัพโหลด</div>
                 </div>
               </Upload>
             </Form.Item>
-          
         </Col>
         
         
@@ -114,8 +158,8 @@ const ProductEdit= () => {
        
         
           <Form.Item
-            // label="Product name"
-            name="productName"
+            
+            name="Name"
             rules={[{ required: true, message: 'Please input the product name!' }]}
           >
             <Input placeholder="Product name"  style={{ backgroundColor: '#D9E2D9', fontSize: '20px', height: '60px' }} />
@@ -124,30 +168,52 @@ const ProductEdit= () => {
           
 
           <Form.Item
-            name="productCost"
+            name="Cost"
             rules={[{ required: true, message: 'Please input the product cost!' }]}
           >
-            <Input placeholder="Product cost"  style={{ backgroundColor: '#D9E2D9', fontSize: '20px', height: '60px' }}/>
+            <InputNumber placeholder="Product Cost" style={{ backgroundColor: '#D9E2D9', fontSize: '20px', height: '60px' , width:'50%'}} />
+          </Form.Item>
+
+          <Form.Item
+            name="Quantity"
+            rules={[{ required: true, message: 'Please input the product quantity!' }]}
+          >
+            <InputNumber placeholder="Product quantity" style={{ backgroundColor: '#D9E2D9', fontSize: '20px', height: '60px' , width:'50%'}} />
+          </Form.Item>
+          
+          <Form.Item
+            name="Color"
+            rules={[{ required: true, message: 'Please input the product color!' }]}
+          >
+            <Input placeholder="Product color" style={{ backgroundColor: '#D9E2D9', fontSize: '20px', height: '60px' , width:'100%'}} />
           </Form.Item>
     
           <Form.Item
-            name="productBrand"
+            name="Brand"
             rules={[{ required: true, message: 'Please input the product brand!' }]}
           >
             <Input  placeholder="Product brand"  style={{ backgroundColor: '#D9E2D9', fontSize: '20px', height: '60px' }}/>
           </Form.Item>
     
           <Form.Item
-            
-            name="productType"
-            rules={[{ required: true, message: 'Please input the product type!' }]}
+            name="ProductTypeID"
+            rules={[{ required: true, message: 'Please select the product type!' }]}
           >
-            <Input placeholder="Product type"  style={{ backgroundColor: '#D9E2D9', fontSize: '20px', height: '60px' }}/>
+            <Select
+              allowClear
+              placeholder="ProductTypeID"
+              style={{ color: '#D9E2D9', fontSize: '60px', height: '60px' }}
+              dropdownStyle={{ backgroundColor: '#D9E2D9' }}
+            >
+              {producttype.map((item) => (
+                    <Option  value={item.ID} key={item.ID}>{item.Name}</Option>
+              ))}
+            </Select>
           </Form.Item>
           
           <Form.Item
             //  label="Sent from"
-            name="sentFrom"
+            name="Sentfrom"
             rules={[{ required: true, message: 'Please input the sending location!' }]}
           >
             <Input placeholder="Sent from"  style={{ backgroundColor: '#D9E2D9', fontSize: '20px', height: '60px' }}/>
@@ -164,26 +230,26 @@ const ProductEdit= () => {
         <Divider/>
         <Form.Item 
           // label="TextArea"
-          name="detail"
+          name="Details"
           rules={[{ required: true, message: 'Please input the sending location!' }]}
           >
             
             
             <TextArea rows={10} placeholder="detail" style={{ backgroundColor: '#D9E2D9' , width: '100%',fontSize: '20px'}} />
           </Form.Item>
-          {/* <Form.Item
-            name="detail"
-            rules={[{ required: true, message: 'Please input the sending location!' }]}
-          >
-            <Input placeholder="detail" style={{ backgroundColor: '#D9E2D9' }}/>
-          </Form.Item> */}
+
         </Col>    
         </Row>
         <Row justify="end">
-        <Col style={{ marginTop: "40px" }}>
+          <Col style={{ marginTop: "40px" }}>
                 <Form.Item>
                   <Space>
-                    <Button type="primary" htmlType="button" style={{ marginRight: "10px", backgroundColor: '#5A8242' }}>
+                    <Button
+                      type="primary"
+                      htmlType="button"
+                      style={{ marginRight: "10px", backgroundColor: '#5A8242' }}
+                      onClick={() => navigate('/Productmanagement')}
+                    >
                       ยกเลิก
                     </Button>
                     <Button
@@ -196,14 +262,14 @@ const ProductEdit= () => {
                     </Button>
                   </Space>
                 </Form.Item>
-                </Col>
-              </Row>
+          </Col>
+        </Row>
       
  
       </Card>
-      </Form> 
-    </Card> 
+      </Form>
       
+      </div>
   );
  };
 
