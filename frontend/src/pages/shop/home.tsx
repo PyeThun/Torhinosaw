@@ -87,9 +87,10 @@ function Home(){
       ProductType: 	product.ProductType,
         Name: 			product.Name,
         Photo: 			product.Photo,
-        Price:      product.Cost
+        Price:      product.Cost,
+        ID:         product.ID,
     })) : [];
-   
+   // ใช้ตรงรีเทิน เป็น item.ID จะได้ ID เอาไปใส้พาด
 
     
 
@@ -130,7 +131,7 @@ function Home(){
                         borderRadius: '10px',
                       }}
                     />
-                    <div className="fonttext2">
+                    <div className="fonttext2shop">
                     {item.Price} ฿
                     </div>
                     

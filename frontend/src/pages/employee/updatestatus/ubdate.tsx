@@ -176,18 +176,13 @@ const Updatestatus = () =>  {
                     />
                 </Row>
                 <Row >
-                    <Col className="fonthead1">order place</Col>
-                    <Col className="fonthead2">order paid</Col>
-                    <Col className="fonthead3">order shipped out</Col>
-                    <Col className="fonthead4">to receive</Col>
-                    <Col className="fonthead5end">to rate</Col>
+                    <Col className="fonttextUpdate">order place</Col>
+                    <Col className="fonttextUpdate2">order paid</Col>
+                    <Col className="fonttextUpdate3">order shipped out</Col>
+                    <Col className="fonttextUpdate4">to receive</Col>
+                    <Col className="fonttextUpdate5">to rate</Col>
                 </Row>
                 <Row >
-                    <Col className="fonttext1">date and time</Col>
-                    <Col className="fonttext1">date and time</Col>
-                    <Col className="fonttext2">date and time</Col>
-                    <Col className="fonttext3">date and time</Col>
-                    <Col className="fonttext1end">date and time</Col>
                 </Row>
 
 

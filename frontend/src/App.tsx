@@ -23,7 +23,7 @@ function App() {
         {/* ***** Aum ******* */}
         <Route path='/productadd' Component={ProductAdd}/>
         <Route path='/updatestatus' Component={Updatestatus}/>
-        <Route path='/manageproduct' Component={Manageproduct}/>
+        <Route path='/product_management' Component={Manageproduct}/>
         <Route path='/buying' Component={Buying}/>
         <Route path='/shopping' Component={Home}/>
       </Routes>

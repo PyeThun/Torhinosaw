@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { UserOutlined, DashboardOutlined,BorderOuterOutlined , CopyOutlined} from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import {
@@ -6,13 +6,16 @@ import {
   Routes,
   Route,
   Link,
+  useNavigate,
 } from "react-router-dom";
 
-import { Breadcrumb, Layout, Menu, theme } from "antd";
+import { Breadcrumb, Card, Layout, List, Menu, message, theme } from "antd";
 import logo from "../../../assets/Tmocho.jpg";
 import { JSX } from "react/jsx-runtime";
 import  Navbar  from '../../../component/navbar'
 import  Headerbarlogo  from '../../../component/headbarlogo'
+import { CreateProduct, GetProduct } from "../../../services/http_product";
+import { ProductInterface } from "../../../interfaces/IProduct";
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -37,7 +40,9 @@ function getItem(
 const items: MenuItem[] = [
 ];
 
-const Manageproduct  = () =>{
+function Manageproduct(){
+
+  
   const page = localStorage.getItem("page");
   const [collapsed, setCollapsed] = useState(false);
   const {
@@ -48,6 +53,29 @@ const Manageproduct  = () =>{
     localStorage.setItem("page", val);
   };
 
+  const [messageApi, contextHolder] = message.useMessage();
+  const [product, setProduct] = useState<ProductInterface[]>([])
+  const getProducts = async () => {
+    let res = await GetProduct();
+    if (res) {
+      setProduct(res);
+    }
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  const navigate = useNavigate();
+
+  const data = Array.isArray(product) ? product.map((product) => ({
+    ProductType: 	product.ProductType,
+      Name: 			product.Name,
+      Photo: 			product.Photo,
+      Price:      product.Cost,
+      ID:         product.ID,
+  })) : [];
+  
   return (
       <>
       <Headerbarlogo/>
@@ -94,7 +122,39 @@ const Manageproduct  = () =>{
             </Menu.Item>
           </Menu>
         </Sider>
+        <Card>
+      {Array.isArray(product) ? (
+          <List
+            grid={{ gutter: 5, column: 1 }}
+            dataSource={data}
+            renderItem={(item) => (
+              <List.Item>  
+                  <img
+                      width={300}
+                      height={300}
+                      src={item.Photo}
+                      style={{
+                        imageRendering: "-webkit-optimize-contrast",
+                        backgroundColor: "transparent",
+                        margin: '25px',
+                        borderRadius: '10px',
+                      }}
+                    />
+                    <div className="fonttext2">
+                    {item.Price} ฿
+                    </div>
+                    
+                  
+                
+              </List.Item>
+            )}
+          />
+        ) : (
+          <p>No products available.</p>
+        )}
+        </Card>
       </Layout>
+
       </>
   );
 };

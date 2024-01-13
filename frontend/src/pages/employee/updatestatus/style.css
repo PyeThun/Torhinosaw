@@ -98,41 +98,44 @@
 
 
 
-.fonttextBoxtow{
+.fonttextUpdate{
     font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    margin-top: -1%;
-    margin-left: 3%;
+    font-size: 24px;
+    margin-top: 120px;
+    margin-left: 40px;
     margin-right: 5%;
     
 }
-.fonttextBoxtowTexth1{
+.fonttextUpdate2{
     font-family: 'Inter', sans-serif;
-    margin-top: 25%;
-    font-size: 20px;
-    margin-left: -20%; 
-    font-weight: 300; 
+    font-size: 24px;
+    margin-top: 120px;
+    margin-left: 35px;
+    margin-right: 5%;
+    
 }
-.fonttextBoxtowTexth2{
+.fonttextUpdate3{
     font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    margin-top: 5%;
-    line-height: 19px; 
-    margin-left: -20%; 
+    font-size: 24px;
+    margin-top: 120px;
+    margin-left: 20px;
+    margin-right: 5%;
+    
 }
-.fonttextBoxtowTexth3{
+.fonttextUpdate4{
     font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    margin-top: 5%;
-    line-height: 19px;
-    margin-left: -20%; 
-    color: #6D6D6D;
+    font-size: 24px;
+    margin-top: 120px;
+    margin-left: 20px;
+    margin-right: 5%;
+    
+}
+.fonttextUpdate5{
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    margin-top: 120px;
+    margin-left: 65px;
+  
+    
 }
 
-
-.fonttextBoxtowTexthstatus{
-    font-family: 'Inter', sans-serif;
-    font-size: 20px;
-    margin-left: 90%; 
-    color: #FF0000;
-}
