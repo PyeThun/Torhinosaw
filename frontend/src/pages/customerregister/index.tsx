@@ -1,10 +1,11 @@
-import React, { CSSProperties, useState } from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
 import { Button, Checkbox, Form, Image, Input, Radio, Steps, } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import bg from '../../assets/3bears.jpg';
 import Headbar from '../../component/headbarlogo';
 import Navbar from '../../component/navbar';
 import Footer from '../../component/PakComponent/Footer/Footer';
+import { CustomerInterface } from '../../interface/customerInterface';
 
 const CustomerRegister = () => {
     const contentStyle: CSSProperties = {
@@ -47,9 +48,14 @@ const CustomerRegister = () => {
     };
 
     const [form] = Form.useForm();
+    const [customer,setCustomer] = useState<CustomerInterface>({})
     const [data, setData] = useState({});
     const [currentStep, setCurrentStep] = useState(0);
     const navigate = useNavigate();
+    
+    useEffect(() => {
+        
+    }, []);
 
     const handleNext = (values: any) => {
         setData({ ...data, ...values });
