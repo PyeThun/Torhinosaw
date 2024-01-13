@@ -12,16 +12,31 @@ import (
 
 func CreateEmployee(c *gin.Context) {
 	var employee entity.Employee
+<<<<<<< HEAD
 	var emailCheck entity.Employee
 
+=======
+	// var emailCheck entity.Employee
+>>>>>>> f7273c34afea8de586c4a46a5ef68a6bc8627235
 
 	if err := c.ShouldBindJSON(&employee); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
+<<<<<<< HEAD
 	if tx := entity.DB().Where("email = ?", employee.Email).First(&emailCheck); !(tx.RowsAffected == 0) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "อีเมลนี้ถูกใช้ไปแล้ว"})
+=======
+	// if tx := entity.DB().Where("email = ?", employee.Email).First(&emailCheck); !(tx.RowsAffected == 0) {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "This email is used"})
+	// 	return
+	// }
+
+	hashPassword, err := bcrypt.GenerateFromPassword([]byte(employee.Password), 12)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "error hashing password"})
+>>>>>>> f7273c34afea8de586c4a46a5ef68a6bc8627235
 		return
 	}
 
@@ -33,11 +48,16 @@ func CreateEmployee(c *gin.Context) {
 		Phone:			 employee.Phone,
 		Department:		 employee.Department,
 	}
+<<<<<<< HEAD
 	// validate user
+=======
+
+>>>>>>> f7273c34afea8de586c4a46a5ef68a6bc8627235
 	if _, err := govalidator.ValidateStruct(newEmployee); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+<<<<<<< HEAD
 
 	// hashing after validate
 	hashPassword, err := bcrypt.GenerateFromPassword([]byte(newEmployee.Password), 12)
@@ -48,11 +68,15 @@ func CreateEmployee(c *gin.Context) {
 
 	newEmployee.Password = string(hashPassword)
 
+=======
+	newEmployee.Password = string(hashPassword)
+>>>>>>> f7273c34afea8de586c4a46a5ef68a6bc8627235
 	if err := entity.DB().Create(&newEmployee).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
+<<<<<<< HEAD
 	c.JSON(http.StatusOK, gin.H{"data": newEmployee})
 }
 
@@ -72,4 +96,8 @@ func DeleteEmployee(c *gin.Context) {
 	}
 	
 	c.JSON(http.StatusOK, gin.H{"data": id})
+=======
+	c.JSON(http.StatusOK, gin.H{"data": employee})
+
+>>>>>>> f7273c34afea8de586c4a46a5ef68a6bc8627235
 }
