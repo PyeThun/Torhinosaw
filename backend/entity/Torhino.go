@@ -133,7 +133,7 @@ type Employee struct {
 
 	Name			string		`valid:"required~Name is required"`
 	Username		string		`valid:"required~Username is required"`
-	Email			string		`gorm:"uniqueIndex" valid:"required~Email is required, email~Email is invalid"`
+	Email			string		`gorm:"uniqueIndex"`
 	Password		string		`valid:"required~Password is required"`
 	Phone           string		`valid:"required~Phone is required"`
 	Department		string		`valid:"required~Department is required"`

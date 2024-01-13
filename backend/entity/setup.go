@@ -38,5 +38,6 @@ func SetupDatabase() {
 
 	SetupStatus(db)
 	SetupProduct(db)
+	SetupEmployee(db)
 
 }

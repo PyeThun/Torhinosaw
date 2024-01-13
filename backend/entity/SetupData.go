@@ -52,7 +52,27 @@ func SetupProduct(database *gorm.DB) {
 		ProductTypeID: &pType1.ID,
 	}
 	database.Model(&Product{}).Create(&p1)
-	
 }
-	
+
+func SetupEmployee(database *gorm.DB) {
+	//Employee
+	e1 := Employee{
+		Name: "HoleeFuk",
+		Username: "Haiya",
+		Email: "Haiya@hotmail.com",
+		Password: "1234",
+		Phone: "044223000",
+		Department: "Restocker",
+	}
+	database.Model(&Employee{}).Create(&e1)
+	e2 := Employee{
+		Name: "A",
+		Username: "A",
+		Email: "A@hotmail.com",
+		Password: "4321",
+		Phone: "044223000",
+		Department: "Checkpayment",
+	}
+	database.Model(&Employee{}).Create(&e2)
+}
 

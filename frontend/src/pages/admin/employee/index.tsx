@@ -1,5 +1,7 @@
-import React, { CSSProperties, useState } from "react";
+import React, { CSSProperties, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { CreateEmployee, DeleteEmployee, GetEmployee } from "../../../services/http";
 
 import {
   Layout,
@@ -16,6 +18,7 @@ import {
   Col,
   Statistic,
   Card,
+  Modal,
 } from "antd";
 import type { MenuProps } from "antd";
 import type { ColumnsType } from "antd/es/table";
@@ -35,6 +38,7 @@ import {
   DollarOutlined,
   DatabaseOutlined,
 } from "@ant-design/icons";
+import { AdminInterface } from "../../../interfaces/admin";
 
 const { Header, Sider, Content } = Layout;
 const { Option } = Select;
@@ -42,6 +46,25 @@ const { Option } = Select;
 const Employee = () => {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
+  const [employee, setEmployee] = React.useState<AdminInterface[]>([]);
+  const employeeCount = employee.length;
+  const restockerCount = employee.filter(
+    (emp) => emp.Department === "Restocker"
+  ).length;
+  const CheckpaymentCount = employee.filter(
+    (emp) => emp.Department === "Checkpayment"
+  ).length;
+
+  //data
+  const getEmployee = async () => {
+    let res = await GetEmployee();
+    if (res) {
+      setEmployee(res);
+    }
+  };
+  useEffect(() => {
+    getEmployee();
+  }, []);
 
   const headerStyle: CSSProperties = {
     textAlign: "center",
@@ -71,92 +94,67 @@ const Employee = () => {
     height: "100%",
   };
   //table
-  interface Employee {
-    key: React.Key;
-    employeeid: string;
-    name: string;
-    username: string;
-    password: string;
-    email: string;
-    phone: string;
-    department: string;
-  }
-  const columns: ColumnsType<Employee> = [
+  const columns: ColumnsType<AdminInterface> = [
     {
       title: "ID",
-      dataIndex: "employeeid",
-      width: "3%",
+      dataIndex: "ID",
+      width: "8%",
     },
     {
       title: "Name",
-      dataIndex: "name",
+      dataIndex: "Name",
       width: "15%",
     },
     {
       title: "Username",
-      dataIndex: "username",
+      dataIndex: "Username",
       width: "12%",
     },
     {
       title: "Password",
-      dataIndex: "password",
+      dataIndex: "Password",
       width: "12%",
     },
     {
       title: "Email",
-      dataIndex: "email",
+      dataIndex: "Email",
       width: "15%",
     },
     {
       title: "Phone",
-      dataIndex: "phone",
+      dataIndex: "Phone",
       width: "8%",
     },
     {
       title: "Department",
-      dataIndex: "department",
-      filters: [
+      dataIndex: "Department",
+      filters:[
         { text: "Restocker", value: "Restocker" },
         { text: "Checkpayment", value: "Checkpayment" },
       ],
-      onFilter: (value, record) => record.department === value,
-      width: "6%",
+      onFilter: (value, record) => record.Department === value,
+      width: "8%",
     },
     {
       title: "",
       width: "5%",
       render: (text, record) => (
-        <Dropdown menu={{ items }} trigger={["click"]}>
-          <a onClick={(e) => e.preventDefault()}>
-            <Space>
-              <MoreOutlined style={{ color: "black" }} />
-            </Space>
-          </a>
+        <Dropdown
+          overlay={
+            <Menu onClick={(e) => handleMenuClick(record, e)}>
+              <Menu.Item key="edit" icon={<EditOutlined />}>
+                Edit
+              </Menu.Item>
+              <Menu.Item key="delete" icon={<DeleteOutlined />}>
+                Delete
+              </Menu.Item>
+            </Menu>
+          }
+          trigger={['click']}
+        >
+          <MoreOutlined style={{ cursor: 'pointer', fontSize: '18px' }} />
         </Dropdown>
-      ),
-    },
-  ];
-  //feature
-
-  //menu table
-  const items: MenuProps["items"] = [
-    {
-      label: (
-        <a>
-          <EditOutlined />
-          Edit
-        </a>
-      ),
-      key: "0",
-    },
-    {
-      label: (
-        <a>
-          <DeleteOutlined />
-          Delete
-        </a>
-      ),
-      key: "1",
+        ),
     },
   ];
 
@@ -178,31 +176,69 @@ const Employee = () => {
     fontSize: "20px",
     fontWeight: "500",
   };
-  //CreateEmployee
+  
+  //Create
+  const [form] = Form.useForm();
+  const clearForm = () => {
+    form.resetFields();
+  };
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
     setOpen(true);
   };
-
   const onClose = () => {
     setOpen(false);
   };
+  const createEmployee = async () => {
+    try {
+      const values = await form.validateFields();
+      const success = await CreateEmployee(values);
+  
+      if (success) {
+        getEmployee();
+        onClose();
+        clearForm();
+      }
+    } catch (errorInfo) {
+      console.log("Failed:", errorInfo);
+    }
+  };
+  //DeleteAndEdit
+  const { confirm } = Modal;
 
-  //sample
-  const data: Employee[] = [];
-  for (let i = 0; i < 100; i++) {
-    data.push({
-      key: i,
-      employeeid: `${i}`,
-      name: "example name",
-      username: "p",
-      password: "1234",
-      email: "p@1234.com",
-      phone: "621566545",
-      department: "Restocker",
+  const handleMenuClick = (record: AdminInterface, e: { key: string }) => {
+    if (e.key === 'edit') {
+      
+    } else if (e.key === 'delete') {
+      
+      DeleteConfirm(record.ID);
+    }
+  };
+  
+  const DeleteConfirm = (employeeID: number) => {
+    Modal.confirm({
+      title: 'Confirm Deletion',
+      content: 'Are you sure you want to delete this employee?',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk: () => {
+        deleteEmployee(employeeID);
+      },
     });
-  }
+  };
+  
+  const deleteEmployee = async (employeeID: number) => {
+    try {
+      const success = await DeleteEmployee(employeeID);
+      if (success) {
+        getEmployee();
+      }
+    } catch (error) {
+      console.error('Delete failed:', error);
+    }
+  };
   return (
     <Layout style={layoutStyle}>
       <Sider
@@ -296,44 +332,50 @@ const Employee = () => {
           }}
         />
         <Header style={headerStyle}>
-        <div style={{ marginTop: "50px"}}>
-          <Row gutter={150}>
-            <Col span={8}>
-              <Card bordered={false} style={{backgroundColor: "#D9E2D9",width: "200px"}}>
-                <Statistic
-                  title="Employee"
-                  value={2}
-                  valueStyle={{  }}
-                  prefix={<TeamOutlined />}
+          <div style={{ marginTop: "50px" }}>
+            <Row gutter={150}>
+              <Col span={8}>
+                <Card
+                  bordered={false}
+                  style={{ backgroundColor: "#D9E2D9", width: "200px" }}
+                >
+                  <Statistic
+                    title="Employee"
+                    value={employeeCount}
+                    prefix={<TeamOutlined />}
                   />
-              </Card>
-            </Col>
-            <Col span={8}>
-              <Card bordered={false} style={{backgroundColor: "#D9E2D9",width: "200px"}}>
-                <Statistic
-                  title="Restocker"
-                  value={1}
-                  valueStyle={{ }}
-                  prefix={<DatabaseOutlined />}
-                />
-              </Card>
-            </Col>
-            <Col span={8}>
-              <Card bordered={false} style={{backgroundColor: "#D9E2D9",width: "200px"}}>
-                <Statistic
-                  title="Checkpayment"
-                  value={0}
-                  valueStyle={{  }}
-                  prefix={<DollarOutlined />}
+                </Card>
+              </Col>
+              <Col span={8}>
+                <Card
+                  bordered={false}
+                  style={{ backgroundColor: "#D9E2D9", width: "200px" }}
+                >
+                  <Statistic
+                    title="Restocker"
+                    value={restockerCount}
+                    prefix={<DatabaseOutlined />}
                   />
-              </Card>
-            </Col>
-          </Row>
+                </Card>
+              </Col>
+              <Col span={8}>
+                <Card
+                  bordered={false}
+                  style={{ backgroundColor: "#D9E2D9", width: "200px" }}
+                >
+                  <Statistic
+                    title="Checkpayment"
+                    value={CheckpaymentCount}
+                    prefix={<DollarOutlined />}
+                  />
+                </Card>
+              </Col>
+            </Row>
           </div>
         </Header>
         <Content>
           <div style={contentStyle}>
-            <div style={{ marginLeft: "1400px", marginBottom: "10px" }}>
+            <div style={{ marginBottom: "10px" }}>
               <Button
                 type="primary"
                 onClick={showDrawer}
@@ -355,9 +397,12 @@ const Employee = () => {
               }}
               extra={
                 <Space>
+                  <Button type="link" block onClick={clearForm}>
+                    clear
+                  </Button>
                   <Button onClick={onClose}>Cancel</Button>
                   <Button
-                    onClick={onClose}
+                    onClick={createEmployee}
                     type="primary"
                     style={{ backgroundColor: "#003D06", color: "#D9E2D9" }}
                   >
@@ -366,7 +411,7 @@ const Employee = () => {
                 </Space>
               }
             >
-              <Form layout="vertical" hideRequiredMark>
+              <Form form={form} layout="vertical" hideRequiredMark>
                 <Row gutter={16}>
                   <Col span={12}>
                     <Form.Item
@@ -418,18 +463,20 @@ const Employee = () => {
                   </Col>
                 </Row>
                 <Row gutter={16}>
-                  <Form.Item
-                    name="Phone"
-                    label="Phone"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please enter phone number",
-                      },
-                    ]}
-                  >
-                    <Input placeholder="Please enter phone number" />
-                  </Form.Item>
+                  <Col span={12}>
+                    <Form.Item
+                      name="Phone"
+                      label="Phone"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please enter phone number",
+                        },
+                      ]}
+                    >
+                      <Input placeholder="Please enter phone number" />
+                    </Form.Item>
+                  </Col>
                   <Col span={12}>
                     <Form.Item
                       name="Department"
@@ -452,7 +499,7 @@ const Employee = () => {
             </Drawer>
             <Table
               columns={columns}
-              dataSource={data}
+              dataSource={employee}
               //   pagination={{ pageSize: 50 }}
               scroll={{ y: 550 }}
             />
