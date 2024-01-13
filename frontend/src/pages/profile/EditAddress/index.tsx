@@ -20,14 +20,14 @@ const EditAddress = () => {
         flexDirection: 'column',
         margin:'24px 24px 24px 24px'
     };
-  const formStyle: CSSProperties = {
-    width: '600px',
-    maxWidth: '1000px',
-    margin: '0 auto',
-    marginTop: '20px',
-    textAlign: 'left',
-
-  };
+    const formStyle: CSSProperties = {
+        width: '600px',
+        maxWidth: '1000px',
+        margin: '0 auto',
+        marginTop: '20px',
+        textAlign: 'left',
+    
+      };
   const [defaultValue, setDefaultValue] = React.useState(0);
 
     const handleChange = (e: { target: { checked: any; }; }) => {
@@ -87,8 +87,22 @@ const EditAddress = () => {
                         onFinishFailed={onFinishFailed}
                         form={form}
                         style={formStyle}
-                        labelCol={{ span: 8 }}
+                        labelCol={{ span: 4 }}
                     >
+                        <Form.Item
+                            label="Fullname:"
+                            name="fullname"
+                            rules={[{ required: true, message: 'Enter your Fullname!' }]}
+                        >
+                            <Input />
+                        </Form.Item>
+                        <Form.Item
+                            label="Contact:"
+                            name="contactreciver"
+                            rules={[{ required: true, message: 'Enter your Contact!' }]}
+                        >
+                            <Input />
+                        </Form.Item>
                         <Form.Item
                             label="Address"
                             name="address"
@@ -118,7 +132,7 @@ const EditAddress = () => {
                             <Input />
                         </Form.Item>
                         <Form.Item
-                            name="default" getValueFromEvent={(e) => (e.target.checked ? 1 : 0)} valuePropName="checked"
+                            name="default" getValueFromEvent={(e) => (e.target.checked ? 1 : 0)} valuePropName="checked" style={{textAlign:'end'}}
                         >
                             <Checkbox onChange={handleChange}>
                                 <span>ตั้งเป็นที่อยู่เริ่มต้น</span>

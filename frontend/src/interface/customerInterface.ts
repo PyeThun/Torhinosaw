@@ -1,4 +1,7 @@
-// import { Address } from "./address";
+import {Address} from "./address";
+import {Cart} from "./cart";
+import { Wishlist } from "./wishlist";
+
 
 export interface CustomerInterface {
 
@@ -6,13 +9,15 @@ export interface CustomerInterface {
     Email?: string;
     FirstName?: string;
     LastName?: string;
-    // Dateofbirth?: Time;
+    Dateofbirth?:Date;
+    Gender?:string;
+    Contact?:string;
     Username?: string;
     Password?: string;
 
     //fk
-    // Addresses?: Address;
-    // Wishlists?: Wishlist;
-    // Carts?: Cart;
+    Addresses?: Address;
+    Wishlists?: Wishlist;
+    Carts?: Cart;
 
   }

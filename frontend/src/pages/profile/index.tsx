@@ -39,6 +39,7 @@ const Profile = () => {
         firstname: string
         lastname: string
         contact: string
+        email: string
         gender: string
         dateofbirth: string
         address: string
@@ -48,7 +49,8 @@ const Profile = () => {
             firstname: 'John',
             lastname: 'Forn',
             contact: '123-456-7890',
-            gender: 'Male',
+            email:'johnforn@gmail.com',
+            gender: 'Female',
             dateofbirth: '1990-01-01',
             address: '123 Main St',
         },

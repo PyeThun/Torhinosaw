@@ -29,6 +29,39 @@ const EditProfilePage = () => {
 
   };
 
+  interface userDataType {
+    firstname: string
+    lastname: string
+    contact: string
+    email: string
+    gender: string
+    dateofbirth: string
+    address: string
+}
+const users: userDataType[] = [
+    {
+        firstname: 'John',
+        lastname: 'Forn',
+        contact: '123-456-7890',
+        email:'johnforn@gmail.com',
+        gender: 'Female',
+        dateofbirth: '1990-01-01',
+        address: '123 Main St',
+    },
+]
+const user = users[0];
+
+  const getGender = () => {
+    if (user.gender==='Male') {
+      return 'Male';
+    }
+    else if (user.gender==='Female') {
+      return 'Female';
+    }
+    else {
+      return 'PF';
+    }
+  }
 
   const [data, setData] = useState({});
   const [form] = Form.useForm();
@@ -43,9 +76,6 @@ const EditProfilePage = () => {
   };
 
   const history = useLocation();
-  const [componentDisabled, setComponentDisabled] = useState<boolean>(true);
-  const { RangePicker } = DatePicker;
-  const { TextArea } = Input;
   const normFile = (e: any) => {
     if (Array.isArray(e)) {
       return e;
@@ -80,7 +110,6 @@ const EditProfilePage = () => {
                 onFinish={handleSubmit}
                 onFinishFailed={onFinishFailed}
                 initialValues={{ remember: true }}
-                disabled={componentDisabled}
                 form={form}
                 style={formStyle}
                 labelCol={{ span: 4 }}
@@ -99,28 +128,28 @@ const EditProfilePage = () => {
                   label="FirstName"
                   name="firstname"
                   rules={[{ required: true, message: 'Please input your firstname!' }]}>
-                  <Input />
+                  <Input defaultValue={user.firstname}/>
                 </Form.Item>
                 <Form.Item
                   label="LastName"
                   name="lastname"
                   rules={[{ required: true, message: 'Please input your lastname!' }]}>
-                  <Input />
+                  <Input defaultValue={user.lastname}/>
                 </Form.Item>
                 <Form.Item
                   label="Contact"
                   name="contact"
                   rules={[{ required: true, message: 'Please input your contact!' }]}>
-                  <Input />
+                  <Input defaultValue={user.contact}/>
                   </Form.Item>
                   <Form.Item
                   label="Email"
                   name="email"
                   rules={[{ required: true, message: 'Please input your Email!' }]}>
-                  <Input />
+                  <Input defaultValue={user.email}/>
                 </Form.Item>
                 <Form.Item label="Gender: ">
-                  <Radio.Group>
+                  <Radio.Group defaultValue={getGender}>
                     <Radio value="Male"> Male </Radio>
                     <Radio value="Female"> Female </Radio>
                     <Radio value="PF"> Prefer not to say </Radio>
@@ -130,7 +159,7 @@ const EditProfilePage = () => {
                   label="Date of Birth"
                   name="dateofbirth"
                   rules={[{ required: true, message: 'Please input your username!' }]}>
-                  <Input placeholder='00D/00M/0000Y'/>
+                  <Input defaultValue={user.dateofbirth}/>
                 </Form.Item>
                 <Form.Item style={{ textAlign: 'end', }}>
                   <Button type="primary" htmlType="submit" style={{ alignItems: 'center', flex: 1, backgroundColor: '#003d29', color: '#fff' }}>
@@ -138,14 +167,6 @@ const EditProfilePage = () => {
                   </Button>
                 </Form.Item>
               </Form>
-              <div style={{ marginBottom: '20px', textAlign: 'end', }}>
-                <Checkbox
-                  checked={componentDisabled}
-                  onChange={(e) => setComponentDisabled(e.target.checked)}
-                >
-                  <EditFilled style={{ fontSize: '25px', marginLeft: '10px' }} />
-                </Checkbox>
-              </div>
             </div >
           </Content>
         </Layout>

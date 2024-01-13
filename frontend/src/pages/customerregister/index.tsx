@@ -273,9 +273,9 @@ const CustomerRegister = () => {
                             rules={[{ required: true, message: 'Enter your Postcode!' }]}
                         >
                             <Input />
-                        </Form.Item>
+                        </Form.Item >
                         <Form.Item
-                            name="default" getValueFromEvent={(e) => (e.target.checked ? 1 : 0)} valuePropName="checked"
+                            name="default" getValueFromEvent={(e) => (e.target.checked ? 1 : 0)} valuePropName="checked" style={{textAlign:'end'}}
                         >
                             <Checkbox onChange={handleChange}>
                                 <span>ตั้งเป็นที่อยู่เริ่มต้น</span>

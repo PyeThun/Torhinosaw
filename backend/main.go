@@ -15,7 +15,6 @@ func main() {
 	// r.POST("/xxx", controller.Createxx)
 	// r.GET("/xx", controller.Listxxx)
 	// r.GET("/xxx/:id", controller.GetxxxById)
-	
 
 	// Run the server
 	r.Run()
