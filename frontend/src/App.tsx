@@ -9,6 +9,7 @@ import Employee from './pages/employee';
 import Updatestatus from './pages/employee/updatestatus/ubdate';
 import Manageproduct from './pages/employee/manageproduct/manageproduct';
 import Buying from './pages/buying/buying';
+import Home from './pages/shop/home';
 
 function App() {
   return (<>
@@ -24,6 +25,7 @@ function App() {
         <Route path='/updatestatus' Component={Updatestatus}/>
         <Route path='/manageproduct' Component={Manageproduct}/>
         <Route path='/buying' Component={Buying}/>
+        <Route path='/shopping' Component={Home}/>
       </Routes>
     </Router>
     </>

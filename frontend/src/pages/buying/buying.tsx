@@ -57,7 +57,7 @@ const Buying = () => {
   const navigate = useNavigate();
   const handleImageClick = () => {
       // Use navigate to navigate programmatically
-      navigate('/productadd');
+      navigate('/shopping');
   };
 
   

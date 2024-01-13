@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { UserOutlined, DashboardOutlined } from "@ant-design/icons";
+import { UserOutlined, DashboardOutlined,BorderOuterOutlined , CopyOutlined} from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import {
   BrowserRouter as Router,
@@ -11,6 +11,8 @@ import {
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import logo from "../../../assets/Tmocho.jpg";
 import { JSX } from "react/jsx-runtime";
+import  Navbar  from '../../../component/navbar'
+import  Headerbarlogo  from '../../../component/headbarlogo'
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -33,8 +35,6 @@ function getItem(
 
 
 const items: MenuItem[] = [
-  getItem("แดชบอร์ด", "1", <DashboardOutlined />),
-  getItem("ข้อมูลสมาชิก", "2", <UserOutlined />),
 ];
 
 const Manageproduct  = () =>{
@@ -49,77 +49,53 @@ const Manageproduct  = () =>{
   };
 
   return (
-
-      <Layout style={{ minHeight: "100vh" }}>
+      <>
+      <Headerbarlogo/>
+      <Navbar/>
+      <Layout style={{ minHeight: "120vh" }}>
         <Sider
           collapsible
           collapsed={collapsed}
           onCollapse={(value) => setCollapsed(value)}
+          style={{ color: '#003D06', backgroundColor: '#D9E2D9'  }}
         >
           <div
             style={{
               display: "flex",
               justifyContent: "center",
-              marginTop:'100',
+              marginTop:'100px',
               marginBottom: 20,
             }}
           >
           </div>
           <Menu
-            theme="dark"
+            theme="light"
             defaultSelectedKeys={[page ? page : "dashboard"]}
             mode="inline"
+            style={{ color: '#003D06', backgroundColor: '#D9E2D9'  }}
           >
             <Menu.Item key="dashboard" onClick={() => setCurrentPage("dashboard")}>
-              <Link to="/">
-                <DashboardOutlined />
-                <span >แดชบอร์ด</span>
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="customer" onClick={() => setCurrentPage("customer")}>
-              <Link to="/customer">
+              
                 <UserOutlined />
-                <span>ข้อมูลสมาชิก</span>
+                <span >Employee</span>
+              
+            </Menu.Item>
+            <Menu.Item key="Productmanagement" onClick={() => setCurrentPage("Productmanagement")} style={{ marginTop: '30px' }}>
+              <Link to="/Productmanagement">
+                <BorderOuterOutlined />
+                <span>Product Management</span>
               </Link>
             </Menu.Item>
-            <Menu.Item key="dashboard" onClick={() => setCurrentPage("dashboard")}>
-              <Link to="/">
-                <DashboardOutlined />
-                <span >แดชบอร์ด</span>
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="dashboard" onClick={() => setCurrentPage("dashboard")}>
-              <Link to="/">
-                <DashboardOutlined />
-                <span >แดชบอร์ด</span>
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="dashboard" onClick={() => setCurrentPage("dashboard")}>
-              <Link to="/">
-                <DashboardOutlined />
-                <span >แดชบอร์ด</span>
+            <Menu.Item key="Ordermanagement" onClick={() => setCurrentPage("Ordermanagement")} >
+              <Link to="/Ordermanagement">
+                <CopyOutlined />
+                <span >Order Management</span>
               </Link>
             </Menu.Item>
           </Menu>
         </Sider>
-        <Layout>
-          <Header style={{ padding: 0, background: colorBgContainer }} />
-          <Content style={{ margin: "0 16px" }}>
-            <Breadcrumb style={{ margin: "16px 0" }} />
-            <div
-              style={{
-                padding: 24,
-                minHeight: "100%",
-                background: colorBgContainer,
-              }}
-            >
-            </div>
-          </Content>
-          <Footer style={{ textAlign: "center" }}>
-            System Analysis and Design 1/66
-          </Footer>
-        </Layout>
       </Layout>
+      </>
   );
 };
 

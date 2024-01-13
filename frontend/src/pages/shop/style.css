@@ -1,0 +1,140 @@
+.label {
+    height: 24px;
+    width: 172px;
+}
+
+.label .order-ID-status {
+    color: #000000;
+    font-family: "Inter-Medium", Helvetica;
+    font-size: 20px;
+    font-weight: 500;
+    margin-left: 80%; /* Use numeric value without quotes */
+    line-height: normal;
+    position: fixed;
+    top: 8%; /* Use numeric value without quotes */
+    white-space: nowrap;
+    text-align: right;
+}
+
+
+/* box1 ****************************************************************************************/
+
+
+.fonthead1{
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    line-height: 24px;
+    margin-top: 10%;
+    margin-left: 4%;
+    margin-right: 6%;
+}
+.fonthead2{
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    line-height: 24px;
+    margin-top: 0%;
+    margin-left: 10px;
+    margin-right: 0%;
+}
+.fonthead3{
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    line-height: 24px;
+    margin-top: 10%;
+    margin-left: 1%;
+    margin-right: 6%;
+}
+.fonthead4{
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    line-height: 24px;
+    margin-top: 10%;
+    margin-left: 1%;
+    margin-right: 6%;
+}
+.fonthead5end{
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    line-height: 24px;
+    margin-top: 10%;
+    margin-left: 5.5%;
+    
+}
+.fonttext1{
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 19px;
+    margin-top: 1%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.fonttext2{
+    font-family: 'Inter', sans-serif;
+    font-size: 50px;
+    line-height: 19px;
+    margin-top: -70px;
+    margin-left: 40px;
+    margin-right: 5%;
+    color: #FF0000;
+    text-shadow: 1px 1px 10px rgb(0, 0, 0);
+}
+.fonttext3{
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 19px;
+    margin-top: 1%;
+    margin-left: 6.2%;
+    margin-right: 5%;
+}
+.fonttext1end{
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 19px;
+    margin-top: 1% ;
+    margin-left: 5.5%;
+  
+}
+
+
+/* box2 ****************************************************************************************/
+
+
+
+.fonttextBoxtow{
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    margin-top: -1%;
+    margin-left: 3%;
+    margin-right: 5%;
+    
+}
+.fonttextBoxtowTexth1{
+    font-family: 'Inter', sans-serif;
+    margin-top: 25%;
+    font-size: 20px;
+    margin-left: -20%; 
+    font-weight: 300; 
+}
+.fonttextBoxtowTexth2{
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    margin-top: 5%;
+    line-height: 19px; 
+    margin-left: -20%; 
+}
+.fonttextBoxtowTexth3{
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    margin-top: 5%;
+    line-height: 19px;
+    margin-left: -20%; 
+    color: #6D6D6D;
+}
+
+
+.fonttextBoxtowTexthstatus{
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    margin-left: 90%; 
+    color: #FF0000;
+}

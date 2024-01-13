@@ -1,0 +1,233 @@
+import React, { useState, useEffect } from "react";
+import {
+  Space,
+  Avatar,
+  List,
+  Slider,
+  Select,
+  Card,
+  Input,
+  Image,
+  Typography,
+  Button,
+  Rate,
+  Divider,
+  
+} from "antd";
+import {
+  LikeOutlined,
+  MessageOutlined,
+  StarOutlined,
+  UploadOutlined,
+} from "@ant-design/icons";
+import { GetHotels, GetHoteltypes } from "../../../services/https";
+import { HotelsInterface } from "../../../interfaces/IHotel";
+import { Link } from "react-router-dom";
+import test from "../../../assets/test.jpg"
+import { EnvironmentFilled } from "@ant-design/icons";
+import SizeContext from "antd/es/config-provider/SizeContext";
+import { HoteltypesInterface } from "../../../interfaces/IHoteltype";
+const { Option } = Select;
+const { TextArea } = Input;
+const { Text } = Typography;
+
+function Category() {
+  const [hotels, setHotels] = useState<HotelsInterface[]>([]);
+  const [hoteltypes, setHoteltypes] = useState<HoteltypesInterface[]>([]);
+  const [selectedHotel, setSelectedHotel] = useState<string | undefined>();
+
+  const getHoteltypes = async () => {
+    let res = await GetHoteltypes();
+    if (res) {
+      setHoteltypes(res);
+    }
+  };
+
+  useEffect(() => {
+    getHoteltypes();
+  }, []);
+
+  const getHotels = async () => {
+    let res = await GetHotels();
+    if (res) {
+      setHotels(res);
+    }
+  };
+
+  useEffect(() => {
+    getHotels();
+  }, []);
+
+  const handleHotelSelect = (value: string) => {
+    setSelectedHotel(value);
+  };
+
+  const handleRateChange = (value: number, ) => {
+    // Do whatever you need with the 'value' and 'hotelTitle'
+    console.log( `Rating: ${value}`);
+    // Add code to handle the rating change
+  };
+
+  const data = hotels.map((hotel) => ({
+    title: hotel.Name,
+    description: hotel.Description,
+    profile: hotel.Profile,
+    price: hotel.NumberofRoom,
+    location: hotel.Location,
+    hotelclass: hotel.Hotelclass,
+    id: hotel.ID, 
+    type: hotel.Hoteltype
+    // Add other properties as needed
+  }));
+
+  return (
+    <div>
+      {/* ... Your other input components ... */}
+      <Input
+        style={{ width: "250px", marginLeft: "100px", height: "45px" }}
+        placeholder="Destination"
+      />
+      <Input
+        style={{ width: "250px", marginLeft: "100px", height: "45px" }}
+        placeholder="Guest"
+      />
+      <Select
+        allowClear
+        style={{ width: "250px", marginLeft: "100px", height: "45px" }}
+        placeholder="Type"
+        onChange={handleHotelSelect}
+      >
+        {hoteltypes.map((hoteltypes) => (
+          <Option key={hoteltypes.ID} value={hoteltypes.ID}>
+            {hoteltypes.Name}
+          </Option>
+        ))}
+      </Select>
+
+      <Slider
+        defaultValue={0}
+        style={{ width: "500px", marginLeft: "100px", height: "45px" }}
+        step={1000}
+        min={1000}
+        max={9000}
+      />
+
+      
+       <Card>
+        <List
+          grid={{ gutter: 16, column: 1 }}
+          dataSource={data}
+          renderItem={(item) => (
+            <List.Item>
+  <Card>
+    <Space
+      direction="horizontal"
+      style={{
+        marginLeft: '50px', // This will push the nested Space to the right
+        textAlign: 'left', // Align the nested Space content to the right
+      }}
+    >
+      {/* Render the profile image using Avatar */}
+      <div style={{
+        marginTop: '-60px', // Adjust the marginTop to move the image up
+      }}>
+        <Image
+          width={400}
+          height={350}
+          src={item.profile}
+          style={{
+            imageRendering: "-webkit-optimize-contrast",
+            backgroundColor: "transparent",
+          }}
+        />
+      </div>
+
+
+      <div style={{
+        textAlign: 'left',
+        marginLeft: '50px',
+        marginTop: '-160px', // Adjust the marginTop to move the title above
+      }}>
+        <p style={{
+          color: '#000000',
+          fontFamily: 'Roboto, sans-serif',
+          fontSize: '30px',
+          fontStyle: 'normal',
+          fontWeight: 700,
+          lineHeight: 'large',
+          marginBottom: '45px', // Adjust the spacing if needed
+        }}>{item.title}</p>
+        <div style={{
+        textAlign: 'left',
+        marginTop: '-25px', // Adjust the marginTop to move the title above
+      }}>
+        <Rate disabled defaultValue={Number(item.hotelclass)} /></div>
+ 
+      </div>
+      <p style={{
+        textAlign: 'left',
+        marginTop: '-70px',
+        marginLeft: '50px',
+      }}>
+        <EnvironmentFilled style={{
+          fontSize: "25px",
+          color: "#2A60EB",
+          marginRight: '5px', // Adjust the spacing between the icon and the text if needed
+        }} />
+        <span style={{ fontSize: "20px", color: "#2A60EB" ,
+          fontFamily: 'Roboto, sans-serif',
+   
+          fontStyle: 'normal',
+          fontWeight: 700,
+          lineHeight: 'large',}}>{item.location}</span>
+      </p>
+      {/* <p style={{
+        textAlign: 'left',
+        marginTop: '40px',
+        marginLeft: '-220px',
+      }}>
+        <span style={{ fontSize: '18px', color: '#888',
+      
+     }}>{item.description}</span>
+      </p> */}
+    </Space>
+    
+    <div style={{
+      marginTop: '-250px',
+      marginLeft: '87%', // Optional: Add some right margin if needed
+    }}>
+      <p style={{ fontSize: '20px', marginBottom: '-10px', color: '#000000',
+          fontFamily: 'Roboto, sans-serif',
+         
+          fontStyle: 'normal',
+          fontWeight: 700,
+          lineHeight: 'large', }}>THB <span style={{ fontSize: "40px", color: "#2A60EB", marginLeft: '5px' }}>{item.price}</span></p>
+      <p style={{ fontSize: '16px', color: '#888' }}>Per room per night</p>
+      <Link to={`/hotel/detail/${item.id}`}>
+        <Button
+          type="primary"
+          style={{
+            fontSize: '20px',
+            backgroundColor: 'rgba(42, 96, 235, 0.30)',
+            color: '#2A60EB',
+            marginRight: '0px', // Adjust the spacing if needed
+            transition: 'background-color 0.3s', // Add smooth transition for hover effect
+            height: '55px', // Adjust the height as needed
+            padding: '0 20px', // Adjust the padding as needed
+          }}
+        >
+          Select Room
+        </Button>
+      </Link>
+    </div>
+  </Card>
+</List.Item>
+          
+          )}
+        />
+      </Card>
+    </div>
+  );
+}
+
+export default Category;
