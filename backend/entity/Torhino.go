@@ -44,12 +44,12 @@ type Cart struct {
 }
 
 type Wishlist struct {
-
 	gorm.Model
+
 	CustomerID *uint
 	Customer   Customer `gorm:"references:id"`
+
 	Wishlistforproduct []Wishlistforproduct `gorm:"foreignKey:WishlistID"`
-	
 }
 
 type Wishlistforproduct struct {
@@ -82,6 +82,7 @@ type Customer struct {
 	Lastname		string		`valid:"required~LastName is required"`
 	Dateofbirth		time.Time	
 	Username		string		`valid:"required~Username is required"`
+	Password 		string		`valid:"required~Password is required, stringlength(8|64)"`
 
 	Payments []Payment `gorm:"foreignKey:CustomerID"`
 	Address []Address `gorm:"foreignKey:CustomerID"`
@@ -103,6 +104,9 @@ type Payment struct {
 	StatusID *uint 
 	Status   Status   `gorm:"references:id"`
 
+	//เพิ่มนะ by aum
+	Updated_at time.Time
+	//
 }
 
 type Status struct {

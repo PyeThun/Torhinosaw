@@ -2,6 +2,7 @@ import { EmployeeInterface } from "./IEmployee";
 import { ProductTypeInterface } from "./ProductType";
 
 export interface ProductInterface {
+	
     ID?: number;
 
     Name?: string;

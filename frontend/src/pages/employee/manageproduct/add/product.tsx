@@ -52,7 +52,7 @@ const ProductAdd = () => {
       content: "บันทึกข้อมูลสำเร็จ",
     });
     setTimeout(function () {
-      navigate("/manageproduct");
+      navigate("/product_management");
     }, 2000);
   } else {
     messageApi.open({
@@ -248,7 +248,7 @@ const normFile2 = (e: any) => {
                       type="primary"
                       htmlType="button"
                       style={{ marginRight: "10px", backgroundColor: '#5A8242' }}
-                      onClick={() => navigate('/Productmanagement')}
+                      onClick={() => navigate('/product_management')}
                     >
                       ยกเลิก
                     </Button>

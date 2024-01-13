@@ -59,7 +59,7 @@ func CreateProduct(c *gin.Context) {
 
 
 
-// GET /users
+// GET /Product
 func GetProduct(c *gin.Context) {
 	var product[]entity.Product
 	if err := entity.DB().Raw("SELECT * FROM products").Scan(&product).Error; err != nil {
@@ -68,3 +68,51 @@ func GetProduct(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data":product})
 }
+
+// GET /Product/:id
+func GetProductByID(c *gin.Context) {
+	var product entity.Product
+	id := c.Param("id")
+	if err := entity.DB().Preload("ProductType").Raw("SELECT * FROM products WHERE id = ?", id).Find(&product).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": product})
+}
+
+// PATCH /Product
+func UpdateProduct(c *gin.Context) {
+	var product entity.Product
+	var result entity.Product
+
+	if err := c.ShouldBindJSON(&product); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	// ค้นหา products ด้วย id
+	if tx := entity.DB().Where("id = ?", product.ID).First(&result); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "product not found"})
+		return
+	}
+
+	// กำหนดให้ Photo ใน result เป็นของ product เพื่อให้ข้อมูล Photo เดิมไม่ถูกแทนที่
+	product.Photo = result.Photo
+
+	if err := entity.DB().Save(&product).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": product})
+}
+
+
+// DELETE /products/:id
+func DeleteProduct(c *gin.Context) {
+	id := c.Param("id")
+	if tx := entity.DB().Exec("DELETE FROM products WHERE id = ?", id); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "product not found"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": id})
+}
+

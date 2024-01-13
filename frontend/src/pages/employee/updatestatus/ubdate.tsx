@@ -46,7 +46,7 @@ const Updatestatus = () =>  {
 
     const handleImageClick = () => {
         // Use navigate to navigate programmatically
-        navigate('/employee');
+        navigate('/Order_management');
     };
 
     const Card_st: CSSProperties = {

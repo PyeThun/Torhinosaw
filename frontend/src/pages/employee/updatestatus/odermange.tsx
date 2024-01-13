@@ -9,7 +9,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 
-import { Breadcrumb, Button, Card, Layout, List, Menu, Row, message, theme } from "antd";
+import { Breadcrumb, Button, Card, Layout, List, Menu, Row, message, theme ,Col} from "antd";
 import logo from "../../../assets/Tmocho.jpg";
 import { JSX } from "react/jsx-runtime";
 import  Navbar  from '../../../component/navbar'
@@ -88,6 +88,8 @@ function ManageOder(){
     transform: 'translateX(-50%)',
     transition: 'box-shadow 5s ease-in-out', 
 };
+
+
   
   return (
       <>
@@ -141,28 +143,43 @@ function ManageOder(){
             </Menu.Item>
           </Menu>
         </Sider>
-        <Row>
-        </Row>
-        <Row>
-      {Array.isArray(product) ? (
-          <List
-            grid={{ gutter: 5, column: 1 }}
-            dataSource={data}
-            renderItem={(item) => (
-              <List.Item>  
-                  <Card style={Card_st2}></Card>
-                    
-                  
-                
-              </List.Item>
-            )}
-          />
-        ) : (
-          <p>No products available.</p>
-        )}
-        </Row>
-      </Layout>
 
+        <Card style={{ width: '100%', backgroundColor: '#F5F5F5', border: 'none' }}>
+          <Row>
+            <Col>
+              <Button style={{ marginLeft: '85px', width: '1098px', fontWeight: 'bold', color: '#003D06', backgroundColor: '#D9D9D9' }}>
+                Order paid</Button>
+            </Col>
+            <Col>
+            <Button style={{ marginLeft: '85px', width: '1098px', fontWeight: 'bold', color: '#003D06', backgroundColor: '#D9D9D9',marginTop: '5px' }}>
+                Order shipped out</Button>
+            </Col>
+          </Row>
+          <Row>
+            {Array.isArray(product) ? (
+                <List
+                  grid={{ gutter: 16, column: 1 }}
+                  dataSource={data}
+                  renderItem={(item) => (
+                    <List.Item>  
+                        <Card style={Card_st2}></Card>
+                          
+                        
+                      
+                    </List.Item>
+                  )}
+                />
+              ) : (
+                <p>No products available.</p>
+              )}
+          </Row>
+        </Card>
+          
+
+        
+     
+      </Layout>
+      Cad
       </>
   );
 };

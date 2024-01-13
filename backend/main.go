@@ -14,9 +14,20 @@ func main() {
 	r := gin.Default()
 	r.Use(CORSMiddleware())
 	//Routes
+
+	//aum*******
+	r.GET("/getPaymenUpdate/:id", controller.GetPaymentUpdateByID)
+	r.GET("/getPaymenUpdate", controller.GetPaymentUpdate)
+	r.GET("/getCustomerUpdate", controller.GetCustomertUpdate)
+	r.GET("/getStatusUpdate", controller.GetStatusUpdate)
+	// r.PATCH("/paymentUpdate", controller.UpdatePaymentUbdate)
+
+	r.GET("/product/:id", controller.GetProductByID)
 	r.GET("/producttype", controller.ListProducttype)
 	r.GET("/listProduct", controller.GetProduct)
+	r.PATCH("/product", controller.UpdateProduct)
 	r.POST("/product", controller.CreateProduct)
+	r.DELETE("/product/:id", controller.DeleteProduct)
 	// Run the server
 	r.Run()
 }

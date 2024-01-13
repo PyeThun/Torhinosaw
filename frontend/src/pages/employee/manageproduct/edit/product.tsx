@@ -17,7 +17,7 @@ import {
   
 } from "antd";
 import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import  Navbar  from '../../../../component/navbar'
 import  Headerbarlogo  from '../../../../component/headbarlogo'
 import { InboxOutlined } from '@ant-design/icons';
@@ -26,41 +26,42 @@ import TextArea from "antd/es/input/TextArea";
 import "./style.css";
 import { ProductTypeInterface } from "../../../../interfaces/ProductType";
 import { ProductInterface } from "../../../../interfaces/IProduct";
-import { CreateProduct, GetProductType } from "../../../../services/http_product";
+import { CreateProduct, GetProductType, GetProductById, UpdateProduct} from "../../../../services/http_product";
 import { ImageUpload } from "../../../../interfaces/IUpload";
 
 const { Option } = Select;
 
-const ProductEdit = () => {
+function ProductEdit(){
 
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
   const [producttype, setProductType] = useState<ProductTypeInterface[]>([])
+  const [product, setProduct] = useState<ProductInterface[]>([])
+
   const [profile, setProfile] = useState<ImageUpload>()
   const [photo, setPhoto] = useState<ImageUpload>()
+
+  let { id } = useParams();
 
   const [form] = Form.useForm();
   const onFinish = async (values: ProductInterface) => {
     console.log('Form values:', values);
-    values.Profile = profile?.thumbUrl;
-    values.Photo = photo?.thumbUrl;
-  console.log(values.Photo); // แสดงค่าทั้งหมดที่ได้จากฟอร์มใน console log
-  let res = await CreateProduct(values);
-  if (res.status) {
-    messageApi.open({
-      type: "success",
-      content: "บันทึกข้อมูลสำเร็จ",
-    });
-    setTimeout(function () {
-      navigate("/manageproduct");
-    }, 2000);
-  } else {
-    messageApi.open({
-      type: "error",
-      content: "บันทึกข้อมูลไม่สำเร็จ",
-    });
-  }
-};
+    let res = await  UpdateProduct(values);
+    if (res.status) {
+      messageApi.open({
+        type: "success",
+        content: "แก้ไขข้อมูลสำเร็จ",
+      });
+      setTimeout(function () {
+        navigate("/product_management");
+      }, 2000);
+    } else {
+      messageApi.open({
+        type: "error",
+        content: "แก้ไขข้อมูลไม่สำเร็จ",
+      });
+    }
+  };
 
 const normFile = (e: any) => {
   if (Array.isArray(e)) {
@@ -85,9 +86,32 @@ const normFile2 = (e: any) => {
     }
   };
 
+  const getProductById = async () => {
+    let res = await GetProductById(Number(id));
+    if (res) {
+      setProduct(res);
+      // set form ข้อมูลเริ่มของผู่้ใช้ที่เราแก้ไข
+      form.setFieldsValue({ 
+        Name: res.Name ,
+        Photo : res.Photo ,
+        Cost: res.Cost,
+        Quantity: res.Quantity,
+        Color: res.Color,
+        Brand:res.Brand,
+        ProductTypeID: res.ProductTypeID,
+        Sentfrom: res.Sentfrom,
+        Details: res.Details,
+        ID: res.ID,
+
+    });
+    }
+  };
+
   useEffect(() => {
     getProductType();
+    getProductById();
   }, []);
+
 
 
   const onFinishFailed = (errorInfo: any) => {
@@ -120,61 +144,38 @@ const normFile2 = (e: any) => {
       <Row gutter={16}>
         
         
-        <Col xs={24} sm={24} md={12} lg={24} xl={8} >
-            <li style={{ marginBottom: '16px'}}>
-            UploadPhoto
-            </li>
-            {/* <Form.Item
-                label="รูป"
-                name="Profile"
-                valuePropName="fileList"
-                getValueFromEvent={normFile}
-              
-              >
-                <Upload maxCount={1} multiple={false} listType="picture-card">
-                  <div>
-                    <PlusOutlined />
-                    <div style={{ marginTop: 8 }}>อัพโหลด</div>
-                  </div>
-                </Upload>
-              </Form.Item> */}
-            <Form.Item
-            label=""
-              name="Photo"
-              valuePropName="fileList"
-              getValueFromEvent={normFile2}
-            >
-              <Upload maxCount={1} multiple={false} listType="picture-card">
-                <div>
-                  <PlusOutlined />
-                  <div style={{ marginTop: 8 }}>อัพโหลด</div>
-                </div>
-              </Upload>
-            </Form.Item>
-        </Col>
         
-        
-        <Col xs={24} sm={24} md={24} lg={24} xl={16}>
+        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
        
-        
           <Form.Item
-            
+            name="ID"
+          >
+            <InputNumber placeholder="ID" style={{ backgroundColor: '#D9E2D9', fontSize: '0px', height: '0px' , width:'0%', display: 'none'}} disabled/>
+          </Form.Item>
+          <Col>   
+          <Form.Item
+            // label="Name"
             name="Name"
             rules={[{ required: true, message: 'Please input the product name!' }]}
           >
             <Input placeholder="Product name"  style={{ backgroundColor: '#D9E2D9', fontSize: '20px', height: '60px' }} />
           </Form.Item>
+          </Col>     
+
       
           
 
           <Form.Item
+            // label="Cost"
             name="Cost"
             rules={[{ required: true, message: 'Please input the product cost!' }]}
+          
           >
             <InputNumber placeholder="Product Cost" style={{ backgroundColor: '#D9E2D9', fontSize: '20px', height: '60px' , width:'50%'}} />
           </Form.Item>
 
           <Form.Item
+          // label="Quantity"
             name="Quantity"
             rules={[{ required: true, message: 'Please input the product quantity!' }]}
           >
@@ -182,6 +183,7 @@ const normFile2 = (e: any) => {
           </Form.Item>
           
           <Form.Item
+            // label="Color"
             name="Color"
             rules={[{ required: true, message: 'Please input the product color!' }]}
           >
@@ -189,6 +191,7 @@ const normFile2 = (e: any) => {
           </Form.Item>
     
           <Form.Item
+          // label="Brand"
             name="Brand"
             rules={[{ required: true, message: 'Please input the product brand!' }]}
           >
@@ -196,6 +199,7 @@ const normFile2 = (e: any) => {
           </Form.Item>
     
           <Form.Item
+          // label="ProductType"
             name="ProductTypeID"
             rules={[{ required: true, message: 'Please select the product type!' }]}
           >
@@ -229,7 +233,7 @@ const normFile2 = (e: any) => {
        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
         <Divider/>
         <Form.Item 
-          // label="TextArea"
+          // label="Detail"
           name="Details"
           rules={[{ required: true, message: 'Please input the sending location!' }]}
           >

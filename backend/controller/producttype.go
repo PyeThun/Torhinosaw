@@ -6,6 +6,8 @@ import (
 	"github.com/PyeThun/TEAM05/entity"
 )
 
+
+//อุ้มเอง
 func ListProducttype(c *gin.Context) {
 	var product_types []entity.ProductType
 	if err := entity.DB().Raw("SELECT * FROM product_types").Scan(&product_types).Error; err != nil {
