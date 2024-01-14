@@ -102,13 +102,12 @@ type Customer struct {
 	Lastname		string		`valid:"required~LastName is required"`
 	Dateofbirth		time.Time	
 	Username		string		`valid:"required~Username is required"`
-	Password 		string		`valid:"required~Password is required, stringlength(8|64)"`
 
-	Payments []Payment `gorm:"foreignKey:CustomerID"`
-	Address []Address `gorm:"foreignKey:CustomerID"`
-	Cart []Cart `gorm:"foreignKey:CustomerID"`
-	Wishlist []Wishlist `gorm:"foreignKey:CustomerID"`
+	Addresses 		[]Address 	`gorm:"foreignKey:CustomerID"`
+	Wishlists		[]Wishlist 	`gorm:"foreignKey:CustomerID"`
+	Carts			[]Cart 		`gorm:"foreignKey:CustomerID"`
 }
+
 
 
 type Status struct {
