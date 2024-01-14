@@ -1,23 +1,25 @@
 package main
 
 import (
+	"github.com/gin-gonic/gin"
 	"github.com/PyeThun/team05/controller"
 	"github.com/PyeThun/team05/entity"
-	"github.com/gin-gonic/gin"
+	_ "github.com/PyeThun/team05/middlewares"
 )
 
 func main() {
-	entity.ConnectDB()
+	entity.SetupDatabase()
 	r := gin.Default()
 	r.Use(CORSMiddleware())
-	r.POST("/users", controller.CreateCustomer)
-	//Routes
-	// r.PATCH("/xxx", controller.Updatexxx)
-	// r.POST("/xxx", controller.Createxx)
-	// r.GET("/xx", controller.Listxxx)
-	// r.GET("/xxx/:id", controller.GetxxxById)
-	
+	r.POST("/customer", controller.CreateCustomer)
+	r.GET("/order/:id", controller.GetOrder)
+	r.POST("/payment", controller.CreatePayment)
+	r.GET("/payment/:id", controller.GetPayment)
+	r.PATCH("/confirmPayment/:id", controller.ConfirmPayment)
 
+	//Routes
+	
+	
 	// Run the server
 	r.Run()
 }

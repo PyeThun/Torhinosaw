@@ -11,14 +11,11 @@ func DB() *gorm.DB {
 	return db
 }
 
-func ConnectDB() (*gorm.DB, error) {
-	var err error
-	var database *gorm.DB
-	database, err = gorm.Open(sqlite.Open("Torhino.db"), &gorm.Config{})
+func SetupDatabase(){
+	database, err := gorm.Open(sqlite.Open("Torhino.db"), &gorm.Config{})
 	if err != nil {
 		panic("failed to connect database")
 	}
-
 	database.AutoMigrate(
 		&Customer{},
 		&Address{},
@@ -31,9 +28,17 @@ func ConnectDB() (*gorm.DB, error) {
 		&Payment{},
 		&Order{},
 		&Rating{},
+		&Wishlistforproduct{},
+		&Cartitem{},
+		&Shippingservice{},
+		
 	)
 
-	
+	db = database
 
-	return database, nil
+	SetupStatus(db)
+	SetupProduct(db)
+	SetupOrder(db)
+
+	
 }

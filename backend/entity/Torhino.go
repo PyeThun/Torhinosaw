@@ -10,20 +10,44 @@ type Order struct {
 	gorm.Model
 
 	Timeoforder 	time.Time
-	Shippingservice string
 	Shippingfee 	int
 	Quantity		int
 	Price			float32
 	Totalprice		float32
-	Status			int
 
-	EmployeeID 		*uint
-    Employee   		Employee 	`gorm:"references:id"`
-	AddressID 		*uint
-    Address   		Address 	`gorm:"references:id"`
-	CartID 			*uint
-    Cart   			Cart 		`gorm:"references:id"`
+	
+	AddressID *uint
+	Address   Address `gorm:"references:id"`
+	EmployeeID *uint
+	Employee   Employee `gorm:"references:id"`
+	ShippingserviceID *uint
+	Shippingservice   Shippingservice `gorm:"references:id"`
+	Rating []Rating `gorm:"foreignKey:OrderID"`
+	Cart []Cart `gorm:"foreignKey:OrderID"`
+
+
 }
+
+type Payment struct {
+	gorm.Model
+	Timeoforder 	time.Time //เพิ่มมาจาก Order
+	Paymentmethod	string
+	Billphoto		string 
+	Totalprice      float32  `valid:"gte=0"`
+	
+	Paiddate		time.Time
+
+	CustomerID 	*uint `valid:"required~CustomerID is required"`
+	Customer   	Customer   `gorm:"references:id"`
+
+	StatusID 	*uint `validate:"gte=1,lte=8"`
+	Status   	Status   `gorm:"references:id"`
+
+	OrderID   *uint `valid:"required~OrderID is required;unique"`
+    Order   Order `gorm:"foreignKey:OrderID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;unique;"`
+
+}
+
 
 type Cart struct {
 	gorm.Model
@@ -31,54 +55,61 @@ type Cart struct {
 	TotalPrice		float32
 	Quantity		int
 
-	CustomerID 		*uint
-    Customer   		Customer 	`gorm:"references:id"`	
+	OrderID *uint
+	Order   Order `gorm:"references:id"`
+	CustomerID *uint
+	Customer   Customer `gorm:"references:id"`
 
-	Products   		[]Product 	`gorm:"many2many:cart_products;"`
-
+	Cartitems []Cartitem `gorm:"foreignKey:CartID"`
 }
 
 type Wishlist struct {
 	gorm.Model
 
+	CustomerID *uint
+	Customer   Customer `gorm:"references:id"`
+
+	Wishlistforproduct []Wishlistforproduct `gorm:"foreignKey:WishlistID"`
+}
+
+type Wishlistforproduct struct {
+	gorm.Model
+
 	Added_at		time.Time
 
-	CustomerID 		*uint
-	Customer   		Customer 	`gorm:"references:id"`
+	WishlistID *uint 
+	Wishlist   Wishlist   `gorm:"references:id"`
+	ProductID *uint 
+	Product   Product   `gorm:"references:id"`
+}
 
-	Products   		[]Product 	`gorm:"many2many:wishlist_products;"`
+type Cartitem struct {
+	gorm.Model
+
+	Quantity int
+
+	CartID *uint 
+	Cart   Cart   `gorm:"references:id"`
+	ProductID *uint 
+	Product   Product   `gorm:"references:id"`
 }
 
 type Customer struct {
 	gorm.Model
 
-	Email			string		`valid:"required~Email is required, email~Email is invalid",gorm:"uniqueIndex"`
+	Email			string		`gorm:"uniqueIndex" valid:"required~Email is required, email~Email is invalid"`
 	Firstname		string		`valid:"required~FirstName is required"`
 	Lastname		string		`valid:"required~LastName is required"`
 	Dateofbirth		time.Time	
 	Username		string		`valid:"required~Username is required"`
 	Password 		string		`valid:"required~Password is required, stringlength(8|64)"`
-	Addresses 		[]Address 	`gorm:"foreignKey:CustomerID"`
-	Wishlists		[]Wishlist 	`gorm:"foreignKey:CustomerID"`
-	Carts			[]Cart 		`gorm:"foreignKey:CustomerID"`
+
+	Payments []Payment `gorm:"foreignKey:CustomerID"`
+	Address []Address `gorm:"foreignKey:CustomerID"`
+	Cart []Cart `gorm:"foreignKey:CustomerID"`
+	Wishlist []Wishlist `gorm:"foreignKey:CustomerID"`
 }
 
-type Payment struct {
-	gorm.Model
-
-	Shippingfee		int
-	Paymentmethod	string
-	Billphoto		string
-	Totalprice      float32
-	Paiddate		time.Time
-
-	CustomerID 		*uint
-    Customer   		Customer 	`gorm:"references:id"`
-	OrderID 		*uint
-    Order   		Order 		`gorm:"references:id"`
-	StatusID 		*uint
-    Status   		Status 		`gorm:"references:id"`
-}
 
 type Status struct {
 	gorm.Model
@@ -86,7 +117,6 @@ type Status struct {
 	Status			string
 	Describe		string
 
-	Payments 		[]Payment 	`gorm:"foreignKey:StatusID"`
 }
 
 type Address struct {
@@ -100,10 +130,8 @@ type Address struct {
 	Postcode		string		`valid:"required~Postcode is required"`
 	Default			int
 
-	CustomerID 		*uint
-    Customer   		Customer 	`gorm:"references:id"`
-
-	Orders 			[]Order 	`gorm:"foreignKey:AddressID"`
+	CustomerID *uint 
+	Customer   Customer   `gorm:"references:id"`
 }
 
 type Employee struct {
@@ -111,13 +139,13 @@ type Employee struct {
 
 	Name			string		`valid:"required~Name is required"`
 	Username		string		`valid:"required~Username is required"`
-	Email			string		`valid:"required~Email is required, email~Email is invalid",gorm:"uniqueIndex"`
+	Email			string		`gorm:"uniqueIndex" valid:"required~Email is required, email~Email is invalid"`
 	Password		string		`valid:"required~Password is required"`
 	Phone           string		`valid:"required~Phone is required"`
 	Department		string		`valid:"required~Department is required"`
 
-	Orders  		[]Order   	`gorm:"foreignKey:EmployeeID"`
-    Products 		[]Product 	`gorm:"foreignKey:EmployeeID"`
+	Order []Order `gorm:"foreignKey:EmployeeID"`
+	Product []Product `gorm:"foreignKey:EmployeeID"`
 }
 
 type Product struct {
@@ -132,14 +160,13 @@ type Product struct {
 	Sentfrom		string
 	Details			string		`gorm:"type:longtext"`
 
-	ProductTypeID   *uint
-	ProductType     ProductType `gorm:"references:id"`
-	EmployeeID 		*uint
-    Employee   		Employee 	`gorm:"references:id"`
+	EmployeeID *uint 
+	Employee   Employee   `gorm:"references:id"`
+	ProductTypeID *uint 
+	ProductType   ProductType   `gorm:"references:id"`
 
-	Ratings 		[]Rating	`gorm:"foreignKey:ProductID"`
-	Carts 			[]Cart   	`gorm:"many2many:cart_products;"`
-	Wishlists 		[]Wishlist  `gorm:"many2many:wishlist_products;"`
+	Cartitem []Cartitem `gorm:"foreignKey:ProductID"`
+	Wishlistforproduct []Wishlistforproduct `gorm:"foreignKey:ProductID"`
 }
 
 type ProductType struct {
@@ -147,16 +174,25 @@ type ProductType struct {
 
 	Name			string
 
-    Products      	[]Product 	`gorm:"foreignKey:ProductTypeID"`
+    Product []Product `gorm:"foreignKey:ProductTypeID"`
 }
 
 type Rating struct {
 	gorm.Model
-
+	
 	Dateandtime		time.Time
 	Rate			int
 	Description		string		`gorm:"type:longtext"`
 	
-	ProductID 		*uint
-    Product   		Product 	`gorm:"references:id"`
+	ProductID *uint 
+	Product   Product   `gorm:"references:id"`
+	OrderID *uint 
+	Order   Order   `gorm:"references:id"`
+}
+
+type Shippingservice struct {
+	gorm.Model
+
+	Name			string
+
 }
