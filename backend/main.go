@@ -12,7 +12,7 @@ func main() {
 	r.Use(CORSMiddleware())
 	r.POST("/payment", controller.CreatePayment)
 	r.GET("/payment/:id", controller.GetPayment)
-	r.POST("/confirmPayment", controller.ConfirmPayment)
+	r.PATCH("/confirmPayment/:id", controller.ConfirmPayment)
 
 	//Routes
 	
