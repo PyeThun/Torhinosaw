@@ -10,6 +10,7 @@ import WishlistPage from './pages/profile/WishlistPage/WishlistPage';
 import PurchasePage from './pages/profile/PurchasePage/PurchasePage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import PaymentPage from './pages/PaymentPage/PaymentPage'
+
 import './App.css';
 
 function App() {
@@ -25,7 +26,8 @@ function App() {
         <Route path="/Wishlist"      Component={WishlistPage} />
         <Route path="/Purchase"      Component={PurchasePage} />
         <Route path="/Login"      Component={LoginPage} />
-        <Route path="/Payment"      Component={PaymentPage} />
+        <Route path="/payment/:id" Component={PaymentPage} />
+        
       </Routes>
     </Router>
     </>
