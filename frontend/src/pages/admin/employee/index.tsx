@@ -1,7 +1,7 @@
 import React, { CSSProperties, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { CreateEmployee, DeleteEmployee, GetEmployee } from "../../../services/http";
+import { CreateEmployee, DeleteEmployee, GetEmployee ,UpdateEmployee} from "../../../services/http";
 
 import {
   Layout,
@@ -19,8 +19,8 @@ import {
   Statistic,
   Card,
   Modal,
+  notification,
 } from "antd";
-import type { MenuProps } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import {
   MenuFoldOutlined,
@@ -55,16 +55,7 @@ const Employee = () => {
     (emp) => emp.Department === "Checkpayment"
   ).length;
 
-  //data
-  const getEmployee = async () => {
-    let res = await GetEmployee();
-    if (res) {
-      setEmployee(res);
-    }
-  };
-  useEffect(() => {
-    getEmployee();
-  }, []);
+
 
   const headerStyle: CSSProperties = {
     textAlign: "center",
@@ -176,7 +167,21 @@ const Employee = () => {
     fontSize: "20px",
     fontWeight: "500",
   };
-  
+  //data
+  const getEmployee = async () => {
+    try {
+      let res = await GetEmployee();
+      if (res) {
+        setEmployee(res);
+      }
+    } catch (error) {
+      console.error('Error fetching employee data:', error);
+      alert('Failed to fetch employee data. Please try again.');
+    }
+  };
+  useEffect(() => {
+    getEmployee();
+  }, []);
   //Create
   const [form] = Form.useForm();
   const clearForm = () => {

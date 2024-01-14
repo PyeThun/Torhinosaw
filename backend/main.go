@@ -17,6 +17,7 @@ func main() {
 	r.POST("/admin/employee", controller.CreateEmployee)
 	r.GET("/admin/employee", controller.ListEmployee)
 	r.DELETE("/admin/employee/:id", controller.DeleteEmployee)
+	r.PATCH("/admin/employee/:id", controller.UpdateEmployee)
 	
 	// Run the server
 	r.Run()

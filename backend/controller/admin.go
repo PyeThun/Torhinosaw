@@ -73,3 +73,30 @@ func DeleteEmployee(c *gin.Context) {
 	
 	c.JSON(http.StatusOK, gin.H{"data": id})
 }
+
+func UpdateEmployee(c *gin.Context) {
+	var employee entity.Employee
+	var result entity.Employee
+
+	if err := c.ShouldBindJSON(&employee); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	
+	if tx := entity.DB().Where("id = ?", employee.ID).First(&result); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "employee not found"})
+		return
+	}
+	
+	if _, err := govalidator.ValidateStruct(employee); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	if err := entity.DB().Save(&employee).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": employee})
+	
+} 
