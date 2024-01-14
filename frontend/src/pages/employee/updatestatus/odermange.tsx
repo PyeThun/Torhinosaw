@@ -9,14 +9,18 @@ import {
   useNavigate,
 } from "react-router-dom";
 
-import { Breadcrumb, Button, Card, Layout, List, Menu, Row, message, theme ,Col} from "antd";
+import { Breadcrumb, Button, Card, Layout, List, Menu, Row, message, theme ,Col, Space} from "antd";
 import logo from "../../../assets/Tmocho.jpg";
 import { JSX } from "react/jsx-runtime";
 import  Navbar  from '../../../component/navbar'
 import  Headerbarlogo  from '../../../component/headbarlogo'
-import { CreateProduct, GetProduct } from "../../../services/http_product";
+import { CreateProduct, GetProduct ,GetPlayment,GetCustomer,Getstatus} from "../../../services/http_product";
 import { ProductInterface } from "../../../interfaces/IProduct";
-
+import { PaymentInterfaceUpdate } from "../../../interfaces/IPayment";
+import iconic_box2 from "../../../assets/update_icon 1.svg"
+import { CustomerInterface } from "../../../interfaces/ICustomer";
+import { StatusInterface } from "../../../interfaces/IStatus";
+import { it } from "node:test";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -54,26 +58,45 @@ function ManageOder(){
   };
 
   const [messageApi, contextHolder] = message.useMessage();
-  const [product, setProduct] = useState<ProductInterface[]>([])
-  const getProducts = async () => {
-    let res = await GetProduct();
+  const [payment, setPayment] = useState<PaymentInterfaceUpdate[]>([])
+  const [customer, setCustomer] = useState<CustomerInterface[]>([])
+  const [status, setStatus] = useState<StatusInterface[]>([])
+
+  const getPayment = async () => {
+    let res = await GetPlayment();
     if (res) {
-      setProduct(res);
+      setPayment(res);
     }
   };
-
+  const getStatus = async () => {
+    let res = await Getstatus();
+    if (res) {
+      setStatus(res);
+    }
+  };
+  const getCustomer = async () => {
+    let res = await GetCustomer();
+    if (res) {
+      setCustomer(res);
+    }
+  };
   useEffect(() => {
-    getProducts();
+    getPayment();
+    getStatus();
+    getCustomer();
   }, []);
 
   const navigate = useNavigate();
 
-  const data = Array.isArray(product) ? product.map((product) => ({
-    ProductType: 	product.ProductType,
-      Name: 			product.Name,
-      Photo: 			product.Photo,
-      Price:      product.Cost,
-      ID:         product.ID,
+  const data = Array.isArray(payment) ? payment.map((payment) => ({
+      Updated_at: 	  payment.Updated_at,
+      ID: 			      payment.ID,
+      Billphoto: 			payment.Billphoto,
+      Totalprice:     payment.Totalprice,
+      CustomerID:     payment.CustomerID,
+      Tacking:        payment.Tacking,
+      Shippingfee:    payment.Shippingfee,
+      Status:         payment.StatusID,
   })) : [];
 
   const Card_st2: CSSProperties = {
@@ -156,14 +179,110 @@ function ManageOder(){
             </Col>
           </Row>
           <Row>
-            {Array.isArray(product) ? (
+            {Array.isArray(payment) ?(
                 <List
                   grid={{ gutter: 16, column: 1 }}
                   dataSource={data}
                   renderItem={(item) => (
                     <List.Item>  
-                        <Card style={Card_st2}></Card>
-                          
+                        
+                        <Card style={Card_st2}>
+                  <Row>
+                  <img
+                          src={iconic_box2}
+                          style={{
+                              top: '5%',
+                              left: '2%',
+                              objectFit: 'cover',
+                              position: 'fixed',
+
+                          }}
+                      />
+                  <Col className="fonttextBoxtow">Torhinozorus</Col>
+                  </Row>
+                  <Row>
+                    <Col xs={24} sm={24} md={24} lg={24} xl={4}>
+                        
+                        <img
+                        src={item.Billphoto}
+                        style={{
+                            width: '112.75px',
+                            height: '143.12px',
+                            borderRadius: '10px',
+                            objectFit: 'cover',
+                            position: 'fixed',
+                            marginTop:  '40px',
+                        }}
+                        />
+                        
+                    </Col>
+                    <Col xs={24} sm={24} md={24} lg={24} xl={4}>
+                        <Row className="fonttextBoxtowTexth1">Payment ID: {item.ID}</Row>
+                        <Row className="fonttextBoxtowTexth2">Last Update:
+                            {new Date(item.Updated_at).toLocaleString('en-GB', { 
+                                year: 'numeric', 
+                                month: '2-digit', 
+                                day: '2-digit', 
+                                hour: '2-digit', 
+                                minute: '2-digit', 
+                                second: '2-digit' 
+                            })}
+                        </Row>
+                        
+                        <Row className="fonttextBoxtowTexth3">tacking: {item.Tacking}</Row>
+                        <Row className="fonttextBoxtowTexth3">
+                        Customar ID: {item.CustomerID}
+                      </Row>
+
+                        
+                    </Col>
+
+                    <Col xs={24} sm={24} md={24} lg={24} xl={16}>
+                        <Card style={{ border: 'none' }}>
+                            <Row className="fonttextBoxtowTexthstatus2">{item.Totalprice} ฿</Row>
+                            <Row className="fonttextBoxtowTexthstatus2">
+                              {Number(item.Status) === 1 ? status[0].Status : 
+                              Number(item.Status) === 2 ? status[1].Status : 
+                              Number(item.Status) === 3 ? status[2].Status : 
+                              Number(item.Status) === 4 ? status[3].Status: 
+                              Number(item.Status) === 5 ? status[4].Status : ""}
+                            </Row>
+                            <Row>
+                                <Card
+                                style={{
+                                    width: '0px', // ปรับความยาวตามที่ต้องการ
+                                    marginLeft: '72%' ,
+                                    height: '0px', 
+                                    marginTop: '5%',
+                                    fontSize: '16px',
+                                    border: '0',
+                                }}>                                 
+                                </Card>
+                            </Row>
+
+                            
+                                <Row >
+                                  <Row justify="end">
+                                    <Col style={{ marginTop: "40px" , marginLeft: "10%"}}>
+                                            
+                                            <Space>
+                                                <Button onClick={() =>  navigate(`/payment_pdate/${item.ID}`)} type="primary" htmlType="button" style={{ marginLeft: "480px", backgroundColor: '#003D06', width:'190px'}}
+                                                // <Button  onClick={() =>  navigate(`/customer/edit/${record.ID}`)} shape="circle" icon={<EditOutlined />} size={"large"} />
+                                                >
+                                                แก้ไข
+                                                </Button>
+                                                
+                                            </Space>
+                                            
+                                    </Col>
+                                  </Row>
+                                </Row>
+                            
+                        </Card>
+                    </Col>
+                </Row>
+
+                </Card> 
                         
                       
                     </List.Item>

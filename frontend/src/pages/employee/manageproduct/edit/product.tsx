@@ -40,12 +40,12 @@ function ProductEdit(){
 
   const [profile, setProfile] = useState<ImageUpload>()
   const [photo, setPhoto] = useState<ImageUpload>()
-
   let { id } = useParams();
 
   const [form] = Form.useForm();
   const onFinish = async (values: ProductInterface) => {
     console.log('Form values:', values);
+    
     let res = await  UpdateProduct(values);
     if (res.status) {
       messageApi.open({

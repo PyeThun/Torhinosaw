@@ -6,7 +6,7 @@ import ReviewPage from './pages/profile/review';
 import './App.css';
 import ProductAdd from './pages/employee/manageproduct/add/product';
 import Employee from './pages/employee';
-import Updatestatus from './pages/employee/updatestatus/ubdate';
+import Updatestatus from './pages/employee/updatestatus/update';
 import Manageproduct from './pages/employee/manageproduct/manageproduct';
 import Buying from './pages/buying/buying';
 import Home from './pages/shop/home';
@@ -25,7 +25,7 @@ function App() {
         {/* ***** Aum ******* */}
         <Route path='/productadd' Component={ProductAdd}/>
         <Route path='/product/:id' Component={ProductEdit}/>
-        <Route path='/updatestatus' Component={Updatestatus}/>
+        <Route path='/payment_pdate/:id' Component={Updatestatus}/>
         <Route path='/product_management' Component={Manageproduct}/>
         <Route path='/Order_management' Component={ManageOder}/>
         <Route path='/buying' Component={Buying}/>

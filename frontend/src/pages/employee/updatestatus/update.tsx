@@ -9,9 +9,9 @@ import {
   Input,
   Card,
   message,
-  Upload,
   Select,
-  Modal,
+  
+  
 } from "antd";
 import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
 import  Navbar  from '../../../component/navbar'
@@ -35,19 +35,108 @@ import oder05_1 from '../../../assets/oder05-1.svg'
 import iconic_box2 from '../../../assets/update_icon 1.svg'
 import win10bg from '../../../assets/window10bg.jpg'
 
-import { Link, useNavigate } from 'react-router-dom';
-
-
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { GetPaymentById, GetCustomer, Getstatus, GetPlayment,UpdatePayment} from "../../../services/http_product";
+import { PaymentInterfaceUpdate, PaymentInterfaceUpdateV2} from "../../../interfaces/IPayment";
+import { StatusInterface } from "../../../interfaces/IStatus";
+const { Option } = Select;
 
 const Updatestatus = () =>  {
 
 
     const navigate = useNavigate();
+    const [messageApi, contextHolder] = message.useMessage();
+    const [payment, setPayment] = useState<PaymentInterfaceUpdate>()
+  
+    const [statusUP, setStatus] = useState<StatusInterface[]>([])
+
+    let { id } = useParams();
+    const [form] = Form.useForm();
+    // console.log('ID:', id);
+    // console.log(payment);
+    
+
+    
+    const onFinish = async (values: PaymentInterfaceUpdate) => {
+        values.ID = payment?.ID;
+        console.log('Form values:', values);
+        let res = await  UpdatePayment(values);
+        if (res.status) {
+        messageApi.open({
+            type: "success",
+            content: "แก้ไขข้อมูลสำเร็จ",
+        });
+        setTimeout(function () {
+            navigate("/Order_management");
+        }, 2000);
+        } else {
+        messageApi.open({
+            type: "error",
+            content: "แก้ไขข้อมูลไม่สำเร็จ",
+        });
+        }
+    };
 
     const handleImageClick = () => {
         // Use navigate to navigate programmatically
         navigate('/Order_management');
     };
+
+    const getPstatus = async () => {
+        let res = await Getstatus();
+        if (res) {
+          setStatus(res);
+        }
+      };
+    //   const getPaymentState = async () => {
+    //     let res = await GetPlayment();
+    //     if (res) {
+    //         setPaymentState(res);
+    //     }
+    //   };
+     
+      const getPayment = async () => {
+        let res = await GetPaymentById(Number(id));
+        if (res) {
+          setPayment(res);
+          // set form ข้อมูลเริ่มของผู่้ใช้ที่เราแก้ไข
+          form.setFieldsValue({ 
+            Updated_at: 	res.Updated_at,
+            ID: 			res.ID,
+            Billphoto: 	    res.Billphoto,
+            Totalprice:     res.Totalprice,
+            CustomerID:     res.CustomerID,
+            Tacking:        res.Tacking,
+            Shippingfee:    res.Shippingfee,
+            StatusID:       res.StatusID,
+         
+        });
+        }
+      };
+    
+      useEffect(() => {
+        getPstatus();
+        getPayment();
+        // getPaymentState();
+        let status: number;
+        if (!isNaN(Number(payment?.StatusID))) {
+            status = Number(payment?.StatusID);
+        } else {
+        // กำหนดค่าเริ่มต้นที่ต้องการเมื่อ payment?.StatusID เป็น NaN
+        status = 1; // หรือค่าอื่น ๆ ที่ต้องการ
+        }
+        let order1 ; let order2 ; let order3 ; let order4 ; let order5 ;
+        if ( status = 1) { order1 = oder01_1 }else{  order1 = oder01 }
+        if ( status = 2) { order2 = oder02_1 }else{  order2 = oder02 }
+        if ( status = 3) { order3 = oder03_1 }else{  order3 = oder03 }
+        if ( status = 4) { order4 = oder04_1 }else{  order4 = oder04 }
+        if ( status = 5) { order5 = oder05_1 }else{  order5 = oder05 }
+      }, []);
+
+      const onFinishFailed = (errorInfo: any) => {
+        console.log('Errors:', errorInfo);
+     };
+    const formattedDate = payment?.Updated_at ? new Date(payment.Updated_at).toLocaleString() : '';
 
     const Card_st: CSSProperties = {
         zIndex: 1,
@@ -75,10 +164,17 @@ const Updatestatus = () =>  {
     };
 
     //เงื่อนไข
-
-    let status = 5;
+    // let status = Number(payment[0].StatusID);
+    
+    let status: number;
+    if (!isNaN(Number(payment?.StatusID))) {
+        status = Number(payment?.StatusID);
+    } else {
+    // กำหนดค่าเริ่มต้นที่ต้องการเมื่อ payment?.StatusID เป็น NaN
+    status = 1; // หรือค่าอื่น ๆ ที่ต้องการ
+    }
+    console.log(status);
     let order1 ; let order2 ; let order3 ; let order4 ; let order5 ;
-
     if ( status >= 1) { order1 = oder01_1 }else{  order1 = oder01 }
     if ( status >= 2) { order2 = oder02_1 }else{  order2 = oder02 }
     if ( status >= 3) { order3 = oder03_1 }else{  order3 = oder03 }
@@ -90,11 +186,11 @@ const Updatestatus = () =>  {
 
     return (
         <>
-            
+            {contextHolder}
             <Headerbarlogo />
             <Navbar />
 
-
+            
             <Row>
             <Card style={Card_st}>
                 <Row>
@@ -186,9 +282,18 @@ const Updatestatus = () =>  {
                 </Row>
 
 
+            {/* *****************************************************2*********************************************                     */}
+
             </Card>
             </Row>
 
+            
+            <Form
+                form={form}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                
+                >
             <Row>
             <Card style={Card_st2}>
                 <Row>
@@ -210,7 +315,7 @@ const Updatestatus = () =>  {
                     <Col xs={24} sm={24} md={24} lg={24} xl={4}>
                         
                         <img
-                        src={win10bg}
+                        src={payment?.Billphoto}
                         style={{
                             width: '112.75px',
                             height: '143.12px',
@@ -223,44 +328,69 @@ const Updatestatus = () =>  {
                         
                     </Col>
                     <Col xs={24} sm={24} md={24} lg={24} xl={4}>
-                        <Row className="fonttextBoxtowTexth1">Main description</Row>
-                        <Row className="fonttextBoxtowTexth2">optional ex.green , white</Row>
-                        <Row className="fonttextBoxtowTexth3">count x1,x2</Row>
+                        <Row className="fonttextBoxtowTexth1">Payment ID: {payment?.ID}</Row>
+                        <Row className="fonttextBoxtowTexth2">Total pricr: {payment?.Totalprice}</Row>
+                        <Form.Item
+                                        name="Updated_at"
+                                        className="fonttextBoxtowTexth2"
+                                    >
+                             <Input  value={new Date().toISOString()}/>
+                        </Form.Item>
+                        <Row className="fonttextBoxtowTexth3">Customer ID: {payment?.CustomerID}</Row>
                         
                     </Col>
 
                     <Col xs={24} sm={24} md={24} lg={24} xl={16}>
                         <Card style={{ border: 'none' }}>
-                            <Row className="fonttextBoxtowTexthstatus">status</Row>
+                        <Row className="fonttextBoxtowTexthstatus5">
+                              {Number(payment?.StatusID) === 1 ? statusUP[0].Status : 
+                              Number(payment?.StatusID) === 2 ? statusUP[1].Status : 
+                              Number(payment?.StatusID) === 3 ? statusUP[2].Status : 
+                              Number(payment?.StatusID) === 4 ? statusUP[3].Status: 
+                              Number(payment?.StatusID) === 5 ? statusUP[4].Status : ""}
+                            </Row>
                             <Row>
+                                <Form.Item
+                                        name="StatusID"
+                                    >
                                 <Select 
+                                
                                 style={{
                                     width: '175px', // ปรับความยาวตามที่ต้องการ
-                                    marginLeft: '72%' ,
+                                    marginLeft: '437px' ,
                                     height: '40px', 
                                     marginTop: '2%',
                                     fontSize: '16px',
-                                }}>                                 
+                                     }}>
+                                    {statusUP.map((item) => (
+                                            (item.ID === 2 || item.ID === 3) && (
+                                                <Option key={item.ID} value={item.ID}>
+                                                  {item.Status}
+                                                </Option>)
+                                    ))}                                 
                                 </Select>
+                                </Form.Item>
                             </Row>
 
                             
                                 <Row >
+                                <Form.Item
+                                        name="Tacking">
                                     <Input
-                                        placeholder={`Track Number `} //+เพิ่ม ${index + 1}
+                                        placeholder={`Track Number`} //+เพิ่ม ${index + 1}
                                         style={{
                                             width: '350px',
                                             height: '40px',
-                                            marginLeft: '45%',
+                                            marginLeft: '75%',
                                             marginTop: '2%',
                                             backgroundColor: '#003D0614',
                                             border: 'none',
                                             fontSize: '16px',
                                         }}
-                                        disabled={status < 3}
+                                        disabled={status != 3}
                                     />
+                                </Form.Item>
                                 </Row>
-                            
                         </Card>
                     </Col>
                 </Row>
@@ -275,7 +405,9 @@ const Updatestatus = () =>  {
                             <Form.Item>
                             <Space>
                                 <Button type="primary" htmlType="button" style={{ marginRight: "10px", backgroundColor: '#5A8242' }}>
-                                ยกเลิก
+                                    <Link to="/Order_management" style={{ color: "#fff" }}>
+                                        ยกเลิก
+                                    </Link>
                                 </Button>
                                 <Button
                                 type="primary"
@@ -289,6 +421,7 @@ const Updatestatus = () =>  {
                             </Form.Item>
                     </Col>
               </Row>
+              </Form>
                                 
 
             

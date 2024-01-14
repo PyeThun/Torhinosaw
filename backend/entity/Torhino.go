@@ -95,7 +95,8 @@ type Payment struct {
 
 	Shippingfee		int
 	Paymentmethod	string
-	Billphoto		string
+	Tacking     	string
+	Billphoto		string    `gorm:"type:longtext"`
 	Totalprice      float32
 	Paiddate		time.Time
 
