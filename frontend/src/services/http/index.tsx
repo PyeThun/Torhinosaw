@@ -58,14 +58,14 @@ async function DeleteEmployee(id: Number | undefined) {
     return res;
   }
 
-  async function UpdateEmployee(data: AdminInterface) {
+  async function UpdateEmployee(id: number, data: AdminInterface) {
     const requestOptions = {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     };
   
-    let res = await fetch(`${apiUrl}/admin/employee/`, requestOptions)
+    let res = await fetch(`${apiUrl}/admin/employee/${id}`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {

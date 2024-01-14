@@ -210,8 +210,6 @@ const Employee = () => {
     }
   };
   //DeleteAndEdit
-  const { confirm } = Modal;
-
   const handleMenuClick = (record: AdminInterface, e: { key: string }) => {
     if (e.key === 'edit') {
       
