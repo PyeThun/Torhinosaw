@@ -1,70 +1,98 @@
+import { AddressInterface } from "../../interface/addressInterface";
+import { CustomerInterface } from "../../interface/customerInterface";
 //import {xxxInterface} from "../../interface/xxxinterface"
 const apiUrl = "http://localhost:8080";
 
 //GET API Example
-// async function Getxxx() {
-//     const requestOptions = {
-//       method: "GET",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     };
-//     let res = await fetch(`${apiUrl}/xxx`, requestOptions)
-//       .then((response) => response.json())
-//       .then((res) => {
-//         if (res.data) {
-//           return res.data;
-//         } else {
-//           return false;
-//         }
-//       });
+async function GetUser() {
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    let res = await fetch(`${apiUrl}/profile`, requestOptions)
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.data) {
+          return res.data;
+        } else {
+          return false;
+        }
+      });
   
-//     return res;
-//   }
+    return res;
+  }
 
 // POST API EXAMPLE
-// async function Createxxx(data: xxxInterface) {
-//     const requestOptions = {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(data),
-//     };
+async function CreateUser(data: CustomerInterface) {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    };
   
-//     let res = await fetch(`${apiUrl}/xxx`, requestOptions)
-//       .then((response) => response.json())
-//       .then((res) => {
-//         if (res.data) {
-//           return { status: true, message: res.data };
-//         } else {
-//           return { status: false, message: res.error };
-//         }
-//       });
+    let res = await fetch(`${apiUrl}/register`, requestOptions)
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.data) {
+          return { status: true, message: res.data };
+        } else {
+          return { status: false, message: res.error };
+        }
+      });
   
-//     return res;
-//   }
+    return res;
+  }
 
 // UPDATE API EXAMPLE
-// async function Updatexxx(data: xxxInterface) {
-//     const requestOptions = {
-//       method: "PATCH",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(data),
-//     };
+async function UpdateProfile(data: CustomerInterface) {
+    const requestOptions = {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    };
   
-//     let res = await fetch(`${apiUrl}/xxx`, requestOptions)
-//       .then((response) => response.json())
-//       .then((res) => {
-//         if (res.data) {
-//           return { status: true, message: res.data };
-//         } else {
-//           return { status: false, message: res.error };
-//         }
-//       });
+    let res = await fetch(`${apiUrl}/profile/editprofile`, requestOptions)
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.data) {
+          return { status: true, message: res.data };
+        } else {
+          return { status: false, message: res.error };
+        }
+      });
   
-//     return res;
-//   }
+    return res;
+  }
 
 export{
-    //xxxFunction,
-    //xxxFunction,
+    GetUser,
+    CreateUser,
+    UpdateProfile,
 }
+
+// POST API EXAMPLE
+async function CreateAddress(data: AddressInterface) {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    };
+  
+    let res = await fetch(`${apiUrl}/register`, requestOptions)
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.data) {
+          return { status: true, message: res.data };
+        } else {
+          return { status: false, message: res.error };
+        }
+      });
+  
+    return res;
+  }
+
+  export{
+    CreateAddress,
+  }

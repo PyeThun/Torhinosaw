@@ -28,12 +28,6 @@ const EditAddress = () => {
         textAlign: 'left',
     
       };
-  const [defaultValue, setDefaultValue] = React.useState(0);
-
-    const handleChange = (e: { target: { checked: any; }; }) => {
-        const newValue = e.target.checked ? 1 : 0;
-        setDefaultValue(newValue);
-    };
 
   const [data, setData] = useState({});
   const [form] = Form.useForm();
@@ -130,13 +124,6 @@ const EditAddress = () => {
                             rules={[{ required: true, message: 'Enter your Postcode!' }]}
                         >
                             <Input />
-                        </Form.Item>
-                        <Form.Item
-                            name="default" getValueFromEvent={(e) => (e.target.checked ? 1 : 0)} valuePropName="checked" style={{textAlign:'end'}}
-                        >
-                            <Checkbox onChange={handleChange}>
-                                <span>ตั้งเป็นที่อยู่เริ่มต้น</span>
-                            </Checkbox>
                         </Form.Item>
                         <Form.Item style={{ textAlign: 'center' }}>
                             <Button

@@ -1,11 +1,13 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
-import { Button, Checkbox, Form, Image, Input, Radio, Steps, } from 'antd';
+import { Button, Checkbox, Form, Image, Input, Radio, Steps, message} from 'antd';
 import { useNavigate } from 'react-router-dom';
 import bg from '../../assets/3bears.jpg';
 import Headbar from '../../component/headbarlogo';
 import Navbar from '../../component/navbar';
 import Footer from '../../component/PakComponent/Footer/Footer';
 import { CustomerInterface } from '../../interface/customerInterface';
+import { AddressInterface } from '../../interface/addressInterface';
+import { CreateUser, CreateAddress } from '../../services/https';
 
 const CustomerRegister = () => {
     const contentStyle: CSSProperties = {
@@ -48,13 +50,14 @@ const CustomerRegister = () => {
     };
 
     const [form] = Form.useForm();
-    const [customer,setCustomer] = useState<CustomerInterface>({})
+    const [customer, setCustomer] = useState<CustomerInterface>({})
+    const [messageApi, contextHolder] = message.useMessage();
     const [data, setData] = useState({});
     const [currentStep, setCurrentStep] = useState(0);
     const navigate = useNavigate();
-    
+
     useEffect(() => {
-        
+
     }, []);
 
     const handleNext = (values: any) => {
@@ -62,23 +65,44 @@ const CustomerRegister = () => {
         setCurrentStep((prevStep) => prevStep + 1);
     };
 
-    const handleSubmit = (values: any) => {
+    const handleSubmit = async (values: CustomerInterface) => {
         const userData = { ...data, ...values };
         setData({ ...userData, ...values });
+        console.log(userData)
+        let res = await CreateUser(userData);
+        if (res.status) {
+            messageApi.open({
+                type: "success",
+                content: "บันทึกข้อมูลสำเร็จ",
+            }); setTimeout(function () {
+            }, 2000);
+        }
+        else {
+            messageApi.open({
+                type: "error",
+                content: "บันทึกข้อมูลไม่สำเร็จ",
+            });
+        }
         setCurrentStep((prevStep) => prevStep + 1);
     };
-    const [defaultValue, setDefaultValue] = React.useState(0);
 
-    const handleChange = (e: { target: { checked: any; }; }) => {
-        const newValue = e.target.checked ? 1 : 0;
-        setDefaultValue(newValue);
-    };
-
-    const handleLast = (values: any) => {
-        const allData = { ...data, ...values };
-        setData({ ...allData, ...values });
-        console.log(allData)
+    const handleLast = async (values: AddressInterface) => {
         console.log(values)
+        let res = await CreateAddress(values);
+        if (res.status) {
+            messageApi.open({
+                type: "success",
+                content: "บันทึกข้อมูลสำเร็จ",
+            }); setTimeout(function () {
+                navigate("/");
+            }, 2000);
+        }
+        else {
+            messageApi.open({
+                type: "error",
+                content: "บันทึกข้อมูลไม่สำเร็จ",
+            });
+        }
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -107,6 +131,7 @@ const CustomerRegister = () => {
                             label="Username"
                             name="username"
                             rules={[{ required: true, message: 'Please input your username!' }]}
+                            
                         >
                             <Input />
                         </Form.Item>
@@ -280,13 +305,6 @@ const CustomerRegister = () => {
                         >
                             <Input />
                         </Form.Item >
-                        <Form.Item
-                            name="default" getValueFromEvent={(e) => (e.target.checked ? 1 : 0)} valuePropName="checked" style={{textAlign:'end'}}
-                        >
-                            <Checkbox onChange={handleChange}>
-                                <span>ตั้งเป็นที่อยู่เริ่มต้น</span>
-                            </Checkbox>
-                        </Form.Item>
                         <Form.Item style={{ textAlign: 'center' }}>
                             <Button
                                 type="primary"
@@ -304,6 +322,7 @@ const CustomerRegister = () => {
 
     return (
         <>
+            {contextHolder}
             <Headbar />
             <Navbar />
             <div style={contentStyle}>

@@ -116,14 +116,14 @@ const user = users[0];
 
                 layout="horizontal"
               >
-                <Form.Item valuePropName="fileList" getValueFromEvent={normFile} style={{ textAlign: 'center', }}>
+                {/* <Form.Item valuePropName="fileList" getValueFromEvent={normFile} style={{ textAlign: 'center', }}>
                   <Upload action="/upload.do" listType="picture-card" style={{ width: '200px', height: '200px' }}>
                     <button style={{ border: 0, background: 'none', }} type="button">
                       <PlusOutlined />
                       <div style={{ marginTop: 8 }}>Upload</div>
                     </button>
                   </Upload>
-                </Form.Item>
+                </Form.Item> */}
                 <Form.Item
                   label="FirstName"
                   name="firstname"
