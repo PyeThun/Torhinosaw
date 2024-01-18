@@ -58,3 +58,13 @@ func UpdateCustomer(c *gin.Context)  {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": customer})
 }
+
+func GetCustomerById(c *gin.Context) {
+	var customer entity.Customer
+	id := c.Param("id")
+	if err := entity.DB().Preload("Gender").Raw("SELECT * FROM customer WHERE id = ?", id).Find(&customer).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": customer})
+}

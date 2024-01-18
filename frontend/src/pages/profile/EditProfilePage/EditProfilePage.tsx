@@ -105,6 +105,7 @@ const user = users[0];
         <Layout>
           <Content style={contentStyle}>
             <div>
+              <h1 style={{textAlign:'center'}}>EditProfile</h1>
               <Form
                 name="profile"
                 onFinish={handleSubmit}

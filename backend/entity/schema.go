@@ -51,7 +51,7 @@ type Wishlist struct {
 
 type Customer struct {
 	gorm.Model
-
+	
 	Email			string		`valid:"required~Email is required, email~Email is invalid",gorm:"uniqueIndex"`
 	Firstname		string		`valid:"required~FirstName is required"`
 	Lastname		string		`valid:"required~LastName is required"`

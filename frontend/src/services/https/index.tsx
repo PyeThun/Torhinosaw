@@ -4,7 +4,7 @@ import { CustomerInterface } from "../../interface/customerInterface";
 const apiUrl = "http://localhost:8080";
 
 //GET API Example
-async function GetUser() {
+async function GetCustomerByID(data:number) {
     const requestOptions = {
       method: "GET",
       headers: {
@@ -67,7 +67,7 @@ async function UpdateProfile(data: CustomerInterface) {
   }
 
 export{
-    GetUser,
+    GetCustomerByID,
     CreateCustomer,
     UpdateProfile,
 }

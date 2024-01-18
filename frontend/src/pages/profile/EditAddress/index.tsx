@@ -23,8 +23,6 @@ const EditAddress = () => {
     const formStyle: CSSProperties = {
         width: '600px',
         maxWidth: '1000px',
-        margin: '0 auto',
-        marginTop: '20px',
         textAlign: 'left',
     
       };
@@ -73,7 +71,9 @@ const EditAddress = () => {
         </Sider>
         <Layout>
           <Content style={contentStyle}>
-            <div>
+          
+            <div> 
+            <h1 style={{textAlign:'center'}}>EditAddress</h1>
             <Form
                         name="Address"
                         initialValues={{ remember: true }}

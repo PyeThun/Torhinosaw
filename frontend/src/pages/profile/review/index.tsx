@@ -123,6 +123,14 @@ const Review: React.FC = () => {
             <Rate disabled defaultValue={(record as RatedDataType).yourrated} allowHalf />
           ),
         },
+        // {
+        //   title: 'Change Your Mind',
+        //   dataIndex: 'action',
+        //   key: 'yourrated',
+        //   render: (_: any, record: DataType | RatedDataType) => (
+        //     <
+        //   ),
+        // },
       ];
     }
   };
@@ -148,6 +156,7 @@ const Review: React.FC = () => {
         </Sider>
         <Layout>
           <Content style={contentStyle}>
+            <h1>Review</h1>
             <div>
               <div style={{alignItems:'end'}}>
                 <Radio.Group defaultValue="a" buttonStyle="solid" onChange={handleRadioChange}>

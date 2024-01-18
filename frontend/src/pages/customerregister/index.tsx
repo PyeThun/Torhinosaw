@@ -51,12 +51,10 @@ const CustomerRegister = () => {
     };
 
     const [form] = Form.useForm();
-    const [customer, setCustomer] = useState<CustomerInterface>({})
     const [messageApi, contextHolder] = message.useMessage();
     const [data, setData] = useState<CustomerInterface>({})
     const [currentStep, setCurrentStep] = useState(0);
     const navigate = useNavigate();
-
 
     useEffect(() => {
 
@@ -97,7 +95,7 @@ const CustomerRegister = () => {
                 type: "success",
                 content: "บันทึกข้อมูลสำเร็จ",
             }); setTimeout(function () {
-                navigate("/");
+                navigate("/login");
             }, 2000);
         }
         else {
@@ -106,10 +104,6 @@ const CustomerRegister = () => {
                 content: "บันทึกข้อมูลไม่สำเร็จ",
             });
         }
-    };
-
-    const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
     };
 
     const { TextArea } = Input;
@@ -125,7 +119,6 @@ const CustomerRegister = () => {
                         name="SetUp"
                         initialValues={{ remember: true }}
                         onFinish={(values) => handleNext(values)}
-                        onFinishFailed={onFinishFailed}
                         form={form}
                         style={formStyle}
                         labelCol={{ span: 8 }}
@@ -199,7 +192,6 @@ const CustomerRegister = () => {
                         name="Information"
                         initialValues={{ remember: true }}
                         onFinish={(values) => handleSubmit(values)}
-                        onFinishFailed={onFinishFailed}
                         form={form}
                         style={formStyle}
                         labelCol={{ span: 8 }}
@@ -261,7 +253,6 @@ const CustomerRegister = () => {
                         name="Address"
                         initialValues={{ remember: true }}
                         onFinish={(values) => handleLast(values)}
-                        onFinishFailed={onFinishFailed}
                         form={form}
                         style={formStyle}
                         labelCol={{ span: 8 }}

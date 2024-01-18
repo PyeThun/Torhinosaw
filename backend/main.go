@@ -15,6 +15,7 @@ func main() {
 	// r.GET("/profile/:id", controller.GetCustomerById)
 	r.POST("/register", controller.CreateCustomer)
 	r.PATCH("/profile/editprofile", controller.UpdateCustomer)
+	r.GET("/customer/:id", controller.GetCustomerById)
 	
 	
 	
