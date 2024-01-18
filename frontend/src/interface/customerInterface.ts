@@ -1,5 +1,5 @@
 export interface CustomerInterface {
-    ID?: string;
+    ID?: number;
     Username?: string;
     Password?: string;
     Email?: string;

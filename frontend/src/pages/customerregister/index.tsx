@@ -57,6 +57,7 @@ const CustomerRegister = () => {
     const [currentStep, setCurrentStep] = useState(0);
     const navigate = useNavigate();
 
+
     useEffect(() => {
 
     }, []);
