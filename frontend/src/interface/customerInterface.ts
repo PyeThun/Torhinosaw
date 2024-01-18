@@ -3,7 +3,7 @@ export interface CustomerInterface {
     Username?: string;
     Password?: string;
     Email?: string;
-    Dateofbirth?:Date;
+    Dateofbirth?:string;
     Firstname?: string;
     Lastname?: string;
     Contact?:string;

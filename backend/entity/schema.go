@@ -56,7 +56,7 @@ type Customer struct {
 	Firstname		string		`valid:"required~FirstName is required"`
 	Lastname		string		`valid:"required~LastName is required"`
 	Gender			string		`valid:"required~Gender is required"`
-	Dateofbirth		time.Time
+	Dateofbirth		string		`valid:"required~Dateofbirth is required"`
 	Contact			string		`valid:"required~Contact is required"`
 	Username		string		`valid:"required~Username is required"`
 	Password		string		`valid:"required~Password is required"`

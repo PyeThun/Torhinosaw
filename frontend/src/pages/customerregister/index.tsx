@@ -62,20 +62,7 @@ const CustomerRegister = () => {
     }, []);
 
     const handleNext = (values: any) => {
-        form.validateFields()
-        .then(Avalues=>{
-        const formatData = moment(Avalues.Dateofbirth).format('DD-MM-YYYY');
-        const additionData = {
-            Email: Avalues.Email,
-            Username: Avalues.Username,
-            Password: values.Password,
-            DateofBirth: formatData,
-        };
-        
-        const mergedData = { ...data, ...additionData };
-        setData(mergedData);
-        console.log(mergedData)
-    })
+        setData(values);
         setCurrentStep((prevStep) => prevStep + 1);
     };
 
@@ -175,7 +162,7 @@ const CustomerRegister = () => {
                             name="Dateofbirth"
                             rules={[{ required: true, message: 'Please input your Date of Birth!' }]}
                         >
-                            <DatePicker format="DD-MM-YYYY" picker="date" />
+                            <Input placeholder='DD/MM/YYYY'/>
                         </Form.Item>
                         <Form.Item
                             name="agreement"
