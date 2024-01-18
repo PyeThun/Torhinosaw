@@ -1,5 +1,5 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
-import { Button, Checkbox, Form, Image, Input, Radio, Steps, message} from 'antd';
+import { Button, Checkbox, DatePicker, Form, Image, Input, Radio, Steps, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import bg from '../../assets/3bears.jpg';
 import Headbar from '../../component/headbarlogo';
@@ -7,7 +7,8 @@ import Navbar from '../../component/navbar';
 import Footer from '../../component/PakComponent/Footer/Footer';
 import { CustomerInterface } from '../../interface/customerInterface';
 import { AddressInterface } from '../../interface/addressInterface';
-import { CreateUser, CreateAddress } from '../../services/https';
+import { CreateCustomer, CreateAddress } from '../../services/https';
+import moment from 'moment';
 
 const CustomerRegister = () => {
     const contentStyle: CSSProperties = {
@@ -52,7 +53,7 @@ const CustomerRegister = () => {
     const [form] = Form.useForm();
     const [customer, setCustomer] = useState<CustomerInterface>({})
     const [messageApi, contextHolder] = message.useMessage();
-    const [data, setData] = useState({});
+    const [data, setData] = useState<CustomerInterface>({})
     const [currentStep, setCurrentStep] = useState(0);
     const navigate = useNavigate();
 
@@ -61,7 +62,20 @@ const CustomerRegister = () => {
     }, []);
 
     const handleNext = (values: any) => {
-        setData({ ...data, ...values });
+        form.validateFields()
+        .then(Avalues=>{
+        const formatData = moment(Avalues.Dateofbirth).format('DD-MM-YYYY');
+        const additionData = {
+            Email: Avalues.Email,
+            Username: Avalues.Username,
+            Password: values.Password,
+            DateofBirth: formatData,
+        };
+        
+        const mergedData = { ...data, ...additionData };
+        setData(mergedData);
+        console.log(mergedData)
+    })
         setCurrentStep((prevStep) => prevStep + 1);
     };
 
@@ -69,7 +83,7 @@ const CustomerRegister = () => {
         const userData = { ...data, ...values };
         setData({ ...userData, ...values });
         console.log(userData)
-        let res = await CreateUser(userData);
+        let res = await CreateCustomer(userData);
         if (res.status) {
             messageApi.open({
                 type: "success",
@@ -81,7 +95,8 @@ const CustomerRegister = () => {
             messageApi.open({
                 type: "error",
                 content: "บันทึกข้อมูลไม่สำเร็จ",
-            });
+            })
+            setCurrentStep((prevStep) => prevStep - 1);;
         }
         setCurrentStep((prevStep) => prevStep + 1);
     };
@@ -129,16 +144,16 @@ const CustomerRegister = () => {
                     >
                         <Form.Item
                             label="Username"
-                            name="username"
+                            name="Username"
                             rules={[{ required: true, message: 'Please input your username!' }]}
-                            
+
                         >
                             <Input />
                         </Form.Item>
 
                         <Form.Item
                             label="Password"
-                            name="password"
+                            name="Password"
                             rules={[{ required: true, message: 'Please input your password!' }]}
                         >
                             <Input.Password
@@ -150,16 +165,17 @@ const CustomerRegister = () => {
 
                         <Form.Item
                             label="Email"
-                            name="email"
+                            name="Email"
                             rules={[{ required: true, message: 'Enter your Email!' }]}
                         >
                             <Input />
                         </Form.Item>
                         <Form.Item
                             label="Date of Birth"
-                            name="dateofbirth"
-                            rules={[{ required: true, message: 'Please input your Date of Birth!' }]}>
-                            <Input placeholder='00D/00M/0000Y' />
+                            name="Dateofbirth"
+                            rules={[{ required: true, message: 'Please input your Date of Birth!' }]}
+                        >
+                            <DatePicker format="DD-MM-YYYY" picker="date" />
                         </Form.Item>
                         <Form.Item
                             name="agreement"
@@ -202,28 +218,28 @@ const CustomerRegister = () => {
                     >
                         <Form.Item
                             label="First Name"
-                            name="firstName"
+                            name="Firstname"
                             rules={[{ required: true, message: 'Enter your Firstname!' }]}
                         >
                             <Input />
                         </Form.Item>
                         <Form.Item
                             label="Last Name"
-                            name="lastName"
+                            name="Lastname"
                             rules={[{ required: true, message: 'Enter your Lastname!' }]}
                         >
                             <Input />
                         </Form.Item>
                         <Form.Item
                             label="Contact"
-                            name="contact"
+                            name="Contact"
                             rules={[{ required: true, message: 'Enter your Contact!' }]}
                         >
                             <Input />
                         </Form.Item>
                         <Form.Item
                             label="Gender"
-                            name="gender"
+                            name="Gender"
                             rules={[{ required: true }]}
                         >
                             <div style={{ flexDirection: 'column', display: 'flex' }}>

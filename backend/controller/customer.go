@@ -3,12 +3,12 @@ package controller
 import (
 	"net/http"
 
-	"github.com/gin-gonic/gin"
 	"github.com/PyeThun/team05/entity"
+	"github.com/gin-gonic/gin"
 )
 
 // POST /users
-func CreateUser(c *gin.Context) {
+func CreateCustomer(c *gin.Context) {
 	var customer entity.Customer
 
 	// bind เข้าตัวแปร user
@@ -18,14 +18,15 @@ func CreateUser(c *gin.Context) {
 	}
 
 	// สร้าง User
-	u := entity.User{
-		Gender:    customer.Gender, 
-		FirstName: customer.FirstName,
-		LastName:  customer.LastName, 
-		Email:     customer.Email,     
-		Contact:     customer.Contact,     
-		Profile:   customer.Profile,
+	u := entity.Customer{
+		Gender:      customer.Gender,
+		Firstname:   customer.Firstname,
+		Lastname:    customer.Lastname,
+		Email:       customer.Email,
+		Contact:     customer.Contact,
 		Dateofbirth: customer.Dateofbirth,
+		Username:    customer.Username,
+		Password:    customer.Password,
 	}
 
 	// บันทึก
@@ -35,4 +36,25 @@ func CreateUser(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"data": u})
+}
+
+func UpdateCustomer(c *gin.Context)  {
+	var customer entity.Customer
+	var result entity.Customer
+
+	if err := c.ShouldBindJSON(&customer); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	// ค้นหา user ด้วย id
+	if tx := entity.DB().Where("id = ?", customer.ID).First(&result); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "user not found"})
+		return
+	}
+
+	if err := entity.DB().Save(&customer).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": customer})
 }

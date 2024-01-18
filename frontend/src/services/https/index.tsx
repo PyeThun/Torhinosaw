@@ -25,7 +25,7 @@ async function GetUser() {
   }
 
 // POST API EXAMPLE
-async function CreateUser(data: CustomerInterface) {
+async function CreateCustomer(data: CustomerInterface) {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -68,7 +68,7 @@ async function UpdateProfile(data: CustomerInterface) {
 
 export{
     GetUser,
-    CreateUser,
+    CreateCustomer,
     UpdateProfile,
 }
 

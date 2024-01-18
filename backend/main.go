@@ -11,10 +11,10 @@ func main() {
 	r := gin.Default()
 	r.Use(CORSMiddleware())
 
-	r.GET("/profile", controller.ListUser)
-	r.GET("/profile/:id", controller.GetUserById)
-	r.POST("/register", controller.CreateUser)
-	r.PATCH("/profile/editpr", controller.Updatexxx)
+	// r.GET("/profile", controller.ListCustomer)
+	// r.GET("/profile/:id", controller.GetCustomerById)
+	r.POST("/register", controller.CreateCustomer)
+	r.PATCH("/profile/editprofile", controller.UpdateCustomer)
 	
 	
 	
