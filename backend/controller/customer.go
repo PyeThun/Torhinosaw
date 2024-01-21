@@ -1,6 +1,8 @@
 package controller
 
 import (
+	// "errors"
+	// "fmt"
 	"net/http"
 
 	"github.com/PyeThun/team05/entity"
@@ -10,6 +12,17 @@ import (
 // POST /users
 func CreateCustomer(c *gin.Context) {
 	var customer entity.Customer
+	
+	// err := errors.New("๋500 Error")
+	// if err != nil {
+    //     // Log the error
+    //     fmt.Println("Error:", err)
+
+    //     // Send an error response
+    //     c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
+    //     return
+    // }
+	
 
 	// bind เข้าตัวแปร user
 	if err := c.ShouldBindJSON(&customer); err != nil {
@@ -62,7 +75,17 @@ func UpdateCustomer(c *gin.Context)  {
 func GetCustomerById(c *gin.Context) {
 	var customer entity.Customer
 	id := c.Param("id")
-	if err := entity.DB().Preload("Gender").Raw("SELECT * FROM customer WHERE id = ?", id).Find(&customer).Error; err != nil {
+	if err := entity.DB().Preload("Customer").Raw("SELECT * FROM customer WHERE id = ?", id).Find(&customer).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": customer})
+}
+
+// GET /users
+func ListCustomer(c *gin.Context) {
+	var customer []entity.Customer
+	if err := entity.DB().Preload("Customer").Raw("SELECT * FROM customers").Find(&customer).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

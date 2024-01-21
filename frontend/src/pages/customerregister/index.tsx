@@ -60,7 +60,7 @@ const CustomerRegister = () => {
 
     }, []);
 
-    const handleNext = (values: any) => {
+    const handleNext = (values: CustomerInterface) => {
         setData(values);
         setCurrentStep((prevStep) => prevStep + 1);
     };
@@ -118,7 +118,7 @@ const CustomerRegister = () => {
                     <Form
                         name="SetUp"
                         initialValues={{ remember: true }}
-                        onFinish={(values) => handleNext(values)}
+                        onFinish={handleNext}
                         form={form}
                         style={formStyle}
                         labelCol={{ span: 8 }}
@@ -158,7 +158,7 @@ const CustomerRegister = () => {
                         >
                             <Input placeholder='DD/MM/YYYY'/>
                         </Form.Item>
-                        <Form.Item
+                        {/* <Form.Item
                             name="agreement"
                             valuePropName="checked"
                             rules={[
@@ -171,7 +171,7 @@ const CustomerRegister = () => {
                             <Checkbox>
                                 I have read the <a href="#">Term of Service</a>
                             </Checkbox>
-                        </Form.Item>
+                        </Form.Item> */}
                         <Form.Item style={{ textAlign: 'center' }}>
                             <Button type="primary" htmlType="submit" style={{ flex: 1, backgroundColor: '#003d29', color: '#fff' }}>
                                 Next
@@ -191,7 +191,7 @@ const CustomerRegister = () => {
                     <Form
                         name="Information"
                         initialValues={{ remember: true }}
-                        onFinish={(values) => handleSubmit(values)}
+                        onFinish={handleSubmit}
                         form={form}
                         style={formStyle}
                         labelCol={{ span: 8 }}

@@ -32,7 +32,7 @@ const Profile = () => {
     };
     const navigate = useNavigate();
     const location = useLocation();
-    const { id } = location.state;
+    // const { id } = location.state||null;
     const { TextArea } = Input;
     const [userInfo, setUserInfo] = useState<CustomerInterface>({})
     const [customerID, setCustomerID] = useState<Number>();
