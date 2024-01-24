@@ -8,7 +8,6 @@ import Footer from '../../component/PakComponent/Footer/Footer';
 import { CustomerInterface } from '../../interface/customerInterface';
 import { AddressInterface } from '../../interface/addressInterface';
 import { CreateCustomer, CreateAddress } from '../../services/https';
-import moment from 'moment';
 
 const CustomerRegister = () => {
     const contentStyle: CSSProperties = {
